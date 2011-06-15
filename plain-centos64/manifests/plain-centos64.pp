@@ -1,20 +1,15 @@
 class utils::base {
-  include repos::epel
-  include repos::elff
-
-  package { ['bash', 'wget', 'curl', 'patch']:
+  package { ['bash', 'wget', 'curl', 'patch', 'unzip', 'sed', 'tar', 'gzip', 'man']:
     ensure => present,
-    require => [Package['epel-release'], Package['elff-release']],
   }
 }
 
 class utils::vcs {
   include repos::epel
-  include repos::elff
 
   package { ['mercurial', 'git']:
     ensure => present,
-    require => [Package['epel-release'], Package['elff-release']],
+    require => Package['epel-release'],
   }
 }
 
