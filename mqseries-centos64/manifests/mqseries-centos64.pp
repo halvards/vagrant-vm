@@ -34,14 +34,14 @@ class mqseries::server {
     require => Package['MQSeriesRuntime'],
   }
 
-  package { 'MQSeriesGlobalSecurityKit-i386':
+  package { 'gsk7bas':
     provider => rpm,
     ensure => present,
     source => '/vagrant-share/apps/gsk7bas-7.0-4.27.i386.rpm',
     require => [Package['MQSeriesRuntime'], Package['libgcc'], Package['libstdc++'], Package['compat-libstdc++-33']],
   }
 
-  package { 'MQSeriesGlobalSecurityKit-x86_64':
+  package { 'gsk7bas64':
     provider => rpm,
     ensure => present,
     source => '/vagrant-share/apps/gsk7bas64-7.0-4.27.x86_64.rpm',
@@ -52,7 +52,7 @@ class mqseries::server {
     provider => rpm,
     ensure => present,
     source => '/vagrant-share/apps/MQSeriesKeyMan-7.0.1-3.x86_64.rpm',
-    require => [Package['MQSeriesRuntime'], Package['MQSeriesGlobalSecurityKit-i386'], Package['MQSeriesGlobalSecurityKit-x86_64']],
+    require => [Package['MQSeriesRuntime'], Package['gsk7bas'], Package['gsk7bas64']],
   }
 
   package { 'MQSeriesJava':
