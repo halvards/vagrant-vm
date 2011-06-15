@@ -92,7 +92,10 @@ class go::server {
   }
 
   service { 'go-server':
+    enable => true,
     ensure => running,
+    hasstatus => true,
+    hasrestart => true,
     require => Package['go-server'],
   }
 }
@@ -111,11 +114,14 @@ class go::agent {
     provider => dpkg,
     ensure => installed,
     source => '/vagrant-share/apps/go-agent-2.2.1-13139.deb',
-    require => [Wgetfetch['go-agent'], Package['sun-java6-jdk']],
+    require => [Wgetfetch['go-agent'], Package['sun-java6-jdk'], Package['unzip']],
   }
 
   service { 'go-agent':
+    enable => true,
     ensure => running,
+    hasstatus => true,
+    hasrestart => true,
     require => Package['go-agent'],
   }
 }
