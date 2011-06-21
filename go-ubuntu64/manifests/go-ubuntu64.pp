@@ -80,14 +80,14 @@ class go::server {
   include java::sunjdk
 
   wgetfetch { 'go-server':
-    source => 'http://download01.thoughtworks.com/go/2.2.1/patch/go-server-2.2.1-13139.deb',
-    destination => '/vagrant-share/apps/go-server-2.2.1-13139.deb',
+    source => 'http://download01.thoughtworks.com/go/2.2/ga/go-server-2.2.0-13083.deb',
+    destination => '/vagrant-share/apps/go-server-2.2.0-13083.deb',
   }
 
   package { 'go-server':
     provider => dpkg,
     ensure => installed,
-    source => '/vagrant-share/apps/go-server-2.2.1-13139.deb',
+    source => '/vagrant-share/apps/go-server-2.2.0-13083.deb',
     require => [Wgetfetch['go-server'], Package['sun-java6-jdk'], Package['unzip']],
   }
 
@@ -106,14 +106,14 @@ class go::agent {
   include java::sunjdk
 
   wgetfetch { 'go-agent':
-    source => 'http://download01.thoughtworks.com/go/2.2.1/patch/go-agent-2.2.1-13139.deb',
-    destination => '/vagrant-share/apps/go-agent-2.2.1-13139.deb',
+    source => 'http://download01.thoughtworks.com/go/2.2/ga/go-agent-2.2.0-13083.deb',
+    destination => '/vagrant-share/apps/go-agent-2.2.0-13083.deb',
   }
 
   package { 'go-agent':
     provider => dpkg,
     ensure => installed,
-    source => '/vagrant-share/apps/go-agent-2.2.1-13139.deb',
+    source => '/vagrant-share/apps/go-agent-2.2.0-13083.deb',
     require => [Wgetfetch['go-agent'], Package['sun-java6-jdk'], Package['unzip']],
   }
 

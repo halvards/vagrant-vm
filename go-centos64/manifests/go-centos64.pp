@@ -22,12 +22,12 @@ class go::server {
   include java::openjdk
 
   wgetfetch { 'go-server':
-    source => 'http://download01.thoughtworks.com/go/2.2.1/patch/go-server-2.2.1-13139.noarch.rpm',
-    destination => '/vagrant-share/apps/go-server-2.2.1-13139.noarch.rpm',
+    source => 'http://download01.thoughtworks.com/go/2.2/ga/go-server-2.2.0-13083.noarch.rpm',
+    destination => '/vagrant-share/apps/go-server-2.2.0-13083.noarch.rpm',
   }
 
   exec { 'fix-go-server-rpm':
-    command => "/usr/bin/rpmrebuild --package --batch --notest-install --directory=/tmp/ --change-spec-requires='sed s/jdk/java-sdk/' /vagrant-share/apps/go-server-2.2.1-13139.noarch.rpm && mv /tmp/noarch/go-server-2.2.1-13139.noarch.rpm /vagrant-share/apps/go-server-2.2.1-13139.noarch.rpm && touch /vagrant-share/apps/go-server-rpm-fixed.txt",
+    command => "/usr/bin/rpmrebuild --package --batch --notest-install --directory=/tmp/ --change-spec-requires='sed s/jdk/java-sdk/' /vagrant-share/apps/go-server-2.2.0-13083.noarch.rpm && mv /tmp/noarch/go-server-2.2.0-13083.noarch.rpm /vagrant-share/apps/go-server-2.2.0-13083.noarch.rpm && touch /vagrant-share/apps/go-server-rpm-fixed.txt",
     creates => '/vagrant-share/apps/go-server-rpm-fixed.txt',
     require => [Wgetfetch['go-server'], Package['rpm-build'], Package['rpmrebuild'], Package['sed']],
   }
@@ -35,7 +35,7 @@ class go::server {
   package { 'go-server':
     provider => rpm,
     ensure => installed,
-    source => '/vagrant-share/apps/go-server-2.2.1-13139.noarch.rpm',
+    source => '/vagrant-share/apps/go-server-2.2.0-13083.noarch.rpm',
     require => [Exec['fix-go-server-rpm'], Package['java-1.6.0-openjdk'], Package['java-1.6.0-openjdk-devel'], Package['unzip']],
   }
 
@@ -55,12 +55,12 @@ class go::agent {
   include java::openjdk
 
   wgetfetch { 'go-agent':
-    source => 'http://download01.thoughtworks.com/go/2.2.1/patch/go-agent-2.2.1-13139.noarch.rpm',
-    destination => '/vagrant-share/apps/go-agent-2.2.1-13139.noarch.rpm',
+    source => 'http://download01.thoughtworks.com/go/2.2/ga/go-agent-2.2.0-13083.noarch.rpm',
+    destination => '/vagrant-share/apps/go-agent-2.2.0-13083.noarch.rpm',
   }
 
   exec { 'fix-go-agent-rpm':
-    command => "/usr/bin/rpmrebuild --package --batch --notest-install --directory=/tmp/ --change-spec-requires='sed s/jdk/java-sdk/' /vagrant-share/apps/go-agent-2.2.1-13139.noarch.rpm && mv /tmp/noarch/go-agent-2.2.1-13139.noarch.rpm /vagrant-share/apps/go-agent-2.2.1-13139.noarch.rpm && touch /vagrant-share/apps/go-agent-rpm-fixed.txt",
+    command => "/usr/bin/rpmrebuild --package --batch --notest-install --directory=/tmp/ --change-spec-requires='sed s/jdk/java-sdk/' /vagrant-share/apps/go-agent-2.2.0-13083.noarch.rpm && mv /tmp/noarch/go-agent-2.2.0-13083.noarch.rpm /vagrant-share/apps/go-agent-2.2.0-13083.noarch.rpm && touch /vagrant-share/apps/go-agent-rpm-fixed.txt",
     creates => '/vagrant-share/apps/go-agent-rpm-fixed.txt',
     require => [Wgetfetch['go-agent'], Package['rpm-build'], Package['rpmrebuild'], Package['sed']],
   }
@@ -68,7 +68,7 @@ class go::agent {
   package { 'go-agent':
     provider => rpm,
     ensure => present,
-    source => '/vagrant-share/apps/go-agent-2.2.1-13139.noarch.rpm',
+    source => '/vagrant-share/apps/go-agent-2.2.0-13083.noarch.rpm',
     require => [Exec['fix-go-agent-rpm'], Package['java-1.6.0-openjdk'], Package['java-1.6.0-openjdk-devel'], Package['unzip']],
   }
 
