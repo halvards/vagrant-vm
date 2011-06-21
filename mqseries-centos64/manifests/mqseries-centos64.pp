@@ -23,8 +23,7 @@ class mqseries::server {
     provider => rpm,
     ensure => present,
     source => '/vagrant-share/apps/MQSeriesRuntime-7.0.1-3.x86_64.rpm',
-    require => [Exec['extract-mqseries-rpms'],
-    File['/tmp/mq_license/license/status.dat'], Group['mqm'], User['mqm'], Package['libXp']],
+    require => [Exec['extract-mqseries-rpms'], File['/tmp/mq_license/license/status.dat'], Group['mqm'], User['mqm'], Package['libXp']],
   }
 
   package { 'MQSeriesServer':
