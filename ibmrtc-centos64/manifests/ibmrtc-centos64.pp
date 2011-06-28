@@ -1,59 +1,64 @@
 # Note: This recipe downloads the entire IBM Rational Team Concert from the IBM Rational Jazz website
 
-include timezone::sydney
+#include timezone::sydney
 include utils::vcs
-include ibm::rtcinstaller
+include ibm::rtc
 
-class ibm::rtcinstaller {
+class ibm::rtc {
   include utils::base
 
-  $ibmrtc_installer_zip = '/vagrant-share/apps/RTC-Web-Installer-Linux-3.0.1.zip'
-  $ibmrtc_license_zip = '/vagrant-share/apps/RTC-Developer-10-C-License-3.0.1.zip'
+  $ibmim_location = '/vagrant-share/apps/IBMIM_linux_x86.zip'
+  $ibmim_dir = '/tmp/ibmim'
   $ibmrtc_localrepo_zip = '/vagrant-share/apps/JTS-CCM-QM-RM-repo-3.0.1.zip'
-  $ibmrtc_installer_dir = '/vagrant-share/apps/ibmrtc-installer'
-  $ibmrtc_localrepo_dir = '/vagrant-share/apps/ibmrtc-localrepo'
+  $ibmrtc_localrepo_dir = '/tmp/ibmrtc-localrepo'
+  $ibmim_package = 'com.ibm.cic.agent'
+  $ibmrtc_license_package = 'com.ibm.team.install.jfs.app.product-rtc-standalone'
+  $ibmrtc_package = 'com.ibm.team.install.calm'
 
-  wgetfetch { 'ibmrtc-installer':
-      #source => 'http://public.dhe.ibm.com/software/rationalsdp/v7/im/144/zips/agent.installer.linux.gtk.x86_1.4.4000.20110525_1254.zip',
-    source => 'http://jazz.net/downloads/rational-team-concert/releases/3.0.1/RTC-Web-Installer-Linux-3.0.1.zip',
-    destination => $ibmrtc_installer_zip,
+  wgetfetch { 'ibmim':
+    source => 'http://public.dhe.ibm.com/software/rationalsdp/v7/im/144/zips/agent.installer.linux.gtk.x86_1.4.4000.20110525_1254.zip',
+    destination => $ibmim_location,
   }
 
-  file { $ibmrtc_installer_dir:
-    ensure => directory,
-  }
-
-  exec { 'extract-ibmrtc-installer':
-    command => "/usr/bin/unzip $ibmrtc_installer_zip -d $ibmrtc_installer_dir",
-    creates => "$ibmrtc_installer_dir/launchpad.sh",
-    require => [Wgetfetch['ibmrtc-installer'], File[$ibmrtc_installer_dir], Package['unzip']],
-  }
-
-  wgetfetch { 'ibmrtc-license':
-    source => 'http://jazz.net/downloads/rational-team-concert/releases/3.0.1/RTC-Developer-10-C-License-3.0.1.zip',
-    destination => $ibmrtc_license_zip,
-  }
-
-  exec { 'extract-ibmrtc-license':
-    command => "/usr/bin/unzip $ibmrtc_license_zip -d $ibmrtc_installer_dir",
-    creates => "$ibmrtc_installer_dir/RTC_Developer-10_Unlocked.jar",
-    require => [Wgetfetch['ibmrtc-license'], File[$ibmrtc_installer_dir], Package['unzip']],
+  exec { 'extract-ibmim':
+    command => "/usr/bin/unzip $ibmim_location -d $ibmim_dir",
+    creates => '/tmp/ibmim/install',
+    require => [Wgetfetch['ibmim'], Package['unzip']],
   }
 
   wgetfetch { 'ibmrtc-localrepo':
-    source => 'http://jazz.net/downloads/rational-team-concert/releases/3.0.1/JTS-CCM-QM-RM-repo-3.0.1.zip',
-    #source => 'https://jazz.net/downloads/rational-team-concert/releases/3.0.1/RTC-BuildSystem-Toolkit-repo-3.0.1.zip',
+    source => 'http://ca-toronto-dl.jazz.net/mirror/downloads/rational-team-concert/3.0.1/3.0.1/JTS-CCM-QM-RM-repo-3.0.1.zip?tjazz=T5vC16uN3jR4b6or655E9QQ8624lkU',
+    #source => 'http://ca-toronto-dl.jazz.net/mirror/downloads/rational-team-concert/3.0.1/3.0.1/RTC-BuildSystem-Toolkit-repo-3.0.1.zip?tjazz=OHawoIl49dX8166JLY0Xu51Au19GtQ',
     destination => $ibmrtc_localrepo_zip,
-  }
-
-  file { $ibmrtc_localrepo_dir:
-    ensure => directory,
   }
 
   exec { 'extract-ibmrtc-localrepo':
     command => "/usr/bin/unzip $ibmrtc_localrepo_zip -d $ibmrtc_localrepo_dir",
     creates => "$ibmrtc_localrepo_dir/repository.config",
-    require => [Wgetfetch['ibmrtc-localrepo'], File[$ibmrtc_localrepo_dir], Package['unzip']],
+    require => [Wgetfetch['ibmrtc-localrepo'], Package['unzip']],
+  }
+
+  exec { 'install-ibmrtc':
+    command => "$ibmim_dir/tools/imcl install $ibmrtc_license_package $ibmrtc_package -repositories $ibmrtc_localrepo_dir/repository.config -acceptLicense -showVerboseProgress -installFixes recommended",
+    creates => '/opt/IBM/JazzTeamServer/server/server.startup',
+    timeout => 3600, #seconds
+    logoutput => true,
+    require => [Exec['extract-ibmim'], Exec['extract-ibmrtc-localrepo']],
+  }
+
+  exec { 'disable-selinux':
+    command => '/usr/sbin/setenforce 0',
+  }
+
+  service { 'ibmrtc':
+    enable => true,
+    ensure => running,
+    hasrestart => false,
+    provider => base,
+    start => '/opt/IBM/JazzTeamServer/server/server.startup',
+    status => '/bin/ps -ef | grep [J]azzTeamServer',
+    stop => '/opt/IBM/JazzTeamServer/server/server.shutdown',
+    require => [Exec['install-ibmrtc'], Exec['disable-selinux']],
   }
 }
 
