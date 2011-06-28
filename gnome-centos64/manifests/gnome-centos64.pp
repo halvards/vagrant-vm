@@ -1,5 +1,11 @@
+include repos::all
+include utils::base
+include utils::vcs
+include wm::gnome
+#include google::chrome
+
 class wm::gnome {
-  package { ['gnome-session', 'system-config-display', 'xorg-x11-xinit', 'gdm', 'dbus-x11', 'gnome-applets', 'gnome-terminal', 'nautilus', 'gedit']:
+  package { ['gnome-session', 'system-config-display', 'xorg-x11-xinit', 'gdm', 'dbus-x11', 'gnome-applets', 'gnome-terminal', 'nautilus', 'gedit', 'firefox.x86_64']:
     ensure => present,
   }
 }
@@ -14,7 +20,7 @@ class google::chrome {
 }
 
 class utils::base {
-  package { ['bash', 'wget', 'curl', 'patch', 'unzip', 'sed', 'tar', 'gzip', 'bzip2', 'man']:
+  package { ['bash', 'wget', 'curl', 'patch', 'unzip', 'sed', 'tar', 'gzip', 'bzip2', 'man', 'vim-minimal']:
     ensure => present,
   }
 }
@@ -26,6 +32,13 @@ class utils::vcs {
     ensure => present,
     require => Package['epel-release'],
   }
+}
+
+class repos::all {
+  include repos::epel
+  include repos::elff
+  include repos::jpackage
+  include repos::google64
 }
 
 class repos::epel {
@@ -66,10 +79,4 @@ class repos::google64 {
     gpgkey => 'https://dl-ssl.google.com/linux/linux_signing_key.pub',
   }
 }
-
-include repos::jpackage
-include utils::base
-include utils::vcs
-include wm::gnome
-include google::chrome
 
