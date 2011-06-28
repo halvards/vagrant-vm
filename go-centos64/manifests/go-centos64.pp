@@ -3,6 +3,7 @@ define wgetfetch($source,$destination) {
     exec { "wget-$name":
       command => "/usr/bin/wget --output-document=$destination $source",
       creates => "$destination",
+      timeout => 3600, # seconds
       require => Package['wget'],
       environment => [ "HTTP_PROXY=$http_proxy", "http_proxy=$http_proxy" ],
     }
@@ -10,6 +11,7 @@ define wgetfetch($source,$destination) {
     exec { "wget-$name":
       command => "/usr/bin/wget --output-document=$destination $source",
       creates => "$destination",
+      timeout => 3600, # seconds
       require => Package['wget'],
     }
   }
