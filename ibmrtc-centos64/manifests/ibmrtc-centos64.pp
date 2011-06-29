@@ -1,11 +1,14 @@
 # Note: This recipe downloads the entire IBM Rational Team Concert from the IBM Rational Jazz website
 
-#include timezone::sydney
+include timezone::sydney
+include selinux::disable
+include iptables::disable
 include utils::vcs
 include ibm::rtc
 
 class ibm::rtc {
   include utils::base
+  include selinux::disable
 
   $ibmim_location = '/vagrant-share/apps/IBMIM_linux_x86.zip'
   $ibmim_dir = '/tmp/ibmim'
@@ -46,10 +49,6 @@ class ibm::rtc {
     require => [Exec['extract-ibmim'], Exec['extract-ibmrtc-localrepo']],
   }
 
-  exec { 'disable-selinux':
-    command => '/usr/sbin/setenforce 0',
-  }
-
   service { 'ibmrtc':
     enable => true,
     ensure => running,
@@ -74,6 +73,26 @@ class utils::vcs {
 class utils::base {
   package { ['bash', 'wget', 'curl', 'patch', 'unzip', 'sed', 'tar', 'gzip', 'bzip2', 'man', 'vim-minimal']:
     ensure => present,
+  }
+}
+
+class selinux::disable {
+  exec { 'disable-selinux':
+    command => '/usr/sbin/setenforce 0',
+  }
+}
+
+class iptables::disable {
+  package { 'iptables':
+    ensure => present,
+  }
+
+  service { 'iptables':
+    enable => false,
+    ensure => stopped,
+    hasrestart => true,
+    hasstatus => true,
+    require => Package['iptables'],
   }
 }
 
