@@ -112,14 +112,6 @@ class repos::elff {
   }
 }
 
-class repos::elff {
-  package { 'elff-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/elff-release-5-3.noarch.rpm',
-  }
-}
-
 class repos::jpackage {
   package { ['jpackage-utils', 'yum-priorities']:
     ensure => present,
