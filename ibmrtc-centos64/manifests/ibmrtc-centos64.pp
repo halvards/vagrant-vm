@@ -18,6 +18,8 @@ class ibm::rtc {
   $ibmrtc_license_package = 'com.ibm.team.install.jfs.app.product-rtc-standalone'
   $ibmrtc_package = 'com.ibm.team.install.calm'
 
+  $open_files_config_file = '/etc/security/limits.conf'
+
   wgetfetch { 'ibmim':
     source => 'http://public.dhe.ibm.com/software/rationalsdp/v7/im/144/zips/agent.installer.linux.gtk.x86_1.4.4000.20110525_1254.zip',
     destination => $ibmim_location,
@@ -39,6 +41,25 @@ class ibm::rtc {
     command => "/usr/bin/unzip $ibmrtc_localrepo_zip -d $ibmrtc_localrepo_dir",
     creates => "$ibmrtc_localrepo_dir/repository.config",
     require => [Wgetfetch['ibmrtc-localrepo'], Package['unzip']],
+  }
+
+  file { $open_files_config_file:
+    ensure => present,
+    owner => 'root',
+    group => 'root',
+    mode => '644',
+  }
+
+  line { 'increase-hard-open-files-limit':
+    file => $open_files_config_file,
+    line => '* hard nofile 12000',
+    require => File[$open_files_config_file],
+  }
+
+  line { 'increase-soft-open-files-limit':
+    file => $open_files_config_file,
+    line => '* soft nofile 12000',
+    require => File[$open_files_config_file],
   }
 
   exec { 'install-ibmrtc':
@@ -140,6 +161,22 @@ define wgetfetch($source,$destination) {
     creates => "$destination",
     timeout => 3600, # seconds
     require => Package['wget'],
+  }
+}
+
+define line($file, $line, $ensure = 'present') {
+  case $ensure {
+    default : { err ( "unknown ensure value ${ensure}" ) }
+    present: {
+      exec { "/bin/echo '${line}' >> '${file}'":
+        unless => "/bin/grep -qFx '${line}' '${file}'"
+      }
+    }
+    absent: {
+      exec { "/bin/grep -vFx '${line}' '${file}' | /usr/bin/tee '${file}' > /dev/null 2>&1":
+        onlyif => "/bin/grep -qFx '${line}' '${file}'"
+      }
+    }
   }
 }
 
