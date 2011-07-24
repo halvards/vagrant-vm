@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = 'http://puppetlabs.s3.amazonaws.com/pub/centos5_64.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/15307300/vagrant-0.7-centos-64-base.box'
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui
@@ -43,6 +43,6 @@ Vagrant::Config.run do |config|
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
   # a .pp file with the same name as the box.
-  config.vm.provision :puppet
+  config.vm.provision :puppet, :module_path => '../modules'
 end
 

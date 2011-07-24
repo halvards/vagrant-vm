@@ -38,6 +38,6 @@ Vagrant::Config.run do |config|
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
   # a .pp file with the same name as the box.
-  config.vm.provision :puppet
+  config.vm.provision :puppet, :module_path => '../modules'
 end
 

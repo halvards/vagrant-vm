@@ -1,0 +1,5 @@
+define qlocal (TEST.ECHO.MESSAGE.QUEUE)
+define qlocal (TEST.ECHO.MESSAGE.QUEUE.REPLY)
+define listener (LISTENER1) trptype (tcp) port (1414) control (qmgr)
+start listener (LISTENER1)
+define channel (CHAN1) chltype (svrconn) trptype (tcp)

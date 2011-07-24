@@ -1,3 +1,6 @@
+include ruby::passenger
+include timezone::sydney
+
 class ruby::passenger {
   include ruby::enterprise
 
@@ -22,7 +25,7 @@ class ruby::passenger {
 }
 
 class ruby::enterprise {
-  include repos::rubyee
+  include yumrepos::rubyee
 
   package { ['ruby-enterprise', 'ruby-enterprise-rubygems']:
     ensure => present,
@@ -77,49 +80,4 @@ class ruby::enterprise {
     require => Package['ruby-enterprise-rubygems'],
   }
 }
-
-class utils::base {
-  package { ['bash', 'wget', 'curl', 'patch']:
-    ensure => present,
-  }
-}
-
-class utils::vcs {
-  include repos::epel
-
-  package { 'mercurial':
-    ensure => present,
-  }
-
-  package { 'git':
-    ensure => present,
-    require => Package['epel-release'],
-  }
-}
-
-class repos::epel {
-  package { 'epel-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/epel-release-5-4.noarch.rpm',
-  }
-}
-
-class repos::elff {
-  package { 'elff-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/elff-release-5-3.noarch.rpm',
-  }
-}
-
-class repos::rubyee {
-  package { 'ruby-enterprise-opt-repo':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/ruby-enterprise-opt-repo-1.0-1.x86_64.rpm',
-  }
-}
-
-include ruby::passenger
 

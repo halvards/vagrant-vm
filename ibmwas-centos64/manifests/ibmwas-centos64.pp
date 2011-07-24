@@ -1,5 +1,9 @@
 # Note: This recipe downloads the entire IBM WebSphere Application Server V8.0 for developers from the public IBM repository
 
+include timezone::sydney
+include utils::vcs
+include ibm::was
+
 class ibm::was {
   include utils::base
   include ibm::was-prereqs
@@ -11,7 +15,7 @@ class ibm::was {
   $ibm_was8_repo = 'http://www-912.ibm.com/software/repositorymanager/V8WASDeveloperILAN/repository.config'
   $ibm_keyring_file = '/vagrant-share/apps/ibm-keyring-trial'
 
-  wgetfetch { 'ibm-im-was8':
+  wget::fetch { 'ibm-im-was8':
     source => 'http://public.dhe.ibm.com/software/rationalsdp/v7/im/144/zips/agent.installer.linux.gtk.x86_1.4.4000.20110525_1254.zip',
     destination => $ibmim_location,
   }
@@ -19,7 +23,7 @@ class ibm::was {
   exec { 'extract-ibm-im':
     command => "/usr/bin/unzip $ibmim_location -d /tmp/ibmim/",
     creates => '/tmp/ibmim/install',
-    require => [Wgetfetch['ibm-im-was8'], Package['unzip']],
+    require => [Wget::Fetch['ibm-im-was8'], Package['unzip']],
   }
 
   exec { 'create-ibm-keyring-file':
@@ -49,72 +53,4 @@ class ibm::was-prereqs {
     ensure => present,
   }
 }
-
-class utils::base {
-  package { ['bash', 'wget', 'curl', 'patch', 'unzip', 'sed', 'tar', 'gzip', 'bzip2', 'man']:
-    ensure => present,
-  }
-}
-
-class utils::vcs {
-  include repos::epel
-
-  package { ['mercurial', 'git']:
-    ensure => present,
-    require => Package['epel-release'],
-  }
-}
-
-class repos::epel {
-  package { 'epel-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/epel-release-5-4.noarch.rpm',
-  }
-}
-
-class repos::elff {
-  package { 'elff-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/elff-release-5-3.noarch.rpm',
-  }
-}
-
-class repos::jpackage {
-  package { ['jpackage-utils', 'yum-priorities']:
-    ensure => present,
-  }
-
-  package { 'jpackage-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/jpackage-release-5-4.jpp5.noarch.rpm',
-    require => [Package['jpackage-utils'], Package['yum-priorities']],
-  }
-}
-
-define wgetfetch($source,$destination) {
-  if $http_proxy {
-    exec { "wget-$name":
-      command => "/usr/bin/wget --output-document=$destination $source",
-      creates => "$destination",
-      timeout => 3600, #seconds
-      require => Package['wget'],
-      environment => [ "HTTP_PROXY=$http_proxy", "http_proxy=$http_proxy" ],
-    }
-  } else {
-    exec { "wget-$name":
-      command => "/usr/bin/wget --output-document=$destination $source",
-      creates => "$destination",
-      timeout => 3600, #seconds
-      require => Package['wget'],
-    }
-  }
-}
-
-include repos::jpackage
-include utils::base
-#include utils::vcs
-include ibm::was
 

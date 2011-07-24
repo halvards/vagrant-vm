@@ -3,7 +3,6 @@
 include timezone::sydney
 include selinux::disable
 include iptables::disable
-include utils::vcs
 include ibm::rtc
 
 class ibm::rtc {
@@ -33,7 +32,6 @@ class ibm::rtc {
 
   wgetfetch { 'ibmrtc-localrepo':
     source => 'http://ca-toronto-dl.jazz.net/mirror/downloads/rational-team-concert/3.0.1/3.0.1/JTS-CCM-QM-RM-repo-3.0.1.zip?tjazz=T5vC16uN3jR4b6or655E9QQ8624lkU',
-    #source => 'http://ca-toronto-dl.jazz.net/mirror/downloads/rational-team-concert/3.0.1/3.0.1/RTC-BuildSystem-Toolkit-repo-3.0.1.zip?tjazz=OHawoIl49dX8166JLY0Xu51Au19GtQ',
     destination => $ibmrtc_localrepo_zip,
   }
 
@@ -79,79 +77,6 @@ class ibm::rtc {
     status => '/bin/ps -ef | grep [J]azzTeamServer',
     stop => '/opt/IBM/JazzTeamServer/server/server.shutdown',
     require => [Exec['install-ibmrtc'], Exec['disable-selinux']],
-  }
-}
-
-class utils::vcs {
-  include repos::epel
-
-  package { ['mercurial', 'git']:
-    ensure => present,
-    require => Package['epel-release'],
-  }
-}
-
-class utils::base {
-  package { ['bash', 'wget', 'curl', 'patch', 'unzip', 'sed', 'tar', 'gzip', 'bzip2', 'man', 'vim-minimal']:
-    ensure => present,
-  }
-}
-
-class selinux::disable {
-  exec { 'disable-selinux':
-    command => '/usr/sbin/setenforce 0',
-  }
-}
-
-class iptables::disable {
-  package { 'iptables':
-    ensure => present,
-  }
-
-  service { 'iptables':
-    enable => false,
-    ensure => stopped,
-    hasrestart => true,
-    hasstatus => true,
-    require => Package['iptables'],
-  }
-}
-
-class repos::epel {
-  package { 'epel-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/epel-release-5-4.noarch.rpm',
-  }
-}
-
-class repos::elff {
-  package { 'elff-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/elff-release-5-3.noarch.rpm',
-  }
-}
-
-class repos::jpackage {
-  package { ['jpackage-utils', 'yum-priorities']:
-    ensure => present,
-  }
-
-  package { 'jpackage-release':
-    provider => rpm,
-    ensure => present,
-    source => '/vagrant-share/repos/jpackage-release-5-4.jpp5.noarch.rpm',
-    require => [Package['jpackage-utils'], Package['yum-priorities']],
-  }
-}
-
-class timezone::sydney {
-  file { '/etc/localtime':
-    ensure => link,
-    target => '/usr/share/zoneinfo/Australia/Sydney',
-    owner => root,
-    group => root,
   }
 }
 
