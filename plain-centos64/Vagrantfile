@@ -1,3 +1,9 @@
+require 'net/http'
+
+basebox_directory = File.expand_path('boxes/', File.dirname(File.dirname(__FILE__)))
+basebox_filename = 'centos56_64-veewee.box'
+basebox_file = "#{basebox_directory}#{basebox_filename}"
+
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -8,12 +14,17 @@ Vagrant::Config.run do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = 'http://dl.dropbox.com/u/15307300/vagrant-0.7-centos-64-base.box'
-  #config.vm.box_url = 'http://puppetlabs.s3.amazonaws.com/pub/centos5_64.box'
-
-  # Give the VM more time to boot
-  #config.ssh.max_tries = 50
-  #config.ssh.timeout = 300
+  Dir.mkdir(basebox_directory) unless File.directory?(basebox_directory)
+  if !File.exists?(basebox_file)
+    puts "Downloading basebox file #{basebox_filename} to #{basebox_directory}"
+    Net::HTTP.start('dl.dropbox.com') { |http|
+      response = http.get("/u/36836372/#{basebox_filename}")
+      open(basebox_file, 'wb') { |file|
+        file.write(response.body)
+      }
+    }
+  end
+  config.vm.box_url = basebox_file
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui

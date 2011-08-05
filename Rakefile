@@ -1,8 +1,7 @@
 require 'vagrant'
 
 configs = {:centos => [:plain, :rubyee, :go, :mqseries, :ibmwas, :ibmrtc, :ibmrtcclient, :gnome],
-           :ubuntu => [:plain, :go],
-           :sl => [:plain]}
+           :ubuntu => [:plain, :go]}
 
 configs.each do |os_type, vm_types|
   namespace os_type do
