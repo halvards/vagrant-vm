@@ -12,6 +12,13 @@ class apache::httpd {
     require => Group['apache'],
   }
 
+  user { 'vagrant':
+    ensure => present,
+    groups => 'apache',
+    membership => minimum,
+    require => Group['apache'],
+  }
+
   package { 'httpd':
     ensure => present,
     require => User['apache'],

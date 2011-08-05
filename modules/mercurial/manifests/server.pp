@@ -13,7 +13,7 @@ class mercurial::server {
     ensure => directory,
     owner => 'apache',
     group => 'apache',
-    mode => 755,
+    mode => 775,
     require => File['/opt'],
   }
 
@@ -21,14 +21,15 @@ class mercurial::server {
     ensure => directory,
     owner => 'apache',
     group => 'apache',
-    mode => 755,
+    mode => 775,
     require => File['/opt/hg'],
   }
+
   file { '/opt/hg/index.cgi':
     ensure => present,
     owner => 'apache',
     group => 'apache',
-    mode => 755,
+    mode => 775,
     source => '/vagrant-share/conf/mercurial/index.cgi',
     require => [Package['python'], File['/opt/hg/repo']],
   }
@@ -37,7 +38,7 @@ class mercurial::server {
     ensure => present,
     owner => 'apache',
     group => 'apache',
-    mode => 755,
+    mode => 775,
     source => '/vagrant-share/conf/mercurial/hgweb.config',
     require => File['/opt/hg'],
   }
@@ -56,6 +57,10 @@ class mercurial::server {
     source  => '/vagrant-share/conf/mercurial/mercurial.conf',
     require => [Package['httpd'], Exec['change-selinux-security-context']],
     notify => Service['httpd'],
+  }
+
+  package { 'python':
+    ensure => present,
   }
 }
 
