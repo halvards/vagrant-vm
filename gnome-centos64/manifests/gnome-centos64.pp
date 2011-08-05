@@ -8,7 +8,7 @@ class wm::gnome {
     ensure => present,
   }
 
-  package { 'xresolution':
+  package { 'system-config-display':
     ensure => present,
     name => $kernelrelease ? {
       /el5/ => 'system-config-display',
