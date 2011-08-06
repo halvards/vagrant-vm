@@ -1,58 +1,11 @@
-require 'net/http'
-
-basebox_directory = File.expand_path('boxes/', File.dirname(File.dirname(__FILE__)))
-basebox_filename = 'centos56_64-veewee.box'
-basebox_file = "#{basebox_directory}#{basebox_filename}"
+require 'lib/vagrantfile_helper'
 
 Vagrant::Config.run do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
+  include VagrantfileHelper
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'mqseries-centos64'
+  set_defaults(config, 'mqseries-centos64')
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  Dir.mkdir(basebox_directory) unless File.directory?(basebox_directory)
-  if !File.exists?(basebox_file)
-    puts "Downloading basebox file #{basebox_filename} to #{basebox_directory}"
-    Net::HTTP.start('dl.dropbox.com') { |http|
-      response = http.get("/u/36836372/#{basebox_filename}")
-      open(basebox_file, 'wb') { |file|
-        file.write(response.body)
-      }
-    }
-  end
-  config.vm.box_url = basebox_file
-
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
-
-  # Assign this VM a unique hostname
-  hostname_prefix_file = File.join(File.expand_path(File.dirname(__FILE__)), 'hostname_do_not_check_in.txt')
-  raise 'No hostname file present' unless File.exists?(hostname_prefix_file)
-  hostname_prefix = File.read(hostname_prefix_file)
-  config.vm.host_name = "#{hostname_prefix}.#{config.vm.box}.vagrant.local"
-
-  # Assign this VM to a host only network IP, allowing you to access it
-  # via the IP.
-  # config.vm.network "33.33.33.10"
-
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
-  # config.vm.forward_port "http", 80, 8080
+  # Forward a port from the guest to the host
   config.vm.forward_port "mqseries_listener", 1414, 1414
-
-  # Share an additional folder to the guest VM. The first argument is
-  # an identifier, the second is the path on the guest to mount the
-  # folder, and the third is the path on the host to the actual folder.
-  config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
-
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # a .pp file with the same name as the box.
-  config.vm.provision :puppet, :module_path => '../modules'
 end
 
