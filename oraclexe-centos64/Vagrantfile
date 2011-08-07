@@ -1,0 +1,17 @@
+require 'lib/vagrantfile_helper'
+
+Vagrant::Config.run do |config|
+  include VagrantfileHelper
+
+  set_defaults(config, 'oraclexe-centos64')
+
+  # Set memory allocated to the VM in MB
+  config.vm.customize do |vm|
+    vm.memory_size = 1024
+  end
+
+  # Forward a port from the guest to the host (id, guest port, host port)
+  config.vm.forward_port 'oracle_tns_listener', 1521, 1521
+  config.vm.forward_port 'oracle_apex_http', 8521, 8521
+end
+
