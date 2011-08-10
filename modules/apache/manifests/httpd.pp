@@ -25,10 +25,10 @@ class apache::httpd {
   }
 
   service { 'httpd':
+    enable => true,
     ensure => running,
     hasstatus => true,
     hasrestart => true,
-    enable => true,
     require => Package['httpd'],
   }
 }

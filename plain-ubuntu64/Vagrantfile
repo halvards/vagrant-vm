@@ -3,7 +3,7 @@ require 'lib/vagrantfile_helper'
 Vagrant::Config.run do |config|
   include VagrantfileHelper
 
-  set_defaults(config, 'plain-ubuntu64')
+  set_defaults(config, 'ubuntu64', 'plain')
 
   # Forward a port from the guest to the host
   # config.vm.forward_port "http", 80, 8080

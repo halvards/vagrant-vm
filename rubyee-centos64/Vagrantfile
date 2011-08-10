@@ -3,7 +3,7 @@ require 'lib/vagrantfile_helper'
 Vagrant::Config.run do |config|
   include VagrantfileHelper
 
-  set_defaults(config, 'rubyee-centos64')
+  set_defaults(config, 'centos64', 'rubyee')
 
   # Forward a port from the guest to the host
   config.vm.forward_port "http", 80, 9080

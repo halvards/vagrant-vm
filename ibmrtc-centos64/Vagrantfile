@@ -3,7 +3,7 @@ require 'lib/vagrantfile_helper'
 Vagrant::Config.run do |config|
   include VagrantfileHelper
 
-  set_defaults(config, 'ibmrtc-centos64')
+  set_defaults(config, 'centos64', 'ibmrtc')
 
   # Set memory allocated to the VM in MB
   config.vm.customize do |vm|

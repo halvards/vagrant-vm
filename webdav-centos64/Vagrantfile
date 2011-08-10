@@ -3,9 +3,11 @@ require 'lib/vagrantfile_helper'
 Vagrant::Config.run do |config|
   include VagrantfileHelper
 
-  set_defaults(config, 'centos64', 'mqseries')
+  set_defaults(config, 'centos64', 'webdav')
+
+  config.vm.host_name = 'ldap.example.com'
 
   # Forward a port from the guest to the host
-  config.vm.forward_port "mqseries_listener", 1414, 1414
+  config.vm.forward_port "http", 80, 8080
 end
 

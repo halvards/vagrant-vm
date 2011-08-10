@@ -28,7 +28,7 @@ module VagrantfileHelper
     basebox_file
   end
 
-  def set_defaults(config, box_name)
+  def set_defaults(config, box_name, prefix)
     # The name of the virtual machine used by Vagrant
     config.vm.box = box_name
 
@@ -42,9 +42,8 @@ module VagrantfileHelper
       raise "Default basebox URL could not be found for #{box_name}"
     end
 
-
     # Assign this VM a unique hostname
-    config.vm.host_name = hostname(config.vm.box)
+    config.vm.host_name = hostname("#{prefix}-#{box_name}")
 
     # Share an additional folder to the guest VM. The first argument is
     # an identifier, the second is the path on the guest to mount the
@@ -55,7 +54,10 @@ module VagrantfileHelper
     # are contained in a directory path relative to this Vagrantfile.
     # You will need to create the manifests directory and a manifest in
     # a .pp file with the same name as the box.
-    config.vm.provision :puppet, :module_path => '../modules'
+    config.vm.provision :puppet do |puppet|
+      puppet.manifest_file = "#{prefix}-#{box_name}.pp"
+      puppet.module_path = '../modules'
+    end
   end
 
 end

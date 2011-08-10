@@ -3,7 +3,7 @@ require 'lib/vagrantfile_helper'
 Vagrant::Config.run do |config|
   include VagrantfileHelper
 
-  set_defaults(config, 'gnome-centos64')
+  set_defaults(config, 'centos64', 'gnome')
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   config.vm.boot_mode = :gui
