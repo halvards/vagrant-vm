@@ -6,17 +6,14 @@ class apache::httpd {
   user { 'apache':
     comment => 'Apache httpd server user',
     gid => 'apache',
-    home => '/home/apache',
+    home => '/var/www',
     managehome => true,
-    shell => '/bin/bash',
+    shell => '/bin/false',
     require => Group['apache'],
   }
 
-  user { 'vagrant':
-    ensure => present,
-    groups => 'apache',
-    membership => minimum,
-    require => Group['apache'],
+  vagrant::group { 'vagrant-apache':
+    group => 'apache',
   }
 
   package { 'httpd':

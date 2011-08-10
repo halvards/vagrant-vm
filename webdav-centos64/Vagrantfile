@@ -8,6 +8,6 @@ Vagrant::Config.run do |config|
   config.vm.host_name = 'ldap.example.com'
 
   # Forward a port from the guest to the host
-  config.vm.forward_port "http", 80, 8080
+  config.vm.forward_port "http", 80, 9081
 end
 

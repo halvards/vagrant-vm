@@ -1,0 +1,7 @@
+# directory administrator, password is 'secret'
+dn: cn=admin,dc=example,dc=com
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+userPassword: {SSHA}s8/e0A7E1bSpCOlhtx6e6JqouN2IMyH1
+description: Directory administrator

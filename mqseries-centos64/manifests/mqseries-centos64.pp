@@ -132,11 +132,8 @@ class mqseries::users {
     require => Group['mqm'],
   }
 
-  user { 'vagrant':
-    ensure => present,
-    groups => 'mqm',
-    membership => minimum,
-    require => Group['mqm'],
+  vagrant::group { 'vagrant-mqm':
+    group => 'mqm',
   }
 }
 

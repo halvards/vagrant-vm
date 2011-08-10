@@ -1,0 +1,8 @@
+# regular user object, password is 'secret'
+dn: cn=alice,dc=example,dc=com
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: alice
+ou: OrgUnitA
+userPassword: {SSHA}s8/e0A7E1bSpCOlhtx6e6JqouN2IMyH1
+description: Regular user alice

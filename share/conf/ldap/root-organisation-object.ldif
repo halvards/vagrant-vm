@@ -1,0 +1,6 @@
+# root object
+dn: dc=example,dc=com
+objectclass: dcObject
+objectclass: organization
+o: Example Company Ltd
+dc: example
