@@ -1,8 +1,8 @@
 include timezone::sydney
 include utils::base
 
-#include webdav::server
-include openldap::server
+include webdav::server
+#include openldap::server
 
 class webdav::server {
   include apache::httpd
@@ -26,6 +26,7 @@ class webdav::server {
   }
 }
 
+# Not working, in progress
 class openldap::server {
   package { ['openldap', 'openldap-servers', 'openldap-clients', 'nss_ldap']:
     ensure => present,
@@ -52,6 +53,5 @@ class openldap::server {
     #require => Line::Uncomment['set-ldap-root-password'],
     require => Exec['setup-ldap-db-config'],
   }
-
 }
 
