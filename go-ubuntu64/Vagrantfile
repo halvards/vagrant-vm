@@ -1,18 +1,29 @@
-require 'lib/vagrantfile_helper'
-
 Vagrant::Config.run do |config|
-  include VagrantfileHelper
+  vm_type = 'go'
 
-  set_defaults(config, 'ubuntu64', 'go')
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = 'lucid64'
+
+  # The url from where the 'config.vm.box' box will be fetched.
+  config.vm.box_url = 'http://files.vagrantup.com/lucid64.box'
+
+  # Assign this VM a unique hostname
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.lucid64.vagrant.local"
+
+  # Forward a port from the guest to the host (id, guest port, host port)
+  config.vm.forward_port "go_http", 8153, 8153
+  config.vm.forward_port "go_https", 8154, 8154
+
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  config.vm.provision :puppet do |puppet|
+    puppet.manifest_file = "#{vm_type}-centos64.pp"
+    puppet.module_path = '../modules'
+  end
 
   # Set memory allocated to the VM in MB
   config.vm.customize do |vm|
     vm.memory_size = 1024
   end
-
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
-  config.vm.forward_port "go_http", 8153, 8153
-  config.vm.forward_port "go_https", 8154, 8154
 end
 

@@ -1,9 +1,9 @@
 # Note: This recipe downloads the entire IBM WebSphere Application Server V8.0 for developers from the public IBM repository
 
 include timezone::sydney
-include ibm::was
+include ibm::wps
 
-class ibm::was {
+class ibm::wps {
   include utils::base
   include ibm::wps-prereqs
 
@@ -47,8 +47,8 @@ class ibm::was {
   }
 }
 
-class ibm::wps-prereqs {
-  package { ['compat-libstdc++-33', 'libXp', 'libXmu', 'libXtst', 'pam', 'rpm-build', 'elfutils', 'elfutils-libs', 'libXft', 'libstdc++', 'libgcc.x86_64', 'libgcc.i386']:
+class ibm::was-prereqs {
+  package { ['compat-libstdc++-33', 'libXp', 'libXmu', 'libXtst', 'pam', 'rpm-build', 'elfutils', 'elfutils-libs', 'libXft', 'libstdc++', 'libgcc.i386', 'libgcc.x86_64', 'libswt3-gtk2', 'gtk2.i386', 'gtk2.x86_64']:
     ensure => present,
   }
 }

@@ -3,7 +3,7 @@ class google::chrome {
 
   package { 'google-chrome-stable':
     ensure => present,
-    requires => Yumrepo['google'],
+    require => Yumrepo['google'],
   }
 }
 

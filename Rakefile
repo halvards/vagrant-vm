@@ -1,6 +1,6 @@
 require 'vagrant'
 
-configs = {:centos => [:plain, :rubyee, :go, :mqseries, :ibmwas, :ibmrtc, :gnome, :mercurial, :oraclexe, :webdav],
+configs = {:centos => [:plain, :rubyee, :go, :mqseries, :ibmwas, :ibmrtc, :ibmwps, :gnome, :mercurial, :oraclexe, :webdav],
            :ubuntu => [:plain, :go]}
 
 configs.each do |os_type, vm_types|
@@ -15,13 +15,6 @@ configs.each do |os_type, vm_types|
         desc "Start #{vm_name} (Creates the VM on first run)"
         task :up do
           puts "VM directory: #{vm_directory}"
-          hostname_file = File.join(vm_directory, 'hostname_do_not_check_in.txt')
-          if !File.exists?(hostname_file)
-            File.open(hostname_file, 'w') do |file|
-              hostname_prefix = "#{ENV['USER']}-#{rand(36**8).to_s(36)}"
-              file.write(hostname_prefix)
-            end
-          end
           vagrant_env.cli("up")
         end
 

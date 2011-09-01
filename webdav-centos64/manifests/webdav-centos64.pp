@@ -31,20 +31,36 @@ class webdav::server {
     require => File['/var/www/repo'],
   }
 
-  file { '/etc/httpd/conf.d/webdav-apache.conf':
+  file { '/etc/httpd/auth':
+    ensure => directory,
+    owner => 'apache',
+    group => 'apache',
+    mode => 770,
+    require => Package['httpd'],
+  }
+
+  file { '/etc/httpd/auth/webdav-basic-passwords':
+    ensure => present,
+    owner => 'apache',
+    group => 'apache',
+    mode => 660,
+    source => '/vagrant-share/conf/webdav-basic-passwords',
+    require => File['/etc/httpd/auth'],
+  }
+
+  file { '/etc/httpd/conf.d/200-webdav-apache.conf':
     ensure  => present,
     owner   => 'apache',
     group   => 'apache',
     mode    => 664,
     source  => '/vagrant-share/conf/webdav-apache-ldap-auth.conf',
-    require => [Package['httpd'], File['/var/www/repo']],
+    require => [Package['httpd'], File['/var/www/repo', '/etc/httpd/auth/webdav-basic-passwords']],
     notify  => Service['httpd'],
   }
 }
 
 # From http://www.3open.org/d/ldap/setup_openldap_directory_on_centos_5
 class openldap::server {
-  include selinux::disable
   include iptables::disable
 
   group { 'ldap':
@@ -89,7 +105,7 @@ class openldap::server {
     ensure => running,
     hasstatus => true,
     hasrestart => true,
-    require => [Exec['setup-ldap-db-config', 'disable-selinux'], File['/etc/openldap/slapd.conf']],
+    require => [Exec['setup-ldap-db-config'], File['/etc/openldap/slapd.conf']],
   }
 
   $ldapadd_cmd = '/usr/bin/ldapadd -D "cn=admin,dc=example,dc=com" -x -w secret -f '
@@ -99,8 +115,8 @@ class openldap::server {
   # Retries since something takes time - either starting ldap service or disabling selinux
   exec { 'create-ldap-root-object':
     command => "$ldapadd_cmd $ldap_schema_dir/root-organisation-object.ldif",
-    unless => "$ldapsearch_cmd '(dc=example)' | grep 'dc: example'",
     logoutput => true,
+    returns => [0, 68],
     tries => 5,
     try_sleep => 1, # seconds
     require => Service['ldap'],
@@ -108,22 +124,22 @@ class openldap::server {
 
   exec { 'create-ldap-admin':
     command => "$ldapadd_cmd $ldap_schema_dir/directory-admin-object.ldif",
-    unless => "$ldapsearch_cmd '(cn=admin)' | grep 'admin'",
     logoutput => true,
+    returns => [0, 68],
     require => Exec['create-ldap-root-object'],
   }
 
   exec { 'create-ldap-user-alice':
     command => "$ldapadd_cmd $ldap_schema_dir/regular-user-object-alice.ldif",
-    unless => "$ldapsearch_cmd '(cn=alice)' | grep 'alice'",
     logoutput => true,
+    returns => [0, 68],
     require => Exec['create-ldap-admin'],
   }
 
   exec { 'create-ldap-user-bob':
     command => "$ldapadd_cmd $ldap_schema_dir/regular-user-object-bob.ldif",
-    unless => "$ldapsearch_cmd '(cn=bob)' | grep 'bob'",
     logoutput => true,
+    returns => [0, 68],
     require => Exec['create-ldap-admin'],
   }
 }

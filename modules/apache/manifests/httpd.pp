@@ -16,7 +16,7 @@ class apache::httpd {
     group => 'apache',
   }
 
-  package { 'httpd':
+  package { ['httpd', 'mod_ssl']:
     ensure => present,
     require => User['apache'],
   }

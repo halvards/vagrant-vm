@@ -1,11 +1,23 @@
-require 'lib/vagrantfile_helper'
-
 Vagrant::Config.run do |config|
-  include VagrantfileHelper
+  vm_type = 'ibmwas'
 
-  set_defaults(config, 'centos64', 'ibmwas')
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = 'centos60_64'
 
-  # Forward a port from the guest to the host
-  # config.vm.forward_port "http", 80, 8080
+  # The url from where the 'config.vm.box' box will be fetched.
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos60_64-20110901.box'
+
+  # Assign this VM a unique hostname
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"
+
+  # Forward a port from the guest to the host (id, guest port, host port)
+  #config.vm.forward_port 'http', 80, 8080
+
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  config.vm.provision :puppet do |puppet|
+    puppet.manifest_file = "#{vm_type}-centos64.pp"
+    puppet.module_path = '../modules'
+  end
 end
 
