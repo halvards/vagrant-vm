@@ -2,10 +2,11 @@ Vagrant::Config.run do |config|
   vm_type = 'webdav'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'centos60_64'
+  #config.vm.box = 'centos60_64'
+  config.vm.box = 'centos56_64'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/38777387/centos60_64-20110901.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos56_64-vagrantpw.box'
 
   # Assign this VM a unique hostname
   config.vm.host_name = "ldap.example.com"
@@ -20,5 +21,8 @@ Vagrant::Config.run do |config|
     puppet.manifest_file = "#{vm_type}-centos64.pp"
     puppet.module_path = '../modules'
   end
+
+  # Share a folder to the VM (id, guest path, host path)
+  config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
 end
 

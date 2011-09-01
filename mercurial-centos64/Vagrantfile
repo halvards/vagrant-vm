@@ -19,5 +19,8 @@ Vagrant::Config.run do |config|
     puppet.manifest_file = "#{vm_type}-centos64.pp"
     puppet.module_path = '../modules'
   end
+
+  # Share a folder to the VM (id, guest path, host path)
+  config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
 end
 
