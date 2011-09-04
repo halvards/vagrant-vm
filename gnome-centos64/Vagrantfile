@@ -2,7 +2,7 @@ Vagrant::Config.run do |config|
   vm_type = 'gnome'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'centos60_64'
+  config.vm.box = 'centos60_64-gnome'
 
   # The url from where the 'config.vm.box' box will be fetched.
   config.vm.box_url = 'http://dl.dropbox.com/u/38777387/centos60_64-gnome.box'
