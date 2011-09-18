@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
   config.vm.box = 'centos60_64-gnome'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/38777387/centos60_64-gnome.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos60_64-gnome-20110819.box'
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   config.vm.boot_mode = :gui
@@ -14,7 +14,7 @@ Vagrant::Config.run do |config|
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"
 
   # Forward a port from the guest to the host (id, guest port, host port)
-  #config.vm.forward_port 'http', 80, 8080
+  #config.vm.forward_port 'http', 80, 8080, :auto => true
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.

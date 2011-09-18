@@ -11,8 +11,8 @@ Vagrant::Config.run do |config|
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.lucid64.vagrant.local"
 
   # Forward a port from the guest to the host (id, guest port, host port)
-  config.vm.forward_port "go_http", 8153, 8153
-  config.vm.forward_port "go_https", 8154, 8154
+  config.vm.forward_port "go_http", 8153, 8153, :auto => true
+  config.vm.forward_port "go_https", 8154, 8154, :auto => true
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
