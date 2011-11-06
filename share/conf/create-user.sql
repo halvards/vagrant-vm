@@ -1,0 +1,4 @@
+CREATE USER dev IDENTIFIED BY dev ;
+GRANT "DBA" TO dev ;
+ALTER USER dev DEFAULT ROLE "DBA";
+exit;

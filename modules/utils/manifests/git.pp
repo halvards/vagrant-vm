@@ -1,11 +1,8 @@
 class utils::git {
   case $operatingsystem {
     'CentOS': {
-      include yumrepos::rpmforge
-
       package { 'git':
         ensure => present,
-        require => Package['rpmforge-release'],
       }
     }
     'Ubuntu': {

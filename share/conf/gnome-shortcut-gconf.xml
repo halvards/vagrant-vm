@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="begin_move" mtime="1320132309" type="string">
+		<stringvalue>&lt;Alt&gt;F11</stringvalue>
+	</entry>
+</gconf>

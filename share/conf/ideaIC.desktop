@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/opt/ideaIC/bin/idea.sh
+Name=IntelliJ IDEA Community
+Comment=JetBrains Java IDE - Free Community Edition
+Icon=/opt/ideaIC/bin/idea48.png
+

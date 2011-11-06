@@ -17,7 +17,7 @@ Vagrant::Config.run do |config|
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   config.vm.provision :puppet do |puppet|
-    puppet.manifest_file = "#{vm_type}-centos64.pp"
+    puppet.manifest_file = "#{vm_type}-ubuntu64.pp"
     puppet.module_path = '../modules'
   end
 

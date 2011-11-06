@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# ensure VirtualBox 4.x is installed
+# ensure VirtualBox 4.1.x is installed
 which VirtualBox > /dev/null || (echo 'Install VirtualBox and Extention Pack from http://www.virtualbox.org/wiki/Downloads' && exit 1)
-VirtualBox --help | grep 'VirtualBox Manager 4\.' > /dev/null || (echo 'You must upgrade to VirtualBox 4.x. Download from http://www.virtualbox.org/wiki/Downloads' && exit 2)
+VirtualBox --help | grep 'VirtualBox Manager 4\.1' > /dev/null || (echo 'You must upgrade to VirtualBox 4.1.x. Download from http://www.virtualbox.org/wiki/Downloads' && exit 2)
 
 # ensure RVM is installed
 if [ ! -d "$HOME/.rvm" ]; then
@@ -15,7 +15,7 @@ rvm rvmrc trust . > /dev/null
 source .rvmrc > /dev/null
 
 # install gems using bundler
-which bundle | grep rvm >/dev/null || gem install bundler --version 1.0.18 --no-rdoc --no-ri
+which bundle | grep rvm > /dev/null || gem install bundler --version 1.0.21 --no-rdoc --no-ri
 bundle check > /dev/null || bundle install
 
 # run build task

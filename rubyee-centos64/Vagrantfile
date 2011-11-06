@@ -2,10 +2,12 @@ Vagrant::Config.run do |config|
   vm_type = 'rubyee'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'centos57_64'
+  config.vm.box = 'centos60_64'
+  #config.vm.box = 'centos57_64'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos57_64-nochef-20110916.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos60_64-nochef-20110920.box'
+  #config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos57_64-nochef-20110916.box'
 
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"

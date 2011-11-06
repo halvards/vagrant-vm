@@ -1,3 +1,4 @@
+# Do not use together with EPEL
 class yumrepos::rpmforge {
   package { 'rpmforge-release':
     provider => rpm,
