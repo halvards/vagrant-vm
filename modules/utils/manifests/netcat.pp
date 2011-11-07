@@ -1,6 +1,15 @@
 class utils::netcat {
-  package { 'nc':
-    ensure => present,
+  case $operatingsystem {
+    'CentOS': {
+      package { 'nc':
+        ensure => present,
+      }
+    }
+    'Ubuntu': {
+      package { 'netcat':
+        ensure => present,
+      }
+    }
   }
 }
 

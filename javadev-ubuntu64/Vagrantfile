@@ -2,10 +2,10 @@ Vagrant::Config.run do |config|
   vm_type = 'javadev'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'centos60_64-gnome'
+  config.vm.box = 'lucid64'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos60_64-gnome-20110819.box'
+  config.vm.box_url = 'http://files.vagrantup.com/lucid64.box'
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   config.vm.boot_mode = :gui
@@ -33,7 +33,20 @@ Vagrant::Config.run do |config|
     vm.memory_size = 2048
     vm.cpu_count = 4
     vm.vram_size = 16
-    vm.accelerated_2d_video_enabled = true
+    vm.accelerate_2d_video_enabled = true
+  end
+
+  # Create user-specific .gitconfig file
+  gitconfig_file = File.expand_path(File.join(File.dirname(__FILE__), '../share/apps/gitconfig'))
+  gitconfig_template = File.expand_path(File.join(File.dirname(__FILE__), '../share/conf/gitconfig.erb'))
+  if !File.exists?(gitconfig_file)
+    puts 'Enter your full name:'
+    full_name = STDIN.gets.chomp
+    puts 'Enter your email address:'
+    email = STDIN.gets.chomp
+    File.open(gitconfig_file, 'w') do |file|
+      file.write(ERB.new(File.read(gitconfig_template)).result(binding))
+    end
   end
 end
 

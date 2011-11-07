@@ -1,6 +1,16 @@
 class avahi::disable {
-  package { 'avahi':
-    ensure => present,
+  case $operatingsystem {
+    'CentOS': {
+      package { 'avahi':
+        ensure => present,
+      }
+    }
+    'Ubuntu': {
+      package { 'avahi':
+        ensure => present,
+        name => 'avahi-daemon',
+      }
+    }
   }
 
   service { 'avahi-daemon':

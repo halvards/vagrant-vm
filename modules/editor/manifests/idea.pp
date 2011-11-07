@@ -82,7 +82,7 @@ class editor::idea($idea_edition) {
     require => File["$idea_config_dir/config"],
   }
 
-  # Disable IntelliJ IDEA plugins not needed for Service Portal development
+  # Disable IntelliJ IDEA plugins not needed
   file { "$idea_config_dir/config/disabled_plugins.txt":
     ensure => present,
     mode => 664,
@@ -90,18 +90,6 @@ class editor::idea($idea_edition) {
     group => 'vagrant',
     source => '/vagrant-share/conf/disabled_plugins.txt',
     require => File["$idea_config_dir/config"],
-  }
-
-  # Install the Ruby plugin for IntelliJ IDEA
-  wget::fetch { "idea-ruby-plugin":
-    source => 'http://download-ln.jetbrains.com/ruby/ruby-3.2.4.zip',
-    destination => '/vagrant-share/apps/ruby-3.2.4.zip',
-  }
-
-  exec { "extract-idea-ruby-plugin":
-    command => "/usr/bin/unzip /vagrant-share/apps/ruby-3.2.4.zip -d ${idea_config_dir}/config/plugins",
-    creates => "$idea_config_dir/config/plugins/ruby",
-    require => Wget::Fetch["idea-ruby-plugin"],
   }
 
   file { '/home/vagrant/.gconf':
