@@ -3,8 +3,8 @@ class editor::idea-ruby-plugin($idea_edition) {
 
   $idea_ruby_plugin_version = '3.2.4'
   $idea_config_dir = $idea_edition ? {
-    'IC' => '/home/vagrant/.IdeaIC10',
-    'IU' => '/home/vagrant/.IntelliJIdea10',
+    'IC' => '/home/vagrant/.IdeaIC11',
+    'IU' => '/home/vagrant/.IntelliJIdea11',
   }
 
   wget::fetch { "idea-ruby-plugin":

@@ -2,10 +2,10 @@ Vagrant::Config.run do |config|
   vm_type = 'javadev'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'lucid64'
+  config.vm.box = 'oneiric64-unity'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://files.vagrantup.com/lucid64.box'
+  #config.vm.box_url = 'http://files.vagrantup.com/lucid64.box'
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   config.vm.boot_mode = :gui
@@ -15,7 +15,7 @@ Vagrant::Config.run do |config|
 
   # Forward a port from the guest to the host (id, guest port, host port)
   config.vm.forward_port 'http', 8080, 8080, :auto => true
-  config.vm.forward_port 'jmx',  8081, 8081, :auto => true
+  #config.vm.forward_port 'jmx',  8081, 8081, :auto => true
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
@@ -30,7 +30,7 @@ Vagrant::Config.run do |config|
 
   # Set memory allocated to the VM in MB
   config.vm.customize do |vm|
-    vm.memory_size = 2048
+    vm.memory_size = 3072
     vm.cpu_count = 4
     vm.vram_size = 16
     vm.accelerate_2d_video_enabled = true

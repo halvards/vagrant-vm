@@ -1,17 +1,16 @@
 include avahi::disable
-include debrepos::exclude_recommended
 include debrepos::partner
-#include editor::idea-ultimate
-#include editor::janus
+include editor::idea-ultimate
+include editor::janus
 include fix::lucid
-#include gnome::desktop
-#include google::chrome
+include google::chrome
 include iptables::disable
-include java::sunjdk
+include java::openjdk7
+include rvm::system_install
 include timezone::sydney
 include utils::base
 include utils::gitconfig
 include utils::netcat
-#include viewer::evince
+include viewer::evince
 include xwindows::hideerrors
 

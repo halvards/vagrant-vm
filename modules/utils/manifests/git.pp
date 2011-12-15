@@ -1,14 +1,16 @@
 class utils::git {
-  case $operatingsystem {
-    'CentOS': {
-      package { 'git':
-        ensure => present,
+  if ! defined(Package['git']) {
+    case $operatingsystem {
+      'CentOS': {
+        package { 'git':
+          ensure => present,
+        }
       }
-    }
-    'Ubuntu': {
-      package { 'git':
-        ensure => present,
-        name => 'git-core',
+      'Ubuntu': {
+        package { 'git':
+          ensure => present,
+          name => 'git-core',
+        }
       }
     }
   }

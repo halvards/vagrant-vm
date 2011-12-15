@@ -1,4 +1,4 @@
-class java::sunjdk {
+class java::sunjdk6 {
   case $operatingsystem {
     'CentOS': {
       include yumrepos::vagrantvms
@@ -16,7 +16,7 @@ class java::sunjdk {
     'Ubuntu': {
       include debrepos::partner
 
-      package { 'sun-java6-jdk':
+      package { ['sun-java6-jdk', 'sun-java6-fonts', 'visualvm', 'java-common']:
         ensure => present,
         responsefile => '/vagrant-share/repos/ubuntu-sun-java-license.seeds',
         require => Exec['update-apt'],

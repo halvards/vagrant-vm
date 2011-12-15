@@ -18,6 +18,9 @@ configs.each do |os_type, vm_types|
           vagrant_env.cli("up")
         end
 
+        desc "Start #{vm_name} and SSH in"
+        task :start => [:up, :ssh]
+
         desc "Destroy and recreate #{vm_name} from base box"
         task :recreate => [:destroy, :up]
 

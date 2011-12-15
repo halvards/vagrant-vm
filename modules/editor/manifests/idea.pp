@@ -2,12 +2,12 @@ class editor::idea($idea_edition) {
   include vagrant::user
 
   $idea_name = "idea$idea_edition"
-  $idea_version = '10.5.2'
-  $idea_build = '107.587'
+  $idea_version = '11'
+  $idea_build = '111.69'
   $idea_tarball_name = "${idea_name}-${idea_version}.tar.gz"
   $idea_config_dir = $idea_edition ? {
-    'IC' => '/home/vagrant/.IdeaIC10',
-    'IU' => '/home/vagrant/.IntelliJIdea10',
+    'IC' => '/home/vagrant/.IdeaIC11',
+    'IU' => '/home/vagrant/.IntelliJIdea11',
   }
 
   wget::fetch { "$idea_name":
@@ -132,6 +132,14 @@ class editor::idea($idea_edition) {
     group => 'vagrant',
     source => '/vagrant-share/conf/gnome-shortcut-gconf.xml',
     require => File['/home/vagrant/.gconf/apps/metacity/window_keybindings'],
+  }
+
+  case $operatingsystem {
+    'Ubuntu': {
+      package { 'gtk2-engines-pixbuf':
+        ensure => present,
+      }
+    }
   }
 }
 
