@@ -1,24 +1,21 @@
 class apache::httpd {
+  package { ['httpd', 'mod_ssl']:
+    ensure => present,
+  }
+
   group { 'apache':
     ensure  => present,
+    require => Package['httpd'],
   }
 
   user { 'apache':
-    comment => 'Apache httpd server user',
-    gid => 'apache',
-    home => '/var/www',
-    managehome => true,
-    shell => '/bin/false',
+    ensure => present,
     require => Group['apache'],
   }
 
   vagrant::group { 'vagrant-apache':
     group => 'apache',
-  }
-
-  package { ['httpd', 'mod_ssl']:
-    ensure => present,
-    require => User['apache'],
+    require => Group['apache'],
   }
 
   service { 'httpd':
@@ -26,6 +23,14 @@ class apache::httpd {
     ensure => running,
     hasstatus => true,
     hasrestart => true,
+    require => Package['httpd'],
+  }
+
+  file { '/var/log/httpd':
+    ensure => directory,
+    owner => 'root',
+    group => 'root',
+    mode => 0755,
     require => Package['httpd'],
   }
 }

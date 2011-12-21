@@ -17,7 +17,9 @@ define debrepos::pparepo($apt_key = "", $dist = $ppa_default_name, $ensure = pre
       }
       File["$file"] { ensure => file }
       if ( $apt_key ) {
+        if ! defined(Debrepos::Aptkey["$apt_key"]) {
           debrepos::aptkey { "$apt_key": }
+        }
       }
     }
     absent:  {
