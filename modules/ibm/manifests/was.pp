@@ -12,7 +12,7 @@ class ibm::was {
     creates => $ibm_was_home,
     timeout => 1800, # seconds
     logoutput => true,
-    require => [Exec['install-ibm-wid', 'extract-ibm-was-installer'], Class['Ibm::Was-prereqs']],
+    require => [Exec['install-ibm-wid'], Class['Ibm::Was-prereqs']],
   }
 
   exec { 'import-ibm-was':

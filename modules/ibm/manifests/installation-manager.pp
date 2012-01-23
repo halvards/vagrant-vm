@@ -23,12 +23,6 @@ class ibm::installation-manager {
     unless  => "/bin/ls /tmp/ibmim/already_installed | /bin/grep already_installed",
     require => [Exec['extract-ibm-im-installer'], Class['Ibm::Im-prereqs', 'Iptables::Disable', 'Selinux::Disable']],
   }
-
-  exec { 'delete-ibm-im-installer':
-    command => '/bin/rm -rf /tmp/ibmim/* && /bin/touch /tmp/ibmim/already_installed',
-    onlyif  => '/bin/ls /tmp/ibmim/ | /bin/grep install',
-    require => Exec['install-ibm-im'],
-  }
 }
 
 class ibm::im-prereqs {
