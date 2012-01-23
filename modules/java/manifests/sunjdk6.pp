@@ -5,7 +5,7 @@ class java::sunjdk6 {
 
       package { 'java-1.6.0-sun':
         ensure => present,
-        require => Yumrepo['nbnco'],
+        require => Yumrepo['vagrantvms'],
       }
 
       package { 'java-1.6.0-sun-devel':

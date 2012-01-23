@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent-input>
+  <server>
+    <repository location='/vagrant-share/apps/ibmrepos/WTE_Disk/repository' />
+    <repository location='http://public.dhe.ibm.com/software/websphere/repositories/' />
+  </server>
+  <profile installLocation='/opt/IBM/WID7_WTE/runtimes/bi_v7' id='IBM WebSphere Application Server - ND'>
+    <data key='eclipseLocation' value='/opt/IBM/WID7_WTE/runtimes/bi_v7' />
+    <data key="cic.selector.nl" value="en" />
+    <data key="user.cic.imported,com.ibm.websphere.ND.70" value="WAS" />
+  </profile>
+  <import profile="IBM WebSphere Application Server - ND" type="WAS" />
+  <preference value="30" name="com.ibm.cic.common.core.preferences.connectTimeout" />
+  <preference value="45" name="com.ibm.cic.common.core.preferences.readTimeout" />
+  <preference value="0" name="com.ibm.cic.common.core.preferences.downloadAutoRetryCount" />
+  <preference value="true" name="offering.service.repositories.areUsed" />
+  <preference value="false" name="com.ibm.cic.common.core.preferences.ssl.nonsecureMode" />
+  <preference value="false" name="com.ibm.cic.common.core.preferences.http.disablePreemptiveAuthentication" />
+  <preference value="true" name="com.ibm.cic.common.core.preferences.preserveDownloadedArtifacts" />
+  <preference value="false" name="PassportAdvantageIsEnabled" />
+  <preference value="true" name="com.ibm.cic.common.core.preferences.searchForUpdates" />
+  <preference value="true" name="com.ibm.cic.common.core.preferences.import.enabled" />
+</agent-input>
