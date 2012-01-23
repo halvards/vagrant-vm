@@ -9,8 +9,8 @@ configs.each do |os_type, vm_types|
       namespace vm_type do
         vm_name = "#{vm_type.to_s}-#{os_type.to_s}64"
         vm_directory = File.join(File.expand_path(File.dirname(__FILE__)), vm_name)
-        vagrant_env = Vagrant::Environment.new(:cwd => vm_directory)
-        vagrant_env.ui = Vagrant::UI::Shell.new(vagrant_env, Thor::Base.shell.new)
+        vagrant_env = Vagrant::Environment.new({:cwd => vm_directory,
+                                                :ui_class => Vagrant::UI::Colored})
 
         desc "Start #{vm_name} (Creates the VM on first run)"
         task :up, :host do |task, args|

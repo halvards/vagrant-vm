@@ -11,8 +11,8 @@ Vagrant::Config.run do |config|
   config.vm.host_name = "ldap.example.com"
 
   # Forward a port from the guest to the host (id, guest port, host port)
-  config.vm.forward_port "http", 80, 9081, :auto => true
-  config.vm.forward_port "https", 443, 9082, :auto => true
+  config.vm.forward_port 80, 9081, :auto => true # Apache httpd
+  config.vm.forward_port 443, 9082, :auto => true # Apache httpd SSL
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.

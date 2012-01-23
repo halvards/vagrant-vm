@@ -11,7 +11,7 @@ Vagrant::Config.run do |config|
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"
 
   # Forward a port from the guest to the host (id, guest port, host port)
-  config.vm.forward_port "mqseries_listener", 1414, 1414, :auto => true
+  config.vm.forward_port 1414, 1414, :auto => true # MQSeries listener default port
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
