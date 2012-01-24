@@ -3,15 +3,17 @@ class ibm::wid {
   include ibm::wid-prereqs
   include ibm::installation-manager
 
+  $ibm_location = '/home/vagrant/IBM'
   $ibm_wid_package = 'com.ibm.websphere.integration.developer.v7'
   $ibm_wid_repo = '/vagrant-share/apps/ibmrepos/wid,http://public.dhe.ibm.com/software/websphere/repositories/'
 
   exec { 'install-ibm-wid':
-    command => "/opt/IBM/InstallationManager/eclipse/tools/imcl install $ibm_wid_package -repositories $ibm_wid_repo -acceptLicense -showProgress -installFixes recommended",
-    creates => '/opt/IBM/WID7',
-    timeout => 600, #seconds
+    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl install $ibm_wid_package -repositories $ibm_wid_repo -acceptLicense -showProgress -installFixes recommended",
+    user      => 'vagrant',
+    creates   => "${ibm_location}/WID7",
+    timeout   => 600, #seconds
     logoutput => true,
-    require => [Exec['install-ibm-im'], Class['Ibm::Wid-prereqs']],
+    require   => [Exec['install-ibm-im'], Class['Ibm::Wid-prereqs']],
   }
 }
 
@@ -56,3 +58,4 @@ class ibm::wid-prereqs {
   #if ! defined(Package['compat-db.i686'])             { package { 'compat-db.i686':             ensure => present } }
   #if ! defined(Package['ksh'])                        { package { 'ksh':                        ensure => present } }
 }
+

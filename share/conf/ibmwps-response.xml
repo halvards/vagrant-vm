@@ -3,8 +3,10 @@
   <server>
     <repository location='/vagrant-share/apps/ibmrepos/wps'/>
   </server>
-  <profile id='IBM WebSphere Application Server - ND' installLocation='/opt/IBM/WID7_WTE/runtimes/bi_v7'>
-    <data key='eclipseLocation' value='/opt/IBM/WID7_WTE/runtimes/bi_v7'/>
+  <!--<profile id='IBM WebSphere Application Server - ND' installLocation='/opt/IBM/WID7_WTE/runtimes/bi_v7'>-->
+  <profile id='IBM WebSphere Application Server - ND' installLocation='/home/vagrant/IBM/WID7_WTE/runtimes/bi_v7'>
+    <!--<data key='eclipseLocation' value='/opt/IBM/WID7_WTE/runtimes/bi_v7'/>-->
+    <data key='eclipseLocation' value='/home/vagrant/IBM/WID7_WTE/runtimes/bi_v7'/>
     <data key='cic.selector.nl' value='en'/>
     <data key='user.cic.imported,com.ibm.websphere.ND.v70' value='WAS'/>
     <data key='user.bpm.admin.username' value='admin'/>

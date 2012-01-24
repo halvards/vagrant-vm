@@ -3,23 +3,28 @@ class ibm::installation-manager {
   include iptables::disable
   include selinux::disable
   include utils::base
+  include vagrant::user
 
-  $ibmim_location = '/vagrant-share/apps/IBMIM_linux_x86.zip'
+  $ibm_im_zip_location = '/vagrant-share/apps/IBMIM_linux_x86.zip'
+  $ibm_im_location = '/home/vagrant/IBM/InstallationManager'
 
   wget::fetch { 'ibm-im':
     source => 'http://public.dhe.ibm.com/software/rationalsdp/v7/im/151/zips/agent.installer.linux.gtk.x86_1.5.1000.20111128_0824.zip',
-    destination => $ibmim_location,
+    destination => $ibm_im_zip_location,
   }
 
   exec { 'extract-ibm-im-installer':
-    command => "/usr/bin/unzip $ibmim_location -d /tmp/ibmim/",
-    creates => '/tmp/ibmim/install',
+    command => "/usr/bin/unzip $ibm_im_zip_location -d /tmp/ibmim/",
+    user    => 'vagrant',
+    creates => '/tmp/ibmim/userinstc',
+    unless  => "/bin/ls /tmp/ibmim/already_installed | /bin/grep already_installed",
     require => [Wget::Fetch['ibm-im'], Package['unzip']],
   }
 
   exec { 'install-ibm-im':
-    command => '/tmp/ibmim/installc -acceptLicense',
-    creates => '/opt/IBM/InstallationManager',
+    command => '/tmp/ibmim/userinstc -acceptLicense',
+    user    => 'vagrant',
+    creates => $ibm_im_location,
     unless  => "/bin/ls /tmp/ibmim/already_installed | /bin/grep already_installed",
     require => [Exec['extract-ibm-im-installer'], Class['Ibm::Im-prereqs', 'Iptables::Disable', 'Selinux::Disable']],
   }
@@ -27,7 +32,6 @@ class ibm::installation-manager {
 
 class ibm::im-prereqs {
   include mozilla::firefox
-  include utils::base
 
   # Installation Manager command line (imcl) prerequisites
   if ! defined(Package['compat-libstdc++-33'])        { package { 'compat-libstdc++-33':        ensure => present } }

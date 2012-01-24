@@ -4,8 +4,10 @@
     <repository location='/vagrant-share/apps/ibmrepos/WTE_Disk/repository' />
     <repository location='http://public.dhe.ibm.com/software/websphere/repositories/' />
   </server>
-  <profile installLocation='/opt/IBM/WID7_WTE/runtimes/bi_v7' id='IBM WebSphere Application Server - ND'>
-    <data key='eclipseLocation' value='/opt/IBM/WID7_WTE/runtimes/bi_v7' />
+  <!--<profile installLocation='/opt/IBM/WID7_WTE/runtimes/bi_v7' id='IBM WebSphere Application Server - ND'>-->
+    <profile installLocation='/home/vagrant/IBM/WID7_WTE/runtimes/bi_v7' id='IBM WebSphere Application Server - ND'>
+    <!--<data key='eclipseLocation' value='/opt/IBM/WID7_WTE/runtimes/bi_v7' />-->
+    <data key='eclipseLocation' value='/home/vagrant/IBM/WID7_WTE/runtimes/bi_v7' />
     <data key="cic.selector.nl" value="en" />
     <data key="user.cic.imported,com.ibm.websphere.ND.70" value="WAS" />
   </profile>
