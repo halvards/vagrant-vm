@@ -1,5 +1,5 @@
 Vagrant::Config.run do |config|
-  vm_type = 'gnome'
+  vm_type = 'ibmid'
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = 'centos60_64-gnome'
@@ -13,7 +13,11 @@ Vagrant::Config.run do |config|
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"
 
-  # Enable provisioning with Puppet stand alone
+  # Forward a port from the guest to the host (id, guest port, host port)
+  #config.vm.forward_port 80, 8080, :auto => true
+
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
   config.vm.provision :puppet do |puppet|
     puppet.manifest_file = "#{vm_type}-centos64.pp"
     puppet.module_path = '../modules'
@@ -21,12 +25,9 @@ Vagrant::Config.run do |config|
 
   # Share a folder to the VM (id, guest path, host path)
   config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
-  config.vm.share_folder "source", "/home/vagrant/home", ENV['HOME']
 
   # Set memory allocated to the VM in MB
-  config.vm.customize ['modifyvm', :id, '--memory', '2048']
+  config.vm.customize ['modifyvm', :id, '--memory', '3072']
   config.vm.customize ['modifyvm', :id, '--cpus', '2']
-  config.vm.customize ['modifyvm', :id, '--vram', '16']
-  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'on']
 end
 
