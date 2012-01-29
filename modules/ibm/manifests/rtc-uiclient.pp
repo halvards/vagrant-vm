@@ -1,6 +1,6 @@
 # IBM Rational Jazz Team Concert Source Control GUI Client
 class ibm::rtc-uiclient {
-  include ibm::installation-manager
+  include ibm::im-user
 
   $ibm_location = '/home/vagrant/IBM'
   $ibm_rtcclient_package = 'com.ibm.team.install.rtc.client.eclipse'

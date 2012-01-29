@@ -1,7 +1,7 @@
 # IBM WebSphere Integration Developer
 class ibm::wid {
   include ibm::wid-prereqs
-  include ibm::installation-manager
+  include ibm::im-user
 
   $ibm_location = '/home/vagrant/IBM'
   $ibm_wid_package = 'com.ibm.websphere.integration.developer.v7'
