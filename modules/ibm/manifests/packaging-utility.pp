@@ -4,6 +4,7 @@ class ibm::packaging-utility {
   include vagrant::user
 
   $ibm_pu_zip_location = '/vagrant-share/apps/IBMPU_linux_x86.zip'
+  $ibm_pu_unzip_location = '/vagrant-share/apps/ibmrepos/pu'
   $ibm_pu_location = '/home/vagrant/IBM/PackagingUtility'
 
   wget::fetch { 'ibm-pu':
@@ -12,18 +13,16 @@ class ibm::packaging-utility {
   }
 
   exec { 'extract-ibm-pu-installer':
-    command => "/usr/bin/unzip $ibm_pu_zip_location -d /tmp/ibmpu/",
+    command => "/usr/bin/unzip $ibm_pu_zip_location -d $ibm_pu_unzip_location",
     user    => 'vagrant',
-    creates => '/tmp/ibmpu/InstallerImage_linux/userinstc',
-    unless  => "/bin/ls /tmp/ibmpu/already_installed | /bin/grep already_installed",
+    creates => "${ibm_pu_unzip_location}/InstallerImage_linux/userinstc",
     require => [Wget::Fetch['ibm-pu'], Package['unzip']],
   }
 
   exec { 'install-ibm-pu':
-    command => '/tmp/ibmpu/InstallerImage_linux/userinstc -acceptLicense',
+    command => "${ibm_pu_unzip_location}/InstallerImage_linux/userinstc -acceptLicense",
     user    => 'vagrant',
     creates => $ibm_pu_location,
-    unless  => "/bin/ls /tmp/ibmpu/already_installed | /bin/grep already_installed",
     require => [Exec['extract-ibm-pu-installer'], Class['Ibm::Pu-prereqs']],
   }
 }
