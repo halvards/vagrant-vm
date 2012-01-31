@@ -27,7 +27,7 @@ class ibm::wid {
 }
 
 class ibm::wid-prereqs {
-  include partition::swap2go
+  include partition::swap2gb
 
   $open_files_config_file = '/etc/security/limits.conf'
 
