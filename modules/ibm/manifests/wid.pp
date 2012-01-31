@@ -4,20 +4,31 @@ class ibm::wid {
   include ibm::im-user
 
   $ibm_location = '/home/vagrant/IBM'
-  $ibm_wid_package = 'com.ibm.websphere.integration.developer.v7'
-  $ibm_wid_repo = '/vagrant-share/apps/ibmrepos/wid,http://public.dhe.ibm.com/software/websphere/repositories/'
 
   exec { 'install-ibm-wid':
-    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl install $ibm_wid_package -repositories $ibm_wid_repo -acceptLicense -showProgress -installFixes recommended",
+    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl -input /vagrant-share/ibmwid-response.xml -acceptLicense -showProgress",
     user      => 'vagrant',
     creates   => "${ibm_location}/WID7",
-    timeout   => 600, #seconds
+    timeout   => 3600, #seconds
     logoutput => true,
     require   => [Exec['install-ibm-im'], Class['Ibm::Wid-prereqs']],
+  }
+
+  # Use response file ibmwps-response.xml for WebSphere Process Server and WebSphere ESB only
+  # Use response file ibmwpsbm-response.xml instead to also install Business Monitor
+  exec { 'install-ibm-wps':
+    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl -input /vagrant-share/ibmwps-response.xml -acceptLicense -showProgress",
+    user      => 'vagrant',
+    creates   => "${ibm_location}/WID7_WTE/runtimes/bi_v7",
+    timeout   => 10800, #seconds
+    logoutput => true,
+    require   => Exec['install-ibm-wid'],
   }
 }
 
 class ibm::wid-prereqs {
+  include partition::swap2go
+
   $open_files_config_file = '/etc/security/limits.conf'
 
   # Increase file handle limit, see page 41 of http://publib.boulder.ibm.com/infocenter/dmndhelp/v7r0mx/topic/com.ibm.wbit.help.inst.doc/wbit_inst_pdf.pdf
