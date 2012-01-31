@@ -6,7 +6,7 @@ class ibm::wid {
   $ibm_location = '/home/vagrant/IBM'
 
   exec { 'install-ibm-wid':
-    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl -input /vagrant-share/ibmwid-response.xml -acceptLicense -showProgress",
+    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl -input /vagrant-share/conf/ibmwid-response.xml -acceptLicense -showProgress",
     user      => 'vagrant',
     creates   => "${ibm_location}/WID7",
     timeout   => 3600, #seconds
@@ -17,7 +17,7 @@ class ibm::wid {
   # Use response file ibmwps-response.xml for WebSphere Process Server and WebSphere ESB only
   # Use response file ibmwpsbm-response.xml instead to also install Business Monitor
   exec { 'install-ibm-wps':
-    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl -input /vagrant-share/ibmwps-response.xml -acceptLicense -showProgress",
+    command   => "${ibm_location}/InstallationManager/eclipse/tools/imcl -input /vagrant-share/conf/ibmwps-response.xml -acceptLicense -showProgress",
     user      => 'vagrant',
     creates   => "${ibm_location}/WID7_WTE/runtimes/bi_v7",
     timeout   => 10800, #seconds
