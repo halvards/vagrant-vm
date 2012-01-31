@@ -1,8 +1,8 @@
 class mqseries::keyman {
   include mqseries::runtime
 
-  if ! defined(Package['libgcc']) { package { 'libgcc': ensure => present, } }
-  if ! defined(Package['libstdc++']) { package { 'libstdc++': ensure => present, } }
+  if ! defined(Package['libgcc'])              { package { 'libgcc':              ensure => present, } }
+  if ! defined(Package['libstdc++'])           { package { 'libstdc++':           ensure => present, } }
   if ! defined(Package['compat-libstdc++-33']) { package { 'compat-libstdc++-33': ensure => present, } }
 
   package { 'gsk7bas':
