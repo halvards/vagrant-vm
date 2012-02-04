@@ -13,7 +13,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-ssh (2.2.2)
     rake (0.9.2.2)
-    vagrant (0.9.2)
+    vagrant (0.9.4)
       archive-tar-minitar (= 0.5.2)
       childprocess (~> 0.3.0)
       erubis (~> 2.7.0)

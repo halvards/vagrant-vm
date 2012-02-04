@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--The "acceptLicense" attribute has been deprecated. Use "-acceptLicense" command line option to accept license agreements.-->
-<agent-input acceptLicense='true'>
-<server>
-<repository location='/vagrant-share/apps/ibmrepos/widrepo'/>
-</server>
-<profile id='IBM WebSphere Integration Developer' installLocation='/home/vagrant/IBM/WID7'>
-<data key='eclipseLocation' value='/home/vagrant/IBM/WID7'/>
-<data key='user.import.profile' value='false'/>
-<data key='cic.selector.os' value='linux'/>
-<data key='cic.selector.ws' value='gtk'/>
-<data key='cic.selector.arch' value='x86'/>
-<data key='cic.selector.nl' value='en'/>
-</profile>
-<install modify='false'>
-<offering id='com.ibm.websphere.integration.developer.v7' version='7.0.0.400_20110706_1731' profile='IBM WebSphere Integration Developer' features='com.ibm.rad.jre,com.ibm.wid,com.ibm.wid.wdpe.exclude,com.ibm.rad.jee5.deploy,com.ibm.rad.was70_devtools,com.ibm.rad.data_tools,com.ibm.rad.tptp,com.ibm.rad.j2c,com.ibm.rad.j2c.websphere.adapters,com.ibm.rad.birt,com.ibm.rad.transform_authoring,com.ibm.rad.pde,com.ibm.wid.adapters.file,com.ibm.wid.documentation' installFixes='none'/>
-</install>
-<preference name='com.ibm.cic.common.core.preferences.eclipseCache' value='/home/vagrant/IBM/Shared'/>
-<preference name='com.ibm.cic.common.core.preferences.connectTimeout' value='30'/>
-<preference name='com.ibm.cic.common.core.preferences.readTimeout' value='45'/>
-<preference name='com.ibm.cic.common.core.preferences.downloadAutoRetryCount' value='0'/>
-<preference name='offering.service.repositories.areUsed' value='false'/>
-<preference name='com.ibm.cic.common.core.preferences.ssl.nonsecureMode' value='false'/>
-<preference name='com.ibm.cic.common.core.preferences.http.disablePreemptiveAuthentication' value='false'/>
-<preference name='http.ntlm.auth.kind' value='NTLM'/>
-<preference name='http.ntlm.auth.enableIntegrated.win32' value='true'/>
-<preference name='com.ibm.cic.common.core.preferences.preserveDownloadedArtifacts' value='false'/>
-<preference name='com.ibm.cic.common.core.preferences.keepFetchedFiles' value='false'/>
-<preference name='PassportAdvantageIsEnabled' value='false'/>
-<preference name='com.ibm.cic.common.core.preferences.searchForUpdates' value='false'/>
-<preference name='com.ibm.cic.common.core.preferences.import.enabled' value='true'/>
-<preference name='com.ibm.cic.agent.ui.displayInternalVersion' value='false'/>
-<preference name='com.ibm.cic.common.sharedUI.showErrorLog' value='true'/>
-<preference name='com.ibm.cic.common.sharedUI.showWarningLog' value='true'/>
-<preference name='com.ibm.cic.common.sharedUI.showNoteLog' value='true'/>
+<agent-input>
+    <server>
+        <repository location='/vagrant-share/apps/ibmrepos/widrepo'/>
+    </server>
+    <profile id='IBM WebSphere Integration Developer' installLocation='/home/vagrant/IBM/WID7'>
+        <data key='eclipseLocation' value='/home/vagrant/IBM/WID7'/>
+        <data key='user.import.profile' value='false'/>
+        <data key='cic.selector.os' value='linux'/>
+        <data key='cic.selector.ws' value='gtk'/>
+        <data key='cic.selector.arch' value='x86'/>
+        <data key='cic.selector.nl' value='en'/>
+    </profile>
+    <install modify='false'>
+        <offering id='com.ibm.websphere.integration.developer.v7' version='7.0.0.401_20110928_1750' profile='IBM WebSphere Integration Developer' features='com.ibm.rad.jre,com.ibm.wid,com.ibm.wid.wdpe.exclude,com.ibm.rad.jee5.deploy,com.ibm.rad.was70_devtools,com.ibm.rad.data_tools,com.ibm.rad.tptp,com.ibm.rad.j2c,com.ibm.rad.j2c.websphere.adapters,com.ibm.rad.birt,com.ibm.rad.transform_authoring,com.ibm.rad.pde,com.ibm.wid.adapters.file,com.ibm.wid.documentation' installFixes='none'/>
+        <!--<offering id='com.ibm.websphere.integration.developer.v7' version='7.0.0.400_20110706_1731' profile='IBM WebSphere Integration Developer' features='com.ibm.rad.jre,com.ibm.wid,com.ibm.wid.wdpe.exclude,com.ibm.rad.jee5.deploy,com.ibm.rad.was70_devtools,com.ibm.rad.data_tools,com.ibm.rad.tptp,com.ibm.rad.j2c,com.ibm.rad.j2c.websphere.adapters,com.ibm.rad.birt,com.ibm.rad.transform_authoring,com.ibm.rad.pde,com.ibm.wid.adapters.file,com.ibm.wid.documentation' installFixes='none'/>-->
+    </install>
+    <preference name='com.ibm.cic.common.core.preferences.eclipseCache' value='/home/vagrant/IBM/Shared'/>
+    <preference name='com.ibm.cic.common.core.preferences.connectTimeout' value='30'/>
+    <preference name='com.ibm.cic.common.core.preferences.readTimeout' value='45'/>
+    <preference name='com.ibm.cic.common.core.preferences.downloadAutoRetryCount' value='0'/>
+    <preference name='offering.service.repositories.areUsed' value='false'/>
+    <preference name='com.ibm.cic.common.core.preferences.ssl.nonsecureMode' value='false'/>
+    <preference name='com.ibm.cic.common.core.preferences.http.disablePreemptiveAuthentication' value='false'/>
+    <preference name='com.ibm.cic.common.core.preferences.preserveDownloadedArtifacts' value='false'/>
+    <preference name='com.ibm.cic.common.core.preferences.keepFetchedFiles' value='false'/>
+    <preference name='PassportAdvantageIsEnabled' value='false'/>
+    <preference name='com.ibm.cic.common.core.preferences.searchForUpdates' value='false'/>
+    <preference name='com.ibm.cic.common.core.preferences.import.enabled' value='true'/>
+    <preference name='com.ibm.cic.agent.ui.displayInternalVersion' value='false'/>
+    <preference name='com.ibm.cic.common.sharedUI.showErrorLog' value='true'/>
+    <preference name='com.ibm.cic.common.sharedUI.showWarningLog' value='true'/>
+    <preference name='com.ibm.cic.common.sharedUI.showNoteLog' value='true'/>
 </agent-input>
+
