@@ -3,7 +3,6 @@ require 'vagrant'
 configs = {:centos => [
                        :gnome,
                        :go,
-                       :ibmid,
                        :ibmwas,
                        :ibmwid,
                        :ibmrtc,
