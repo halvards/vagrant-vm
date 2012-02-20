@@ -20,9 +20,9 @@ class oracle::xe {
 
   package { 'oracle-xe':
     ensure => present,
-    require => [Yumrepo['vagrantvms'], Line::Commentout['commentout-net_bridge_bridge-nf-call-ip6tables',
-                                                        'commentout-net_bridge_bridge-nf-call-iptables',
-                                                        'commentout-net_bridge_bridge-nf-call-arptables']],
+    require => [Yumrepo['vagrantvms-common'], Line::Commentout['commentout-net_bridge_bridge-nf-call-ip6tables',
+                                                               'commentout-net_bridge_bridge-nf-call-iptables',
+                                                               'commentout-net_bridge_bridge-nf-call-arptables']],
   }
 
   exec { 'setup-oracle-xe':

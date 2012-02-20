@@ -8,7 +8,7 @@ class mqseries::runtime {
 
   package { 'MQSeriesRuntime':
     ensure => present,
-    require => [File['/tmp/mq_license/license/status.dat'], Vagrant::Group['vagrant-mqm'], Package['glibc.i686', 'libXp.x86_64'], Yumrepo['vagrantvms']],
+    require => [File['/tmp/mq_license/license/status.dat'], Vagrant::Group['vagrant-mqm'], Package['glibc.i686', 'libXp.x86_64'], Yumrepo['vagrantvms-common']],
   }
 
   package { 'MQSeriesMan':

@@ -3,7 +3,7 @@ class oracle::sqldeveloper {
 
   package { 'sqldeveloper':
     ensure => present,
-    require => Yumrepo['vagrantvms'],
+    require => Yumrepo['vagrantvms-common'],
   }
 }
 

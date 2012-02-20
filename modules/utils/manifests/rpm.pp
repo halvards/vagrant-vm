@@ -1,7 +1,7 @@
 class utils::rpm {
   include yumrepos::epel
 
-  package { 'rpm-build':
+  package { ['rpm-build', 'createrepo']:
     ensure => present,
   }
 
