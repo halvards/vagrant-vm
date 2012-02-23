@@ -6,6 +6,7 @@ configs = {:centos => [
                        :ibmwas,
                        :ibmwid,
                        :ibmrtc,
+                       :mcollective,
                        :mercurial,
                        :mqseries,
                        :oraclexe,
