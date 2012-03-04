@@ -15,7 +15,7 @@ rvm rvmrc trust . > /dev/null
 source .rvmrc > /dev/null
 
 # install gems using bundler
-which bundle | grep rvm > /dev/null || gem install bundler --version 1.0.21 --no-rdoc --no-ri
+which bundle | grep rvm > /dev/null || gem install bundler --version 1.0.22 --no-rdoc --no-ri
 bundle check > /dev/null || bundle install
 
 # run build task

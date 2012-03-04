@@ -6,13 +6,13 @@ class go::server {
   include utils::base
   include utils::vcs
   include utils::rpm
-  include java::oraclejdk7
+  include java::openjdk6
 
-  $go_version = '2.4.0'
-  $go_build = "${go_version}-14481"
+  $go_version = '12.1'
+  $go_build = "${go_version}.0-15089"
   $go_server_rpm_file = "go-server-$go_build.noarch.rpm"
   $go_server_local_file = "/vagrant-share/apps/$go_server_rpm_file"
-  $go_server_md5_checksum = '8105717cf55c113c4fc9e1ffbdbf9c2d'
+  $go_server_md5_checksum = 'c3d3e09b678552c5f6a42eb5339b65dc'
 
   wget::fetch { 'go-server':
     source => "http://download01.thoughtworks.com/go/$go_version/ga/go-server-$go_build.noarch.rpm",
@@ -30,7 +30,7 @@ class go::server {
     provider => rpm,
     ensure => installed,
     source => "$go_server_local_file",
-    require => [Exec['fix-go-server-rpm'], Package['java-1.6.0-openjdk'], Package['java-1.6.0-openjdk-devel'], Package['unzip']],
+    require => [Exec['fix-go-server-rpm'], Package['java-1.6.0-openjdk-devel'], Package['unzip']],
   }
 
   service { 'go-server':
@@ -46,13 +46,13 @@ class go::agent {
   include utils::base
   include utils::vcs
   include utils::rpm
-  include java::oraclejdk7
+  include java::openjdk6
 
-  $go_version = '2.4.0'
-  $go_build = "${go_version}-14481"
+  $go_version = '12.1'
+  $go_build = "${go_version}.0-15089"
   $go_agent_rpm_file = "go-agent-$go_build.noarch.rpm"
   $go_agent_local_file = "/vagrant-share/apps/$go_agent_rpm_file"
-  $go_agent_md5_checksum = '00f6831e916443b71c5f7df90ed3cb83'
+  $go_agent_md5_checksum = '879ac18d6a51703532c5ae7f5b5cdb64'
 
   wget::fetch { 'go-agent':
     source => "http://download01.thoughtworks.com/go/$go_version/ga/go-agent-$go_build.noarch.rpm",
@@ -70,7 +70,7 @@ class go::agent {
     provider => rpm,
     ensure => present,
     source => "$go_agent_local_file",
-    require => [Exec['fix-go-agent-rpm'], Package['java-1.6.0-openjdk'], Package['java-1.6.0-openjdk-devel'], Package['unzip']],
+    require => [Exec['fix-go-agent-rpm'], Package['java-1.6.0-openjdk-devel'], Package['unzip']],
   }
 
   service { 'go-agent':

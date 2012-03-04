@@ -11,7 +11,7 @@ class yumrepos::vagrantvms {
     baseurl  => $kernelrelease ? {
       /el5/ => 'http://dl.dropbox.com/u/41147122/rpmrepo/5/',
       /el6/ => 'http://dl.dropbox.com/u/41147122/rpmrepo/6/',
-    }
+    },
     enabled  => 1,
     gpgcheck => 0,
   }

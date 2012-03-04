@@ -16,6 +16,7 @@ configs = {:centos => [
                       ],
            :ubuntu => [
                        :go,
+                       :gui,
                        :javadev,
                        :plain,
                       ]

@@ -14,12 +14,11 @@ class java::sunjdk6 {
       }
     }
     'Ubuntu': {
-      include debrepos::partner
+      include debrepos::java
 
-      package { ['sun-java6-jdk', 'sun-java6-fonts', 'visualvm', 'java-common']:
+      package { 'sun-java6-jdk':
         ensure => present,
-        responsefile => '/vagrant-share/repos/ubuntu-sun-java-license.seeds',
-        require => Exec['update-apt'],
+        require => Class['debrepos::java'],
       }
     }
   }

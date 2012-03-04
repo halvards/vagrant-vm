@@ -1,6 +1,6 @@
+include debrepos::java
 include debrepos::partner
+include fix::lucid
 include timezone::sydney
 include utils::base
-include utils::vcs
-include fix::lucid
 
