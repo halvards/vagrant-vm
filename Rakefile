@@ -45,7 +45,7 @@ configs.each do |os_type, vm_types|
 
         desc "Delete the #{vm_name} VM (Recreate with 'up')"
         task :destroy, :host do |task, args|
-          vagrant_env.cli("destroy", args[:host])
+          vagrant_env.cli("destroy", "--force", args[:host])
         end
 
         desc "Shutdown #{vm_name} (avoid, instead ssh to VM and execute 'sudo halt')"
