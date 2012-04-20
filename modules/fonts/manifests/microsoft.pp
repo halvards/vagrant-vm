@@ -3,7 +3,7 @@ class fonts::microsoft {
     command => '/bin/sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"',
   }
 
-  package { 'msttcorefonts':
+  package { 'ttf-mscorefonts-installer':
     ensure  => present,
     require => Exec['accept-msttcorefonts-license'],
   }
