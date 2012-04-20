@@ -1,13 +1,16 @@
-class rvm::user_install($version='1.6.32') {
+class rvm::user_install {
   include rvm::dependencies
 
-  $username = 'vagrant'
-
   exec { 'user-rvm':
-    command => "/usr/bin/sudo -u $username /bin/bash -c '/usr/bin/curl --silent https://rvm.beginrescueend.com/install/rvm --output /tmp/rvm-installer ; /bin/chmod +x /tmp/rvm-installer ; /tmp/rvm-installer --version ${version}'",
-    creates => "/home/$username/.rvm",
+    command   => "/usr/bin/sudo -u vagrant /bin/bash -c '/bin/bash -s stable < <(/usr/bin/curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )'",
+    creates => "/home/vagrant/.rvm",
     logoutput => true,
     require => Class['rvm::dependencies'],
+  }
+
+  line::present { 'load-user-rvm-in-vagrant-user-shell':
+    file => '/home/vagrant/.bashrc',
+    line => '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # loads RVM into the shell session',
   }
 }
 
