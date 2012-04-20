@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+  <!-- Override default keybindings to avoid conflict with IntelliJ IDEA -->
+	<entry name="screensaver" mtime="1334937130" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;l</stringvalue>
+	</entry>
+</gconf>

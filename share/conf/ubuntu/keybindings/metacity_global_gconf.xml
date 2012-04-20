@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<gconf>
+  <!-- Override default keybindings to avoid conflict with IntelliJ IDEA -->
+	<entry name="switch_to_workspace_down" mtime="1334937114" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;Down</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_up" mtime="1334937111" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;Up</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_right" mtime="1334937108" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;Right</stringvalue>
+	</entry>
+	<entry name="cycle_group" mtime="1334937100" type="string">
+		<stringvalue>&lt;Mod4&gt;F6</stringvalue>
+	</entry>
+	<entry name="cycle_panels" mtime="1334937086" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;Escape</stringvalue>
+	</entry>
+	<entry name="run_command_terminal" mtime="1334936993" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;t</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_left" mtime="1334936412" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Mod4&gt;Left</stringvalue>
+	</entry>
+</gconf>

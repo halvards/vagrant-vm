@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<gconf>
+  <!-- Override default keybindings to avoid conflict with IntelliJ IDEA -->
+	<entry name="begin_resize" mtime="1334937159" type="string">
+		<stringvalue>&lt;Mod4&gt;F8</stringvalue>
+	</entry>
+	<entry name="begin_move" mtime="1334937155" type="string">
+		<stringvalue>&lt;Mod4&gt;F7</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_down" mtime="1334937065" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Mod4&gt;Down</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_up" mtime="1334937055" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Mod4&gt;Up</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_right" mtime="1334937048" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Mod4&gt;Right</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_left" mtime="1334937044" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Mod4&gt;Left</stringvalue>
+	</entry>
+</gconf>
