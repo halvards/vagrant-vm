@@ -2,19 +2,19 @@ Vagrant::Config.run do |config|
   vm_type = 'javadev'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'oneiric64-unity'
+  config.vm.box = 'precise64-unity'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  #config.vm.box_url = 'http://files.vagrantup.com/lucid64.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/precise64-unity-20120504.box'
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   config.vm.boot_mode = :gui
 
   # Assign this VM a unique hostname
-  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.precise64.vagrantup.com"
 
   # Forward a port from the guest to the host (id, guest port, host port)
-  config.vm.forward_port 8080, 8080, :auto => true
+  #config.vm.forward_port 8080, 8080, :auto => true
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.

@@ -1,13 +1,14 @@
 include avahi::disable
 include debrepos::partner
+#include editor::idea-community
 include editor::idea-ultimate
 include editor::janus
-include fix::lucid
+#include fix::lucid
 include fonts::microsoft
 include google::chrome
 include iptables::disable
-#include java::oraclejdk7
-include java::sunjdk6
+include java::oraclejdk7
+#include java::sunjdk6
 include rvm::system_install
 include timezone::sydney
 include ubuntu::keybindings
