@@ -1,7 +1,8 @@
 # Install the Ruby plugin for IntelliJ IDEA
 class editor::idea-ruby-plugin($idea_edition) {
 
-  $idea_ruby_plugin_version = '3.2.4'
+  $idea_ruby_plugin_version = '4.0.3.20120406' # requires IntelliJ 11.x or later
+  #$idea_ruby_plugin_version = '3.2.4' # latest version supported by IntelliJ IDEA 10
   $idea_config_dir = $idea_edition ? {
     'IC' => '/home/vagrant/.IdeaIC11',
     'IU' => '/home/vagrant/.IntelliJIdea11',

@@ -2,8 +2,8 @@ class editor::idea($idea_edition) {
   include vagrant::user
 
   $idea_name = "idea$idea_edition"
-  $idea_version = '11'
-  $idea_build = '111.69'
+  $idea_version = '11.1.1'
+  $idea_build = '117.117'
   $idea_tarball_name = "${idea_name}-${idea_version}.tar.gz"
   $idea_config_dir = $idea_edition ? {
     'IC' => '/home/vagrant/.IdeaIC11',
