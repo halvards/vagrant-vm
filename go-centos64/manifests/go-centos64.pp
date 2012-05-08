@@ -8,11 +8,11 @@ class go::server {
   include utils::rpm
   include java::openjdk6
 
-  $go_version = '12.1'
-  $go_build = "${go_version}.0-15089"
+  $go_version = '12.2.1'
+  $go_build = "${go_version}-15143"
   $go_server_rpm_file = "go-server-$go_build.noarch.rpm"
   $go_server_local_file = "/vagrant-share/apps/$go_server_rpm_file"
-  $go_server_md5_checksum = 'c3d3e09b678552c5f6a42eb5339b65dc'
+  $go_server_md5_checksum = '697ecd2ab36a80739ef708587ee3d6bb'
 
   wget::fetch { 'go-server':
     source => "http://download01.thoughtworks.com/go/$go_version/ga/go-server-$go_build.noarch.rpm",
@@ -48,11 +48,11 @@ class go::agent {
   include utils::rpm
   include java::openjdk6
 
-  $go_version = '12.1'
-  $go_build = "${go_version}.0-15089"
+  $go_version = '12.2.1'
+  $go_build = "${go_version}-15143"
   $go_agent_rpm_file = "go-agent-$go_build.noarch.rpm"
   $go_agent_local_file = "/vagrant-share/apps/$go_agent_rpm_file"
-  $go_agent_md5_checksum = '879ac18d6a51703532c5ae7f5b5cdb64'
+  $go_agent_md5_checksum = '64033e3bedb14d1deace4b20815de342'
 
   wget::fetch { 'go-agent':
     source => "http://download01.thoughtworks.com/go/$go_version/ga/go-agent-$go_build.noarch.rpm",
