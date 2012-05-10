@@ -2,10 +2,10 @@ Vagrant::Config.run do |config|
   vm_type = 'ibmwid'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'centos60_64-gnome'
+  config.vm.box = 'centos62_64-gnome'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos60_64-gnome-20110920.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos62_64-gnome-20120313.box'
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   config.vm.boot_mode = :gui
