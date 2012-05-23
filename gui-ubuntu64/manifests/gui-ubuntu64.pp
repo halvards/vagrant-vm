@@ -1,10 +1,5 @@
 include apps::chrome
-include apps::gthumb
 include apps::evince
-include apps::jdownloader
-#include apps::transmission
-include apps::vlc
-include debrepos::extras
 include debrepos::medibuntu
 include debrepos::partner
 include fonts::microsoft
@@ -14,23 +9,4 @@ include ubuntu::fixgroup
 include ubuntu::keybindings
 include utils::base
 include xwindows::hideerrors
-
-include apps::adobeair
-include apps::calibre
-include apps::ciscovpn
-include apps::davmail
-include apps::dropbox
-include apps::firefox
-include apps::gloobus
-include apps::gpicview
-#include apps::hotot
-include apps::kindle
-include apps::pidgin
-include apps::rhythmbox
-include apps::skype
-include apps::thunderbird
-include apps::transmission
-include utils::git
-include utils::mercurial
-include utils::netcat
 
