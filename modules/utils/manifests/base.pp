@@ -7,8 +7,10 @@ class utils::base {
   if ! defined(Package['patch'])     { package { 'patch':     ensure => present } }
   if ! defined(Package['sed'])       { package { 'sed':       ensure => present } }
   if ! defined(Package['tar'])       { package { 'tar':       ensure => present } }
+  if ! defined(Package['unrar'])     { package { 'unrar':     ensure => present } }
   if ! defined(Package['unzip'])     { package { 'unzip':     ensure => present } }
   if ! defined(Package['wget'])      { package { 'wget':      ensure => present } }
+  if ! defined(Package['zip'])       { package { 'zip':       ensure => present } }
 
   case $operatingsystem {
     'CentOS': {

@@ -1,7 +1,7 @@
 # Prerequisites for IBM Installation Manager
 class ibm::im-prereqs {
+  include apps::firefox
   include iptables::disable
-  include mozilla::firefox
   include selinux::disable
   include utils::base
 

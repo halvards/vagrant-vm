@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="minimize" mtime="1337172715" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;0</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_down" mtime="1337172618" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;&lt;Super&gt;Down</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_up" mtime="1337172615" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;&lt;Super&gt;Up</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_right" mtime="1337172613" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;&lt;Super&gt;Right</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_left" mtime="1337172608" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;&lt;Super&gt;Left</stringvalue>
+	</entry>
+	<entry name="begin_resize" mtime="1337169067" type="string">
+		<stringvalue>&lt;Super&gt;F8</stringvalue>
+	</entry>
+	<entry name="begin_move" mtime="1337169064" type="string">
+		<stringvalue>&lt;Super&gt;F7</stringvalue>
+	</entry>
+	<entry name="toggle_maximized" mtime="1337169058" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;5</stringvalue>
+	</entry>
+</gconf>

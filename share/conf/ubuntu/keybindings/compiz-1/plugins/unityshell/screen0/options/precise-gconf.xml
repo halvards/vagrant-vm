@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="launcher_hide_mode" mtime="1337172862" type="int" value="0"/>
+	<entry name="show_hud" mtime="1337172589" type="string">
+		<stringvalue>&lt;Super&gt;l</stringvalue>
+	</entry>
+</gconf>

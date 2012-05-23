@@ -1,5 +1,5 @@
 class tomcat::server {
-  include java::sun_jdk
+  include java::sunjdk6
   include repos::jpackage
 
   group { 'tomcat':

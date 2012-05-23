@@ -1,5 +1,5 @@
 # workaround for bug in lucid64.box
-class fix::lucid {
+class ubuntu::fixgroup {
   group { 'puppet':
     ensure => present,
   }

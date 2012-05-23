@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="screensaver" mtime="1337172731" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;l</stringvalue>
+	</entry>
+</gconf>

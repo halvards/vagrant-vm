@@ -1,7 +1,7 @@
-#include fix::lucid
 include go::agent
 include go::server
 include timezone::sydney
+include ubuntu::fixgroup
 
 class go::server {
   include utils::base

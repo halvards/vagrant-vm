@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="switch_to_workspace_down" mtime="1337172768" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Super&gt;Down</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_up" mtime="1337172765" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Super&gt;Up</stringvalue>
+	</entry>
+	<entry name="panel_main_menu" mtime="1337172739" type="string">
+		<stringvalue>&lt;Super&gt;F1</stringvalue>
+	</entry>
+	<entry name="panel_run_dialog" mtime="1337172737" type="string">
+		<stringvalue>&lt;Super&gt;F2</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_right" mtime="1337172770" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Super&gt;Right</stringvalue>
+	</entry>
+	<entry name="cycle_panels" mtime="1337172655" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;Escape</stringvalue>
+	</entry>
+	<entry name="cycle_group" mtime="1337172630" type="string">
+		<stringvalue>&lt;Super&gt;F6</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_left" mtime="1337172772" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Super&gt;Left</stringvalue>
+	</entry>
+	<entry name="run_command_terminal" mtime="1337168914" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;t</stringvalue>
+	</entry>
+</gconf>

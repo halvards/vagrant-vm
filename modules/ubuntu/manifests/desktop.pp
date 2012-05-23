@@ -1,4 +1,4 @@
-class gnome::desktop {
+class ubuntu::desktop {
   include debrepos::exclude_recommended
 
   package { 'ubuntu-desktop':

@@ -28,7 +28,7 @@ class ibm::packaging-utility {
 }
 
 class ibm::pu-prereqs {
-  include mozilla::firefox
+  include apps::firefox
 
   # Packaging Utility command line (PUCL) prerequisites
   if ! defined(Package['compat-libstdc++-33'])        { package { 'compat-libstdc++-33':        ensure => present } }

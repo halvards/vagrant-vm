@@ -1,4 +1,4 @@
-class viewer::vlc {
+class apps::vlc {
   package { 'vlc':
     ensure => present,
   }
