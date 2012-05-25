@@ -19,6 +19,7 @@ configs = {:centos => [
                        :gui,
                        :javadev,
                        :plain,
+                       :postgres,
                       ]
           }
 
