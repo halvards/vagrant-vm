@@ -1,0 +1,29 @@
+Vagrant::Config.run do |config|
+  vm_type = 'riak'
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = 'precise64'
+
+  # The url from where the 'config.vm.box' box will be fetched.
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/precise64-nochef-20120503.box'
+
+  # Assign this VM a unique hostname
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.precise64.vagrantup.com"
+
+  # Forward a port from the guest to the host (id, guest port, host port)
+  config.vm.forward_port 8087, 8087, :auto => true # Riak Protocol Buffers interface
+  config.vm.forward_port 8091, 8091, :auto => true # Riak HTTP interface
+  config.vm.forward_port 8098, 8098, :auto => true # Riak Solr listener
+  config.vm.forward_port 8099, 8099, :auto => true # Riak Handoff listener
+
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  config.vm.provision :puppet do |puppet|
+    puppet.manifest_file = "#{vm_type}-ubuntu64.pp"
+    puppet.module_path = '../modules'
+  end
+
+  # Share a folder to the VM (id, guest path, host path)
+  config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
+end
+

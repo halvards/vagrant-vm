@@ -20,6 +20,7 @@ configs = {:centos => [
                        :javadev,
                        :plain,
                        :postgres,
+                       :riak,
                       ]
           }
 
