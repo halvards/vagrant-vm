@@ -16,6 +16,8 @@ class debrepos::java {
   exec { 'add-java-apt-repo':
     command => "/bin/echo 'deb http://dl.dropbox.com/u/41147122/debrepo/java/$lsbdistcodename /' >> $java_apt_repo_file && /usr/bin/apt-get update",
     creates => $java_apt_repo_file,
+    timeout => 300, # seconds
+    tries   => 3, # in case some ppa server is slow
     require => Exec['add-java-apt-repo-key'],
   }
 }

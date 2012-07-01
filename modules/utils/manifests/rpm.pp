@@ -6,7 +6,7 @@ class utils::rpm {
   }
 
   package { 'rpmrebuild':
-    ensure => present,
+    ensure  => present,
     require => Package['epel-release'],
   }
 }

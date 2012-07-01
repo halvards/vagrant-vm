@@ -15,12 +15,12 @@ define debrepos::aptkey($ensure = present, $keyserver = "keyserver.ubuntu.com") 
     }
     absent:  {
       exec { "Remove $name from apt keystore":
-        path    => "/bin:/usr/bin",
+        path        => "/bin:/usr/bin",
         environment => "HOME=/root",
-        command => "apt-key del $name",
-        user    => "root",
-        group   => "root",
-        onlyif  => "$grep_for_key",
+        command     => "apt-key del $name",
+        user        => "root",
+        group       => "root",
+        onlyif      => "$grep_for_key",
       }
     }
     default: {

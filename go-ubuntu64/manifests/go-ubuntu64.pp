@@ -1,6 +1,7 @@
 include go::agent
 include go::server
 include timezone::sydney
+include ubuntu::disable-unattended-upgrades
 include ubuntu::fixgroup
 
 class go::server {

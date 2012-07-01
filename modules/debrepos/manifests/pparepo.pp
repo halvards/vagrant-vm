@@ -24,6 +24,8 @@ define debrepos::pparepo($apt_key = "", $dist = $ppa_default_name, $ensure = pre
       exec { "update-apt-${name_for_file}":
         command => "/usr/bin/apt-get update && /usr/bin/touch /etc/apt/pparepo-${name_for_file}.updated",
         creates => "/etc/apt/pparepo-${name_for_file}.updated",
+        timeout => 300, # seconds
+        tries   => 3, # in case some ppa server is slow
         require => [File["$file"], Debrepos::Aptkey["$apt_key"]],
       }
     }

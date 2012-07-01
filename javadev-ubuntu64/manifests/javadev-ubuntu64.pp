@@ -7,15 +7,16 @@ include editor::idea-ultimate
 include editor::janus
 include fonts::microsoft
 include iptables::disable
-include java::oraclejdk7
-#include java::sunjdk6
+#include java::oraclejdk7
+include java::sunjdk6
 include rvm::system_install
 include timezone::sydney
+include ubuntu::disable-unattended-upgrades
 include ubuntu::fixgroup
 include ubuntu::keybindings
 include utils::base
 include utils::gitconfig
-include utils::mercurial_pip
+include utils::mercurial_keyring
 include utils::netcat
 include xwindows::hideerrors
 
