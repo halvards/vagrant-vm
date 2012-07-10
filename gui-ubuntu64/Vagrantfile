@@ -31,7 +31,7 @@ Vagrant::Config.run do |config|
   config.vm.customize ['modifyvm', :id, '--memory', '2048']
   config.vm.customize ['modifyvm', :id, '--cpus', '2']
   config.vm.customize ['modifyvm', :id, '--vram', '64']
-  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'on']
+  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'off']
 
   # Enable sound
   config.vm.customize ['modifyvm', :id, '--audio', 'coreaudio']
@@ -39,5 +39,9 @@ Vagrant::Config.run do |config|
 
   # Use bridged networking rather than NAT
   #config.vm.network :bridged
+
+  # https://gist.github.com/2155825
+  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
+  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
 end
 

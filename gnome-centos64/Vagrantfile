@@ -27,6 +27,6 @@ Vagrant::Config.run do |config|
   config.vm.customize ['modifyvm', :id, '--memory', '2048']
   config.vm.customize ['modifyvm', :id, '--cpus', '2']
   config.vm.customize ['modifyvm', :id, '--vram', '16']
-  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'on']
+  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'off']
 end
 
