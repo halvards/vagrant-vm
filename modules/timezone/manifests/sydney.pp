@@ -3,9 +3,10 @@ class timezone::sydney {
     'Centos': {
       file { '/etc/localtime':
         ensure => link,
+        force  => true,
+        group  => 'root',
+        owner  => 'root',
         target => '/usr/share/zoneinfo/Australia/Sydney',
-        owner => root,
-        group => root,
       }
     }
     'Ubuntu': {
@@ -15,14 +16,14 @@ class timezone::sydney {
 
       file { '/etc/timezone':
         ensure => present,
+        group  => 'root',
+        owner  => 'root',
         source => '/vagrant-share/conf/timezone-sydney',
-        owner => 'root',
-        group => 'root',
       }
 
       exec { 'update-timezone':
         command => '/usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata',
-        require => [File['/etc/timezone'], Package['tzdata'], Package['ntp']],
+        require => [File['/etc/timezone'], Package['tzdata', 'ntp']],
       }
     }
   }
