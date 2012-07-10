@@ -21,6 +21,7 @@ configs = {:centos => [
                        :plain,
                        :postgres,
                        :riak,
+                       :sonar,
                       ]
           }
 

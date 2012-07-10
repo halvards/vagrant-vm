@@ -1,7 +1,6 @@
 include riak::server
 include timezone::sydney
-include ubuntu::disable-unattended-upgrades
-include ubuntu::fixgroup
+include ubuntu::fixes
 include utils::base
 #include utils::git
 

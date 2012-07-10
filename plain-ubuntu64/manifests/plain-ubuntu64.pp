@@ -1,7 +1,6 @@
 include debrepos::java
 include debrepos::partner
 include timezone::sydney
-include ubuntu::disable-unattended-upgrades
-include ubuntu::fixgroup
+include ubuntu::fixes
 include utils::base
 
