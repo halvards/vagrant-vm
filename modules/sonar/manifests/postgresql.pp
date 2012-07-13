@@ -13,12 +13,12 @@ class sonar::postgresql {
   }
 
   line::commentout { 'disable-sonar-derby-database':
-    line => 'sonar.jdbc.url:.*jdbc:derby:\/\/localhost:1527\/sonar;create=true',
+    line => 'sonar.jdbc.url:\s+jdbc:derby:\/\/localhost:1527\/sonar;create=true',
     file => $sonar_conf_file,
   }
 
   line::uncomment { 'enable-sonar-postgresql-database':
-    line => 'sonar.jdbc.url:.*jdbc:postgresql:\/\/localhost\/sonar',
+    line => 'sonar.jdbc.url:\s+jdbc:postgresql:\/\/localhost\/sonar',
     file => $sonar_conf_file,
   }
 
@@ -28,7 +28,7 @@ class sonar::postgresql {
   }
 
   line::uncomment { 'enable-sonar-database-validation-query':
-    line => 'sonar.jdbc.validationQuery:.*select 1',
+    line => 'sonar.jdbc.validationQuery:\s+select 1',
     file => $sonar_conf_file,
   }
 }
