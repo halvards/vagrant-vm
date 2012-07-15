@@ -2,13 +2,13 @@ Vagrant::Config.run do |config|
   vm_type = 'postgres'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'precise64'
+  config.vm.box = 'centos62_64'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/precise64-nochef-20120503.box'
+  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos62_64-nochef-20120508.box'
 
   # Assign this VM a unique hostname
-  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.#{config.vm.box}.vagrantup.com"
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
 
   # Forward a port from the guest to the host (id, guest port, host port)
   config.vm.forward_port 5432, 5432, :auto => true # PostgreSQL server port
@@ -16,7 +16,7 @@ Vagrant::Config.run do |config|
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   config.vm.provision :puppet do |puppet|
-    puppet.manifest_file = "#{vm_type}-ubuntu64.pp"
+    puppet.manifest_file = "#{vm_type}-centos64.pp"
     puppet.module_path = '../modules'
   end
 

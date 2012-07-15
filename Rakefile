@@ -11,6 +11,7 @@ configs = {:centos => [
                        :mqseries,
                        :oraclexe,
                        :plain,
+                       :postgres,
                        :rubyee,
                        :webdav,
                       ],
