@@ -20,6 +20,11 @@ class postgresql::server {
         require => Package['postgresql-server'],
       }
     }
+    'Ubuntu': {
+      package { ['postgresql-contrib', 'postgresql-doc']:
+        ensure => present,
+      }
+    }
   }
 
   service { 'postgresql':

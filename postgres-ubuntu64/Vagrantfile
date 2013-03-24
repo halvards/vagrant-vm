@@ -12,6 +12,7 @@ Vagrant::Config.run do |config|
 
   # Forward a port from the guest to the host (id, guest port, host port)
   config.vm.forward_port 5432, 5432, :auto => true # PostgreSQL server port
+  config.vm.forward_port 3000, 13000, :auto => true # Rails server port
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.

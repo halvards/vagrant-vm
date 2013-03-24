@@ -1,6 +1,4 @@
-source :rubygems
-#source :rubyforge
-#source :gemcutter
+source 'https://rubygems.org'
 
 gem 'vagrant'
 

@@ -1,6 +1,6 @@
 include apps::evince
 include avahi::disable
-include editor::x11
+include editor::vimx
 include ibm::rtc-uiclient
 include ibm::wid
 include mqseries::explorer
