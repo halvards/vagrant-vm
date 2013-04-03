@@ -1,11 +1,16 @@
 class rvm::user_install {
   include rvm::dependencies
+  include vagrant::user
+
+  $username = 'vagrant'
 
   exec { 'user-rvm':
-    command   => "/usr/bin/sudo -u vagrant /bin/bash -c '/bin/bash -s stable < <(/usr/bin/curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )'",
-    creates => "/home/vagrant/.rvm",
+    command   => '/usr/bin/curl -L https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer | /bin/bash -s stable',
+    creates   => "/home/${username}/.rvm",
+    user      => $username,
     logoutput => true,
-    require => Class['rvm::dependencies'],
+    require   => [Class['rvm::dependencies'], User["${username}"]],
+    environment => [ "HOME=/home/${username}" ],
   }
 
   line::present { 'load-user-rvm-in-vagrant-user-shell':
