@@ -2,13 +2,13 @@ Vagrant::Config.run do |config|
   vm_type = 'plain'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'centos62_64'
+  config.vm.box = 'centos64_64'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://dl.dropbox.com/u/36836372/centos62_64-nochef-20120508.box'
+  config.vm.box_url = ''
 
   # Assign this VM a unique hostname
-  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.vagrant.local"
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
 
   # Forward a port from the guest to the host (id, guest port, host port)
   #config.vm.forward_port 80, 8080, :auto => true
