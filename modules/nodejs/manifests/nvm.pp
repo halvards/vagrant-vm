@@ -9,7 +9,8 @@ class nodejs::nvm {
     cwd         => "/home/${username}",
     creates     => "/home/${username}/.nvm/.git",
     user        => $username,
-    require     => [Package['curl'], User['vagrant']],
+    logoutput   => true,
+    require     => [Package['curl'], User["${username}"]],
     environment => [ "HOME=/home/${username}" ],
   }
  
