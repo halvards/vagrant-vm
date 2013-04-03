@@ -2,12 +2,12 @@ class editor::idea($idea_edition) {
   include vagrant::user
 
   $idea_name = "idea$idea_edition"
-  $idea_version = '11.1.1'
-  $idea_build = '117.117'
+  $idea_version = '12.0.4'
+  $idea_build = '123.169'
   $idea_tarball_name = "${idea_name}-${idea_version}.tar.gz"
   $idea_config_dir = $idea_edition ? {
-    'IC' => '/home/vagrant/.IdeaIC11',
-    'IU' => '/home/vagrant/.IntelliJIdea11',
+    'IC' => '/home/vagrant/.IdeaIC12',
+    'IU' => '/home/vagrant/.IntelliJIdea12',
   }
 
   wget::fetch { "$idea_name":
@@ -92,50 +92,10 @@ class editor::idea($idea_edition) {
     require => File["$idea_config_dir/config"],
   }
 
-  file { '/home/vagrant/.gconf':
-    ensure => directory,
-    mode => 700,
-    owner => 'vagrant',
-    group => 'vagrant',
-    require => [User['vagrant'], Group['vagrant']],
-  }
-
-  file { '/home/vagrant/.gconf/apps':
-    ensure => directory,
-    mode => 700,
-    owner => 'vagrant',
-    group => 'vagrant',
-    require => File['/home/vagrant/.gconf'],
-  }
-
-  file { '/home/vagrant/.gconf/apps/metacity':
-    ensure => directory,
-    mode => 700,
-    owner => 'vagrant',
-    group => 'vagrant',
-    require => File['/home/vagrant/.gconf/apps'],
-  }
-
-  file { '/home/vagrant/.gconf/apps/metacity/window_keybindings':
-    ensure => directory,
-    mode => 700,
-    owner => 'vagrant',
-    group => 'vagrant',
-    require => File['/home/vagrant/.gconf/apps/metacity'],
-  }
-
-  # Existing Gnome shortcut key gets in the way of some IntelliJ defaults
-  file { '/home/vagrant/.gconf/apps/metacity/window_keybindings/%gconf.xml':
-    ensure => present,
-    mode => 600,
-    owner => 'vagrant',
-    group => 'vagrant',
-    source => '/vagrant-share/conf/gnome-shortcut-gconf.xml',
-    require => File['/home/vagrant/.gconf/apps/metacity/window_keybindings'],
-  }
-
   case $operatingsystem {
     'Ubuntu': {
+      include ubuntu::keybindings
+
       package { 'gtk2-engines-pixbuf':
         ensure => present,
       }
