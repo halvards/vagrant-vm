@@ -1,9 +1,9 @@
 class ubuntu::desktop {
-  include debrepos::exclude_recommended
+  include ubuntu::updateapt
 
   package { 'ubuntu-desktop':
-    ensure => present,
-    require => File['/etc/apt/apt.conf'],
+    ensure  => present,
+    require => Class['ubuntu::updateapt'],
   }
 }
 
