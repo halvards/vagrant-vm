@@ -6,7 +6,7 @@ class ruby::base {
       }
     }
     'Ubuntu': {
-      package { ['ruby', 'irb', 'rubygems', 'rake']:
+      package { ['ruby', 'rubygems', 'rake']:
         ensure => present,
       }
     }
