@@ -3,9 +3,9 @@ require 'vagrant'
 configs = {:centos => [
                        :gnome,
                        :go,
+                       :ibmrtc,
                        :ibmwas,
                        :ibmwid,
-                       :ibmrtc,
                        :mcollective,
                        :mercurial,
                        :mqseries,
@@ -19,6 +19,7 @@ configs = {:centos => [
                        :go,
                        :gui,
                        :javadev,
+                       :lab,
                        :plain,
                        :postgres,
                        :riak,
