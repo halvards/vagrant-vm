@@ -1,7 +1,7 @@
 rvm_install_on_use_flag=1
-rvm --create use 1.9.3-p392@vagrant-vm --verify-downloads 1
+rvm --create use 2.0.0-p0@vagrant-vm --verify-downloads 1
 
 # project commands
-alias mri='rvm use --create 1.9.3-p392@vagrant-vm'
+alias mri='rvm use --create 2.0.0-p0@vagrant-vm'
 alias jr='rvm use --create jruby-1.7.3@vagrant-vm'
 
