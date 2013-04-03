@@ -1,4 +1,5 @@
 class debrepos::oabjava7 {
+  include debrepos::exclude_recommended
   include utils::base
 
   if ! defined(Wget::Fetch['oab-java']) {
@@ -14,7 +15,7 @@ class debrepos::oabjava7 {
     creates   => '/var/local/oab/srcs/oracle-java7.git',
     timeout   => 1800, # seconds
     logoutput => true,
-    require   => Wget::Fetch['oab-java'],
+    require   => [Wget::Fetch['oab-java'], Class['debrepos::exclude_recommended']],
   }
 }
 
