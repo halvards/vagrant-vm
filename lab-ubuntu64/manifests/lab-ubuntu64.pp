@@ -7,12 +7,13 @@ stage { 'first':
 
 class { 'ubuntu::fixes': stage => 'first', }
 
+include apache::ab
 include apps::chrome
-include debrepos::partner
 include fonts::microsoft
 include editor::idea-ultimate
 #include editor::janus
 include editor::vimx
+include groovy::gradle
 include java::oraclejdk7
 include timezone::sydney
 include ubuntu::keybindings
