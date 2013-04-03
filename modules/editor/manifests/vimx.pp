@@ -1,9 +1,13 @@
 class editor::vimx {
   include editor::vim
 
-  package { 'vim-X11':
+  package { 'vimx':
+    name => $operatingsystem ? {
+      'CentOS' => 'vim-X11',
+      'Ubuntu' => 'vim-gnome',
+    },
     ensure  => present,
-    depends => Package['vim'];
+    require => Package['vim'];
   }
 }
 
