@@ -1,4 +1,4 @@
-class editor::idea($idea_edition = 'IU') {
+class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
   include vagrant::user
 
   $idea_name = "idea$idea_edition"
@@ -110,15 +110,17 @@ class editor::idea($idea_edition = 'IU') {
     }
   }
 
-  #if defined(Class['java::oraclejdk7']) {
-    file { "${idea_config_dir}/config/options/jdk.table.xml":
-      ensure  => present,
-      mode    => 664,
-      owner   => 'vagrant',
-      group   => 'vagrant',
-      source  => '/vagrant-share/conf/idea/jdk7.table.xml',
-      require => File["${idea_config_dir}/config/options"],
+  case $jdk {
+    'oraclejdk7': {
+      file { "${idea_config_dir}/config/options/jdk.table.xml":
+        ensure  => present,
+        mode    => 664,
+        owner   => 'vagrant',
+        group   => 'vagrant',
+        source  => '/vagrant-share/conf/idea/jdk7.table.xml',
+        require => File["${idea_config_dir}/config/options"],
+      }
     }
-  #}
+  }
 }
 
