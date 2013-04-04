@@ -22,7 +22,7 @@ class java::oraclejdk7 {
     'Ubuntu': {
       include debrepos::oabjava7
 
-      package { 'oracle-java7-jdk':
+      package { ['oracle-java7-jdk', 'oracle-java7-source']:
         ensure  => present,
         require => Class['debrepos::oabjava7'],
       }
