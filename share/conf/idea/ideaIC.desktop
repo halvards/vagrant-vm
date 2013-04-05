@@ -7,5 +7,5 @@ Terminal=false
 Exec=/opt/ideaIC/bin/idea.sh
 Name=IntelliJ IDEA Community
 Comment=JetBrains Java IDE - Free Community Edition
-Icon=/opt/ideaIC/bin/idea48.png
+Icon=/opt/ideaIC/bin/idea.png
 

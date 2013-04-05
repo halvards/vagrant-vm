@@ -1,5 +1,17 @@
 class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
+  include utils::inotifylimit
   include vagrant::user
+  case $jdk {
+    'oraclejdk7': {
+      include java::oraclejdk7
+    }
+    'sunjdk6': {
+      include java::sunjdk6
+    }
+    default: {
+      fail "Invalid Java SDK value '${jdk}' specified for IntelliJ IDEA"
+    }
+  }
 
   $idea_name = "idea$idea_edition"
   $idea_version = '12.1'
@@ -27,6 +39,12 @@ class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
     require => Exec["extract-$idea_name"],
   }
 
+  file { "/usr/local/bin/idea.sh":
+    ensure  => link,
+    target  => "/opt/${idea_name}/bin/idea.sh",
+    require => File["/opt/${idea_name}"],
+  }
+
   file { "/opt/$idea_name/bin/idea48.png":
     ensure  => present,
     mode    => 664,
@@ -42,20 +60,6 @@ class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
     owner   => 'vagrant',
     group   => 'vagrant',
     source  => "/vagrant-share/conf/idea/$idea_name.desktop",
-    require => File["/opt/$idea_name/bin/idea48.png"],
-  }
-
-  # Set limit of watched file handles (inotify)
-  # http://confluence.jetbrains.net/display/IDEADEV/Inotify+Watches+Limit
-  line::present { 'inotify-watch-limit':
-    file => '/etc/sysctl.conf',
-    line => 'fs.inotify.max_user_watches = 524288',
-  }
-
-  exec { 'apply-inotify-watch-limit':
-    command => '/sbin/sysctl -p',
-    unless  => '/sbin/sysctl fs.inotify.max_user_watches | /bin/grep 524288',
-    require => Line::Present['inotify-watch-limit'],
   }
 
   file { "$idea_config_dir":
@@ -104,8 +108,10 @@ class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
     'Ubuntu': {
       include ubuntu::keybindings
 
-      package { 'gtk2-engines-pixbuf':
-        ensure => present,
+      if ! defined(Package['gtk2-engines-pixbuf']) {
+        package { 'gtk2-engines-pixbuf':
+          ensure => present,
+        }
       }
     }
   }
