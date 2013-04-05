@@ -1,0 +1,6 @@
+PerforceDirectPlugin
+com.jetbrains.plugins.asp
+CVS
+Dart
+com.intellij.jsp
+com.jetbrains.plugins.webDeployment
