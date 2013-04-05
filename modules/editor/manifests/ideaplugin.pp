@@ -1,12 +1,14 @@
-define editor::ideaplugin($version, $filetype, $update_id, $idea_edition = 'IU') {
+define editor::ideaplugin($plugin_name, $version, $filetype, $update_id, $idea_edition) {
   $idea_config_dir = $idea_edition ? {
-    'IC' => '/home/vagrant/.IdeaIC12',
-    'IU' => '/home/vagrant/.IntelliJIdea12',
+    'IC'       => '/home/vagrant/.IdeaIC12',
+    'IU'       => '/home/vagrant/.IntelliJIdea12',
+    'RubyMine' => '/home/vagrant/.RubyMine50',
+    'WebStorm' => '/home/vagrant/.WebStorm6',
   }
   $idea_plugins_dir = "${idea_config_dir}/config/plugins"
 
   $plugin_download_dir = '/vagrant-share/apps'
-  $plugin_filename = "${name}-${version}.${filetype}"
+  $plugin_filename = "${plugin_name}-${version}.${filetype}"
   $plugin_file_path = "${plugin_download_dir}/${plugin_filename}"
 
   wget::fetch { "ideaplugin-${name}":
@@ -23,7 +25,7 @@ define editor::ideaplugin($version, $filetype, $update_id, $idea_edition = 'IU')
       }
     }
     'jar': {
-      file { "${idea_plugins_dir}/${name}.${filetype}":
+      file { "${idea_plugins_dir}/${plugin_name}.${filetype}":
         ensure  => present,
         source  => $plugin_file_path,
         require => [Wget::Fetch["ideaplugin-${name}"], File["${idea_plugins_dir}"]],
