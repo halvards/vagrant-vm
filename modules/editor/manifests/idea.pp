@@ -45,15 +45,6 @@ class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
     require => File["/opt/${idea_name}"],
   }
 
-  file { "/opt/$idea_name/bin/idea48.png":
-    ensure  => present,
-    mode    => 664,
-    owner   => 'vagrant',
-    group   => 'vagrant',
-    source  => "/vagrant-share/conf/idea/idea48.png",
-    require => [File["/opt/$idea_name"], User['vagrant'], Group['vagrant']],
-  }
-
   file { "/home/vagrant/Desktop/$idea_name.desktop":
     ensure  => present,
     mode    => 775,

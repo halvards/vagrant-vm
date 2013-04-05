@@ -25,7 +25,7 @@ class editor::rubymine($jdk = 'oraclejdk7') {
 
   exec { "extract-rubymine":
     command => "/bin/tar -zxf /vagrant-share/apps/${rubymine_tarball_name} --directory=/opt",
-    creates => "/opt/RubyMine-${rubymine_build}/bin",
+    creates => "/opt/RubyMine-${rubymine_version}/bin",
     require => Wget::Fetch['rubymine'],
   }
 

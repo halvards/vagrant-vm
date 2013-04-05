@@ -41,15 +41,6 @@ class editor::webstorm($jdk = 'oraclejdk7') {
     require => File['/opt/WebStorm'],
   }
 
-  file { '/opt/WebStorm/bin/webstorm48.png':
-    ensure  => present,
-    mode    => 664,
-    owner   => 'vagrant',
-    group   => 'vagrant',
-    source  => "/vagrant-share/conf/webstorm/webstorm48.png",
-    require => [File['/opt/WebStorm'], User['vagrant'], Group['vagrant']],
-  }
-
   file { '/home/vagrant/Desktop/webstorm.desktop':
     ensure  => present,
     mode    => 775,
