@@ -1,4 +1,4 @@
-class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
+define editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
   include utils::inotifylimit
   include vagrant::user
   case $jdk {
@@ -13,7 +13,7 @@ class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
     }
   }
 
-  $idea_name = "idea$idea_edition"
+  $idea_name = "idea${idea_edition}"
   $idea_version = '12.1'
   $idea_build = '129.161'
   $idea_tarball_name = "${idea_name}-${idea_version}.tar.gz"
@@ -39,7 +39,7 @@ class editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
     require => Exec["extract-$idea_name"],
   }
 
-  file { "/usr/local/bin/idea.sh":
+  file { "/usr/local/bin/${idea_name}.sh":
     ensure  => link,
     target  => "/opt/${idea_name}/bin/idea.sh",
     require => File["/opt/${idea_name}"],

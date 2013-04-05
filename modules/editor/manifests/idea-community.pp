@@ -1,5 +1,5 @@
 class editor::idea-community {
-  class { 'editor::idea':
+  editor::idea { 'install-intellij-idea-community-edition':
     idea_edition => 'IC',
   }
 }

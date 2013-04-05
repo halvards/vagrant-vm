@@ -1,5 +1,5 @@
 class editor::idea-ultimate {
-  class { 'editor::idea':
+  editor::idea { 'install-intellij-idea-ultimate-edition':
     idea_edition => 'IU',
   }
 }
