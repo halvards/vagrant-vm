@@ -2,7 +2,7 @@ class editor::janus {
   include editor::vim
   include ruby::base
   include utils::base
-  include utils::git
+  include vcs::git
 
   $username = 'vagrant'
 

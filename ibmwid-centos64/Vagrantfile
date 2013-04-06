@@ -28,6 +28,8 @@ Vagrant::Config.run do |config|
 
   # Set memory allocated to the VM in MB
   config.vm.customize ['modifyvm', :id, '--memory', '3072']
-  config.vm.customize ['modifyvm', :id, '--cpus', '2']
+  config.vm.customize ['modifyvm', :id, '--cpus', '1']
+  config.vm.customize ['modifyvm', :id, '--vram', '128']
+  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'off']
 end
 

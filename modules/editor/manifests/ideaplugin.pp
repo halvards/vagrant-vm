@@ -1,7 +1,10 @@
 define editor::ideaplugin($plugin_name, $version, $filetype, $update_id, $idea_edition) {
+  include vagrant::user
+
   $idea_config_dir = $idea_edition ? {
     'IC'       => '/home/vagrant/.IdeaIC12',
     'IU'       => '/home/vagrant/.IntelliJIdea12',
+    'PyCharm'  => '/home/vagrant/.PyCharm20',
     'RubyMine' => '/home/vagrant/.RubyMine50',
     'WebStorm' => '/home/vagrant/.WebStorm6',
   }
@@ -20,8 +23,9 @@ define editor::ideaplugin($plugin_name, $version, $filetype, $update_id, $idea_e
     'zip': {
       exec { "extract-ideaplugin-${name}":
         command => "/usr/bin/unzip ${plugin_file_path} -d ${idea_plugins_dir}",
-        creates => "$idea_config_dir/config/plugins/ruby",
-        require => [Wget::Fetch["ideaplugin-${name}"], File["${idea_plugins_dir}"], Package['unzip']],
+        creates => "${idea_config_dir}/config/plugins/${plugin_name}",
+        user    => 'vagrant',
+        require => [Wget::Fetch["ideaplugin-${name}"], File["${idea_plugins_dir}"], Package['unzip'], User['vagrant']],
       }
     }
     'jar': {

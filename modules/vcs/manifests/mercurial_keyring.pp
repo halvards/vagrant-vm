@@ -1,11 +1,11 @@
-class utils::mercurial_keyring {
-  include utils::mercurial
-  include utils::pip
+class vcs::mercurial_keyring {
+  include python::pip
+  include vcs::mercurial
 
   package { 'mercurial_keyring':
     provider => pip,
     ensure   => present,
-    require  => [Package['mercurial'], Class['utils::pip']],
+    require  => [Package['mercurial'], Class['python::pip']],
   }
 
   file { '/home/vagrant/.hgrc':

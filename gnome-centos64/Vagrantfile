@@ -25,8 +25,16 @@ Vagrant::Config.run do |config|
 
   # Set memory allocated to the VM in MB
   config.vm.customize ['modifyvm', :id, '--memory', '2048']
-  config.vm.customize ['modifyvm', :id, '--cpus', '2']
-  config.vm.customize ['modifyvm', :id, '--vram', '16']
+  config.vm.customize ['modifyvm', :id, '--cpus', '1']
+  config.vm.customize ['modifyvm', :id, '--vram', '128']
   config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'off']
+
+  # Enable sound
+  config.vm.customize ['modifyvm', :id, '--audio', 'coreaudio']
+  config.vm.customize ['modifyvm', :id, '--audiocontroller', 'ac97']
+
+  # https://gist.github.com/2155825
+  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
+  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
 end
 

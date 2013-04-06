@@ -2,7 +2,7 @@ include riak::server
 include timezone::sydney
 include ubuntu::fixes
 include utils::base
-#include utils::git
+#include vcs::git
 
 class riak::server {
   $riak_core_version = '1.1.2'

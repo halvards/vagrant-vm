@@ -1,5 +1,5 @@
 class apps::jdownloader {
-  include java::sunjdk6
+  include java::oraclejdk7
 
   debrepos::pparepo { 'jd-team/jdownloader':
     apt_key => '6A68F637',
@@ -7,7 +7,7 @@ class apps::jdownloader {
 
   package { 'jdownloader':
     ensure  => present,
-    require => [Package['sun-java6-jdk'], Debrepos::Pparepo['jd-team/jdownloader']],
+    require => [Class['java::oraclejdk7'], Debrepos::Pparepo['jd-team/jdownloader']],
   }
 }
 

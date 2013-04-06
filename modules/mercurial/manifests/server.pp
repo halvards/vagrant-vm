@@ -1,6 +1,6 @@
 class mercurial::server {
   include apache::httpd
-  include utils::mercurial
+  include vcs::mercurial
 
   file { '/opt':
     ensure => directory,

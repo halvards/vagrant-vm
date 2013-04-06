@@ -1,6 +1,5 @@
 org.jetbrains.android
 ZKM
-Coverage
 org.jetbrains.plugins.less
 com.intellij.tapestry
 com.intellij.velocity

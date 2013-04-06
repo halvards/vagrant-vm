@@ -1,4 +1,4 @@
-class utils::mercurial {
+class vcs::mercurial {
   case $operatingsystem {
     'CentOS': {
       package { 'mercurial':

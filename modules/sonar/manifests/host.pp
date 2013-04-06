@@ -1,5 +1,5 @@
 class sonar::host {
-  include java::sunjdk6
+  include java::oraclejdk7
   include sonar::postgresql
   include sonar::user
   include utils::base
@@ -52,7 +52,7 @@ class sonar::host {
     ensure     => running,
     hasstatus  => true,
     hasrestart => true,
-    require => [Package['sun-java6-jdk'], File['/etc/init.d/sonar', '/usr/bin/sonar'], Exec['set-sonar-file-permissions'], Class['sonar::postgresql']],
+    require => [Class['java::oraclejdk7'], File['/etc/init.d/sonar', '/usr/bin/sonar'], Exec['set-sonar-file-permissions'], Class['sonar::postgresql']],
   }
 }
 

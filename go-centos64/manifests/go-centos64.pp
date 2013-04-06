@@ -3,10 +3,11 @@ include go::agent
 include go::server
 
 class go::server {
+  include java::oraclejdk7
   include utils::base
-  include utils::vcs
   include utils::rpm
-  include java::openjdk6
+  include vcs::git
+  include vcs::mercurial
 
   $go_version = '12.2.1'
   $go_build = "${go_version}-15143"
@@ -43,10 +44,11 @@ class go::server {
 }
 
 class go::agent {
+  include java::oraclejdk7
   include utils::base
-  include utils::vcs
   include utils::rpm
-  include java::openjdk6
+  include vcs::git
+  include vcs::mercurial
 
   $go_version = '12.2.1'
   $go_build = "${go_version}-15143"

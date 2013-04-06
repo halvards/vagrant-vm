@@ -1,5 +1,5 @@
 class apps::davmail {
-  include java::sunjdk6
+  include java::oraclejdk7
 
   $davmail_major_version = '3.9.8'
   $davmail_version       = "${davmail_major_version}-1921-1"
@@ -12,7 +12,7 @@ class apps::davmail {
 
   package { ['libswt-gtk-3-jni', 'libswt-gtk-3-java']:
     ensure  => present,
-    require => Package['sun-java6-jdk'],
+    require => Class['java::oraclejdk7'],
   }
 
   package { 'davmail':

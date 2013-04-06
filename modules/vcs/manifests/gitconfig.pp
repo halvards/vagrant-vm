@@ -1,6 +1,6 @@
-class utils::gitconfig {
-  include utils::git
+class vcs::gitconfig {
   include vagrant::user
+  include vcs::git
 
   file { '/home/vagrant/.gitconfig':
     ensure  => present,

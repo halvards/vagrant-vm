@@ -26,7 +26,7 @@ class java::sunjdk6 {
     'Ubuntu': {
       include debrepos::oabjava6
 
-      package { ['sun-java6-jdk'. 'sun-java6-source']:
+      package { ['sun-java6-jdk', 'sun-java6-source']:
         ensure  => present,
         require => Class['debrepos::oabjava6'],
       }

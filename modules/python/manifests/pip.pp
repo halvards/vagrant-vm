@@ -1,11 +1,9 @@
-class utils::pip {
+class python::pip {
+  include python::base
+
   case $operatingsystem {
     'CentOS': {
       include yumrepos::epel
-
-      package { 'python':
-        ensure => present,
-      }
 
       package { ['python-devel', 'python-docutils']:
         ensure  => present,
@@ -24,7 +22,7 @@ class utils::pip {
       }
     }
     'Ubuntu': {
-      package { ['python-dev', 'python-docutils']:
+      package { ['build-essential', 'python-dev', 'python-docutils']:
         ensure  => present,
         require => Package['python'],
       }

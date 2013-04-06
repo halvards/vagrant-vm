@@ -26,5 +26,9 @@ Vagrant::Config.run do |config|
 
   # Set memory allocated to the VM in MB
   config.vm.customize ['modifyvm', :id, '--memory', '1024']
+
+  # https://gist.github.com/2155825
+  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
+  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
 end
 

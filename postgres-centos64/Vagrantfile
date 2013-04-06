@@ -22,5 +22,10 @@ Vagrant::Config.run do |config|
 
   # Share a folder to the VM (id, guest path, host path)
   config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
+  config.vm.share_folder "source", "/home/vagrant/home", ENV['HOME']
+
+  # https://gist.github.com/2155825
+  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
+  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
 end
 
