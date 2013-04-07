@@ -20,11 +20,11 @@ class java::oraclejdk7 {
       }
     }
     'Ubuntu': {
-      include debrepos::oabjava7
+      include debrepos::java
 
-      package { ['oracle-java7-jdk', 'oracle-java7-source']:
+      package { ['oracle-java7-installer']:
         ensure  => present,
-        require => Class['debrepos::oabjava7'],
+        require => Class['debrepos::java'],
       }
     }
   }

@@ -1,7 +1,5 @@
 class fonts::microsoft {
-  package { 'debconf-utils':
-    ensure => present,
-  }
+  include ubuntu::deb
 
   exec { 'accept-msttcorefonts-license':
     command => '/bin/sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"',

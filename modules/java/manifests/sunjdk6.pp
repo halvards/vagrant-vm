@@ -24,11 +24,11 @@ class java::sunjdk6 {
       }
     }
     'Ubuntu': {
-      include debrepos::oabjava6
+      include debrepos::java
 
-      package { ['sun-java6-jdk', 'sun-java6-source']:
+      package { ['oracle-java6-installer']:
         ensure  => present,
-        require => Class['debrepos::oabjava6'],
+        require => Class['debrepos::java'],
       }
     }
   }
