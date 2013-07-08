@@ -1,7 +1,7 @@
 class editor::sublime {
   include utils::base
 
-  $sublime_version = '2.0.1'
+  $sublime_version = '2.0.2'
   $sublime_filename = "SublimeText${sublime_version}.tar.bz2"
   $sublime_download_dir = '/vagrant-share/apps'
   $sublime_download_file = "${sublime_download_dir}/${sublime_filename}"
@@ -19,6 +19,12 @@ class editor::sublime {
   }
 
   file { '/usr/local/bin/sublime_text':
+    ensure  => link,
+    target  => "${sublime_install_dir}/sublime_text",
+    require => Exec['extract-sublime'],
+  }
+
+  file { '/usr/local/bin/subl':
     ensure  => link,
     target  => "${sublime_install_dir}/sublime_text",
     require => Exec['extract-sublime'],
