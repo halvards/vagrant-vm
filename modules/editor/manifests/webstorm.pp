@@ -14,7 +14,7 @@ class editor::webstorm($jdk = 'oraclejdk7') {
   }
 
   $webstorm_version = '6.0.2'
-  $webstorm_build = '129.664'
+  $webstorm_build = '129.660'
   $webstorm_tarball_name = "WebStorm-${webstorm_version}.tar.gz"
   $webstorm_config_dir = '/home/vagrant/.WebStorm6'
 
