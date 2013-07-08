@@ -14,7 +14,7 @@ class ibm::im-prereqs {
   }
 
   exec { 'extract-ibm-im-installer':
-    command => "/usr/bin/unzip $ibm_im_zip_location -d $ibm_im_extract_location",
+    command => "/usr/bin/unzip -q $ibm_im_zip_location -d $ibm_im_extract_location",
     creates => "$ibm_im_extract_location/install",
     require => [Wget::Fetch['ibm-im'], Package['unzip']],
   }

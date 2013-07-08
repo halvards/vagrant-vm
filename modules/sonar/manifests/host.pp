@@ -16,7 +16,7 @@ class sonar::host {
   }
 
   exec { 'extract-sonar-server':
-    command => "/usr/bin/unzip $sonar_zip_file_location -d /opt",
+    command => "/usr/bin/unzip -q $sonar_zip_file_location -d /opt",
     creates => "${sonar_home}/bin/linux-x86-64/sonar.sh",
     require => [Wget::Fetch['sonar-server'], Package['unzip']],
   }

@@ -13,7 +13,7 @@ class ibm::packaging-utility {
   }
 
   exec { 'extract-ibm-pu-installer':
-    command => "/usr/bin/unzip $ibm_pu_zip_location -d $ibm_pu_unzip_location",
+    command => "/usr/bin/unzip -q $ibm_pu_zip_location -d $ibm_pu_unzip_location",
     user    => 'vagrant',
     creates => "${ibm_pu_unzip_location}/InstallerImage_linux/userinstc",
     require => [Wget::Fetch['ibm-pu'], Package['unzip']],
