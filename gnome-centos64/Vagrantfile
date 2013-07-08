@@ -33,6 +33,9 @@ Vagrant::Config.run do |config|
   config.vm.customize ['modifyvm', :id, '--audio', 'coreaudio']
   config.vm.customize ['modifyvm', :id, '--audiocontroller', 'ac97']
 
+  # Enable shared clipboard
+  config.vm.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+
   # https://gist.github.com/2155825
   config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
   config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
