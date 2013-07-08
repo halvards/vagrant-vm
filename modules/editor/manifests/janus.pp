@@ -15,7 +15,7 @@ class editor::janus {
   exec { 'install-vim-janus':
     command => "/usr/bin/sudo -u $username /bin/bash -c '/usr/bin/curl -Lo- https://bit.ly/janus-bootstrap | /bin/bash'",
     creates => "/home/$username/.vim/.git",
-    timeout => 600, # seconds
+    timeout => 1800, # seconds
     require => [Package['curl', 'git', 'vim', 'ctags'], Class['ruby::base']],
   }
 }
