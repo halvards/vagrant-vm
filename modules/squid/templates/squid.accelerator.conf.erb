@@ -1,0 +1,17 @@
+#
+# Squid proxy configuration for caching reverse proxy mode, a.k.a. accelerator
+#
+# http://wiki.squid-cache.org/ConfigExamples/Reverse/BasicAccelerator
+#
+# NOTE: If using Squid 3.2+, add the option no-vhost to the first line
+#
+
+http_port <%= proxy_port %> accel defaultsite=localhost
+
+cache_peer localhost parent <%= application_port %> 0 no-query originserver name=myAccel
+
+acl our_sites dstdomain localhost
+http_access allow our_sites
+cache_peer_access myAccel allow our_sites
+cache_peer_access myAccel deny all
+

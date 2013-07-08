@@ -18,6 +18,14 @@ class squid::base {
     require => Group['proxy'],
   }
 
+  file { '/var/cache/squid3':
+    ensure  => directory,
+    mode    => 775,
+    owner   => 'vagrant',
+    group   => 'vagrant',
+    require => [User['proxy'], Group['proxy']],
+  }
+
   service { 'squid3':
     enable     => true,
     ensure     => running,
