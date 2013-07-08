@@ -12,12 +12,12 @@ class apps::browsermob_proxy($port = '9090', $jdk = 'oraclejdk7') {
 
   $username = 'vagrant'
 
-  $browsermob_proxy_version = '2.0-beta-7'
+  $browsermob_proxy_version = '2.0-beta-8'
   $browsermob_proxy_zip_filename = "browsermob-proxy-${browsermob_proxy_version}-bin.zip"
   $browsermob_proxy_dir = '/opt/browsermob-proxy'
 
   wget::fetch { 'browsermob-proxy':
-    source      => "http://dl.dropbox.com/u/1995643/browsermob-proxy/${browsermob_proxy_zip_filename}",
+    source      => "https://s3-us-west-1.amazonaws.com/lightbody-bmp/${browsermob_proxy_zip_filename}",
     destination => "/vagrant-share/apps/${browsermob_proxy_zip_filename}",
   }
 
@@ -40,7 +40,7 @@ class apps::browsermob_proxy($port = '9090', $jdk = 'oraclejdk7') {
     ensure     => running,
     hasrestart => false,
     hasstatus  => false,
-    start      => "/usr/bin/sudo -u $username /bin/bash -c '${browsermob_proxy_dir}/bin/browsermob-proxy --port ${port} >> /var/log/browsermob-proxy.log 2>&1 &'",
+    start      => "/bin/bash -c '${browsermob_proxy_dir}/bin/browsermob-proxy --port ${port} >> /var/log/browsermob-proxy.log 2>&1 &'",
     status     => "/bin/nc -4z localhost ${port}",
     require    => [File["${browsermob_proxy_dir}"], Class['utils::netcat']],
   }
