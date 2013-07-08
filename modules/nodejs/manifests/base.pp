@@ -1,9 +1,21 @@
 class nodejs::base {
-  include debrepos::nodejs
+  case $operatingsystem {
+    'CentOS': {
+      include yumrepos::epel
 
-  package { 'nodejs':
-    ensure  => present,
-    require => Class['debrepos::nodejs'],
+      package{ ['nodejs', 'npm']:
+        ensure  => present,
+        require => Package['epel-release'],
+      }
+    }
+    'Ubuntu': {
+      include debrepos::nodejs
+
+      package { 'nodejs':
+        ensure  => present,
+        require => Class['debrepos::nodejs'],
+      }
+    }
   }
 }
 
