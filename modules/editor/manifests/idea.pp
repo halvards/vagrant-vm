@@ -14,8 +14,8 @@ define editor::idea($idea_edition = 'IU', $jdk = 'oraclejdk7') {
   }
 
   $idea_name = "idea${idea_edition}"
-  $idea_version = '12.1'
-  $idea_build = '129.161'
+  $idea_version = '12.1.4'
+  $idea_build = '129.713'
   $idea_tarball_name = "${idea_name}-${idea_version}.tar.gz"
   $idea_config_dir = $idea_edition ? {
     'IC' => '/home/vagrant/.IdeaIC12',

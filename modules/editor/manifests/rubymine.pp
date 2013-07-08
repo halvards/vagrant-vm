@@ -13,8 +13,8 @@ class editor::rubymine($jdk = 'oraclejdk7') {
     }
   }
 
-  $rubymine_version = '5.0.2'
-  $rubymine_build = '125.94'
+  $rubymine_version = '5.4.3'
+  $rubymine_build = '129.861'
   $rubymine_tarball_name = "RubyMine-${rubymine_version}.tar.gz"
   $rubymine_config_dir = '/home/vagrant/.RubyMine50'
 

@@ -13,8 +13,8 @@ class editor::pycharm($jdk = 'oraclejdk7') {
     }
   }
 
-  $pycharm_version = '2.7.1'
-  $pycharm_build = '125.92'
+  $pycharm_version = '2.7.3'
+  $pycharm_build = '129.782'
   $pycharm_tarball_name = "pycharm-${pycharm_version}.tar.gz"
   $pycharm_config_dir = '/home/vagrant/.PyCharm20'
 

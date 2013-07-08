@@ -22,7 +22,7 @@ define editor::ideaplugin($plugin_name, $version, $filetype, $update_id, $idea_e
   case $filetype {
     'zip': {
       exec { "extract-ideaplugin-${name}":
-        command => "/usr/bin/unzip ${plugin_file_path} -d ${idea_plugins_dir}",
+        command => "/usr/bin/unzip -q ${plugin_file_path} -d ${idea_plugins_dir}",
         creates => "${idea_config_dir}/config/plugins/${plugin_name}",
         user    => 'vagrant',
         require => [Wget::Fetch["ideaplugin-${name}"], File["${idea_plugins_dir}"], Package['unzip'], User['vagrant']],
