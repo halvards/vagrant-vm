@@ -6,13 +6,15 @@ class editor::janus {
 
   $username = 'vagrant'
 
-  case $operatingsystem {
-    'CentOS': {
-      if ! defined(Package['ctags']) { package { 'ctags': ensure => present, } }
+  if ! defined(Package['ctags']) {
+    package { 'ctags':
+      ensure => present,
+      name   => $operatingsystem ? {
+        'CentOS' => 'ctags',
+        'Ubuntu' => 'exuberant-ctags',
+      },
     }
-    'Ubuntu': {
-      if ! defined(Package['exuberant-ctags']) { package { 'exuberant-ctags': ensure => present, } }
-    }
+  }
 
   exec { 'install-vim-janus':
     command => "/usr/bin/sudo -u $username /bin/bash -c '/usr/bin/curl -Lo- https://bit.ly/janus-bootstrap | /bin/bash'",
