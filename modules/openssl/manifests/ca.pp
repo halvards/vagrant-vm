@@ -54,6 +54,7 @@ class openssl::ca {
     command   => "/usr/bin/openssl req -new -x509 -extensions v3_ca -nodes -out ${ca_dir}/cacert.pem -keyout ${ca_dir}/private/cakey.pem -days 3650 -subj \"/C=AU/ST=NSW/L=Sydney/O=Test CA/CN=Test CA\"",
     creates   => "${ca_dir}/private/cakey.pem",
     user      => $username,
+    cwd       => "/home/${username}",
     logoutput => true,
     require   => [Class['openssl::base'], File["${ca_dir}/private", "/etc/ssl/openssl.cnf"], Exec["create-ca-index.txt", "create-ca-serial-file"]],
   }
