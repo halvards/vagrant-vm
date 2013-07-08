@@ -15,6 +15,7 @@ Vagrant::Config.run do |config|
 
   # Forward a port from the guest to the host (id, guest port, host port)
   #config.vm.forward_port 8080, 8080, :auto => true
+  config.vm.forward_port 22, 2198, :auto => true
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
