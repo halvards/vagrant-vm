@@ -6,7 +6,7 @@ class utils::netcat {
       }
     }
     'Ubuntu': {
-      package { 'netcat':
+      package { 'netcat-openbsd':
         ensure => present,
       }
     }
