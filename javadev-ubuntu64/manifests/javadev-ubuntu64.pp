@@ -1,4 +1,3 @@
-include apps::chrome
 include apps::evince
 include avahi::disable
 include debrepos::partner
@@ -13,8 +12,9 @@ include timezone::sydney
 include ubuntu::fixgroup
 include ubuntu::keybindings
 include utils::base
+include utils::netcat
 include vcs::gitconfig
 include vcs::mercurial_keyring
-include utils::netcat
+include webbrowser::chrome
 include xwindows::hideerrors
 

@@ -1,9 +1,9 @@
 # Prerequisites for IBM Installation Manager
 class ibm::im-prereqs {
-  include apps::firefox
   include iptables::disable
   include selinux::disable
   include utils::base
+  include webbrowser::firefox
 
   $ibm_im_zip_location = '/vagrant-share/apps/IBMIM_linux_x86.zip'
   $ibm_im_extract_location = '/vagrant-share/apps/ibmrepos/im'

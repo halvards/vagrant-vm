@@ -1,4 +1,4 @@
-class apps::chrome {
+class webbrowser::chrome {
   case $operatingsystem {
     'CentOS': {
       include yumrepos::google

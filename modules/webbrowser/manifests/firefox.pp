@@ -1,4 +1,4 @@
-class apps::firefox {
+class webbrowser::firefox {
   case $operatingsystem {
     'CentOS': {
       case $kernelrelease {
