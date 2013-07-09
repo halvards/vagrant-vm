@@ -38,7 +38,7 @@ class apps::wireshark {
     mode   => 755,
   }
 
-  $ports = [ '443', '3000']
+  $ports = [ '443', '8443' ]
   file { '/home/vagrant/.wireshark/ssl_keys':
     ensure  => present,
     owner   => 'vagrant',
