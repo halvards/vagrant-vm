@@ -1,4 +1,4 @@
-class apps::wireshark {
+class network::wireshark {
   package { 'wireshark':
     ensure => present,
   }
@@ -38,13 +38,13 @@ class apps::wireshark {
     mode   => 755,
   }
 
-  $ports = [ '443', '8443' ]
+  $ports = [ '443', '8443', '9443' ]
   file { '/home/vagrant/.wireshark/ssl_keys':
     ensure  => present,
     owner   => 'vagrant',
     group   => 'vagrant',
     mode    => 664,
-    content => template('apps/wireshark_ssl_keys.erb'),
+    content => template('network/wireshark_ssl_keys.erb'),
     require => File['/home/vagrant/.wireshark'],
   }
 }
