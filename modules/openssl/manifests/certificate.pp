@@ -25,8 +25,8 @@ define openssl::certificate {
   }
 
   exec { "sign-certificate-for-${hostname}-using-local-ca":
-    command   => "/usr/bin/openssl ca -batch -out ${ca_dir}/newcerts/${hostname}.crt -in ${ssh_dir}/${hostname}.csr -days 3650",
-    creates   => "${ca_dir}/newcerts/${hostname}.crt",
+    command   => "/usr/bin/openssl ca -batch -out ${ssh_dir}/${hostname}.crt -in ${ssh_dir}/${hostname}.csr -days 3650",
+    creates   => "${ssh_dir}/${hostname}.crt",
     user      => $username,
     cwd       => "/home/${username}",
     logoutput => true,
