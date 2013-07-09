@@ -21,38 +21,5 @@ class webbrowser::chrome {
       }
     }
   }
-
-  $username = 'vagrant'
-
-  file { "/home/${username}/.config":
-    ensure => directory,
-    owner  => $username,
-    group  => $username,
-    mode   => 755,
-  }
-
-  file { "/home/${username}/.config/chromium":
-    ensure  => directory,
-    owner  => $username,
-    group  => $username,
-    mode   => 755,
-    require => File["/home/${username}/.config"],
-  }
-
-  file { "/home/${username}/.config/chromium/Default":
-    ensure  => directory,
-    owner  => $username,
-    group  => $username,
-    mode   => 755,
-    require => File["/home/${username}/.config/chromium"],
-  }
-
-  file { "/home/${username}/.config/chromium/Default/Extensions":
-    ensure  => directory,
-    owner  => $username,
-    group  => $username,
-    mode   => 755,
-    require => File["/home/${username}/.config/chromium/Default"],
-  }
 }
 
