@@ -1,5 +1,5 @@
 class ubuntu::updateapt {
-  $ubuntu_mirror = 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
+  $ubuntu_mirror = 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/'
   $default_ubuntu_mirror = 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
 
   exec { 'set-ubuntu-mirror':
