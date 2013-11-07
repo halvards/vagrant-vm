@@ -1,0 +1,7 @@
+---
+- hosts: all
+  sudo: yes
+  include: ../modules/ubuntu/playbooks/fixes.yml
+  include: ../modules/timezone/playbooks/sydney.yml
+  include: ../modules/utils/playbooks/base.yml
+

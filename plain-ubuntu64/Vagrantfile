@@ -1,4 +1,4 @@
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   vm_type = 'plain'
 
   # Every Vagrant virtual environment requires a box to build off of.
@@ -13,19 +13,20 @@ Vagrant::Config.run do |config|
   # Forward a port from the guest to the host (id, guest port, host port)
   #config.vm.forward_port 80, 8080, :auto => true
 
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  config.vm.provision :puppet do |puppet|
-    puppet.manifest_file = "#{vm_type}-ubuntu64.pp"
-    puppet.module_path = '../modules'
+  # Enable provisioning with Ansible
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "playbook-plain-ubuntu.yml"
+    ansible.verbose = "vvv" # v, vv, vvv, vvvv
   end
 
-  # Share a folder to the VM (id, guest path, host path)
-  config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
-  config.vm.share_folder "source", "/home/vagrant/home", ENV['HOME']
+  config.vm.provider "virtualbox" do |vb|
+    # Share a folder to the VM (id, guest path, host path)
+    vb.share_folder "vagrant-share", "/vagrant-share", "../share"
+    vb.share_folder "source", "/home/vagrant/home", ENV['HOME']
 
-  # https://gist.github.com/2155825
-  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
-  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
+    # https://gist.github.com/2155825
+    vb.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
+    vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
+  end
 end
 

@@ -1,0 +1,6 @@
+---
+- include: disable-unattended-upgrades.yml
+- include: disableipv6.yml
+- include: fixgroup.yml
+- include: updateapt.yml
+

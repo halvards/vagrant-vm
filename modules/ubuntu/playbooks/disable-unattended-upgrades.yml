@@ -1,0 +1,5 @@
+---
+- tasks:
+  - name: Disable unattended Ubuntu upgrades as kernel updates interfere with VirtualBox Guest Extensions
+    apt: pkg=unattended-upgrades state=absent
+

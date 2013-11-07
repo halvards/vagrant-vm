@@ -6,4 +6,5 @@
 hostname_do_not_check_in.txt
 share/apps
 boxes
+vagrant_ansible_inventory_default
 

@@ -1,0 +1,13 @@
+---
+- name: Configure Ubuntu updates to use the Aarnet file mirror in Australia
+  hosts: all
+  sudo: yes
+  vars:
+    ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/'
+    default_ubuntu_mirror: 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
+  tasks:
+    - shell: /bin/sed -i 's/{{ default_ubuntu_mirror }}/{{ ubuntu_mirror }}/g' /etc/apt/sources.list && touch /root/.apt-mirror-update
+             creates='/root/.apt-mirror-update'
+    - shell: apt-get update && touch /root/.first-boot-apt-update
+             creates='/root/.first-boot-apt-update'
+
