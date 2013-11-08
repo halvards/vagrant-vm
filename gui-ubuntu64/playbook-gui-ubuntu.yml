@@ -1,0 +1,13 @@
+---
+- hosts: all
+  sudo: yes
+  vars_files:
+    - ../modules/ubuntu/playbooks/mirror.yml
+  tasks:
+    - include: ../modules/ubuntu/playbooks/fixes.yml
+    - include: ../modules/timezone/playbooks/sydney.yml
+    - include: ../modules/utils/playbooks/base.yml
+
+    - include: ../modules/webbrowser/playbooks/chrome.yml
+    - include: ../modules/network/playbooks/wireshark.yml
+

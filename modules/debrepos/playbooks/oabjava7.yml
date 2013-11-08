@@ -1,0 +1,6 @@
+---
+- get_url: url=https://raw.github.com/flexiondotorg/oab-java6/master/oab-java.sh dest=/tmp/oab-java.sh mode=0775
+- shell: /tmp/oab-java.sh -7
+         chdir=/tmp
+         creates=/var/local/oab/srcs/oracle-java7.git
+

@@ -1,0 +1,4 @@
+---
+- include: ../../debrepos/playbooks/wireshark-beta.yml
+- apt: pkg=wireshark state=present
+

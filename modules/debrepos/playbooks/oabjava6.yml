@@ -1,0 +1,6 @@
+---
+- get_url: url=https://raw.github.com/flexiondotorg/oab-java6/master/oab-java.sh dest=/tmp/oab-java.sh mode=0775
+- shell: /tmp/oab-java.sh
+         chdir=/tmp
+         creates=/var/local/oab/srcs/sun-java6.git
+

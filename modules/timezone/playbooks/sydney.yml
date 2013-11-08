@@ -1,10 +1,7 @@
 ---
-- hosts: all
-  sudo: yes
-  tasks:
-  - apt: pkg=tzdata state=present
-  - apt: pkg=ntp state=present
-  - copy: src='../../../share/conf/timezone-sydney' dest='/etc/timezone'
-  - shell: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata && touch /root/.timezone-update
-           creates='/root/.timezone-update
+- apt: pkg=tzdata state=present
+- apt: pkg=ntp state=present
+- copy: src='../../../share/conf/timezone-sydney' dest='/etc/timezone'
+- shell: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata && touch /root/.timezone-update
+         creates='/root/.timezone-update
 

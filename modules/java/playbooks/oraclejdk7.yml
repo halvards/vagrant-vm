@@ -1,0 +1,4 @@
+---
+- include: ../../debrepos/playbooks/oabjava7.yml
+- apt: pkg=oracle-java7-jdk state=present
+

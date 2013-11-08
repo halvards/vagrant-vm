@@ -1,0 +1,5 @@
+---
+- include: ../../debrepos/playbooks/oabjava6.yml
+- apt: pkg=sun-java-jdk state=present
+#- apt: pkg=sun-java6-fonts state=present
+
