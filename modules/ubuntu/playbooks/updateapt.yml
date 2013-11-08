@@ -1,6 +1,6 @@
 ---
-- shell: /bin/sed -i "s/${default_ubuntu_mirror}/${ubuntu_mirror}/g" /etc/apt/sources.list && touch /root/.apt-mirror-update
-         creates='/root/.apt-mirror-update'
-- shell: apt-get update && touch /root/.first-boot-apt-update
-         creates='/root/.first-boot-apt-update'
+- shell: /bin/sed -i "s/{{ default_ubuntu_mirror }}/{{ ubuntu_mirror }}/g" /etc/apt/sources.list && touch /root/.apt-mirror-update
+         creates=/root/.apt-mirror-update
+- shell: apt-get update || touch /root/.first-boot-apt-update
+         creates=/root/.first-boot-apt-update
 

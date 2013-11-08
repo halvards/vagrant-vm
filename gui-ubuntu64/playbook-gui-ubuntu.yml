@@ -1,8 +1,9 @@
 ---
 - hosts: all
   sudo: yes
-  vars_files:
-    - ../modules/ubuntu/playbooks/mirror.yml
+  vars:
+    ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
+    default_ubuntu_mirror: 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/timezone/playbooks/sydney.yml

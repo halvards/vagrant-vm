@@ -1,7 +1,11 @@
 ---
 - hosts: all
   sudo: yes
-  include: ../modules/ubuntu/playbooks/fixes.yml
-  include: ../modules/timezone/playbooks/sydney.yml
-  include: ../modules/utils/playbooks/base.yml
+  vars:
+    ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
+    default_ubuntu_mirror: 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
+  tasks:
+    - include: ../modules/ubuntu/playbooks/fixes.yml
+    - include: ../modules/timezone/playbooks/sydney.yml
+    - include: ../modules/utils/playbooks/base.yml
 

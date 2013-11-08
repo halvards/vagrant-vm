@@ -1,0 +1,4 @@
+---
+- include: ../../debrepos/playbooks/partner.yml
+- apt: pkg=skype state=present
+

@@ -1,0 +1,5 @@
+---
+- include: ../../java/playbooks/oraclejdk7.yml
+- include: ../../debrepos/playbooks/jdownloader.yml
+- apt: pkg=jdownloader state=present
+

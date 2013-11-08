@@ -1,0 +1,6 @@
+---
+- lineinfile: dest=/etc/apt/sources.list state=present regexp="^# ?deb http:\/\/archive\.canonical\.com\/ubuntu {{ ansible_distribution_release }} partner" line="deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner"
+- lineinfile: dest=/etc/apt/sources.list state=present regexp="^# ?deb-src http:\/\/archive\.canonical\.com\/ubuntu {{ ansible_distribution_release }} partner" line="deb-src http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner"
+- shell: apt-get update && touch /root/.apt-update-partner-repo
+         creates=/root/.apt-update-partner-repo
+
