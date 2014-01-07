@@ -1,0 +1,26 @@
+---
+- include: ../../ubuntu/playbooks/deb.yml
+- name: Oracle Java DEB Repository
+  apt_repository: repo="ppa:webupd8team/java" state=present update_cache=yes
+- name: Has the Oracle Java 6 license been accepted
+  shell: /usr/bin/debconf-get-selections | /bin/grep "oracle-java6-installer\s*shared/accepted-oracle-license-v1-1\s*select\s*true"
+  register: java_6_license_accepted
+  ignore_errors: True
+- name: Accept Oracle Java 6 license
+  shell: /bin/echo oracle-java6-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  when: java_6_license_accepted|failed
+- name: Has the Oracle Java 7 license been accepted
+  shell: /usr/bin/debconf-get-selections | /bin/grep "oracle-java7-installer\s*shared/accepted-oracle-license-v1-1\s*select\s*true"
+  register: java_7_license_accepted
+  ignore_errors: True
+- name: Accept Oracle Java 7 license
+  shell: /bin/echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  when: java_7_license_accepted|failed
+- name: Has the Oracle Java 8 license been accepted
+  shell: /usr/bin/debconf-get-selections | /bin/grep "oracle-java8-installer\s*shared/accepted-oracle-license-v1-1\s*select\s*true"
+  register: java_8_license_accepted
+  ignore_errors: True
+- name: Accept Oracle Java 8 license
+  shell: /bin/echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  when: java_8_license_accepted|failed
+

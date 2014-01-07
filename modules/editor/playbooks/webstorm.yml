@@ -1,0 +1,21 @@
+---
+- include: ../../utils/playbooks/inotifylimit.yml
+- include: ../../java/playbooks/oraclejdk7.yml
+- get_url: url=http://download.jetbrains.com/webstorm/WebStorm-7.0.3.tar.gz dest=/vagrant-share/apps/WebStorm-7.0.3.tar.gz
+  async: 1800
+  poll: 10
+- command: /bin/tar -zxf /vagrant-share/apps/WebStorm-7.0.3.tar.gz --directory=/opt
+           creates=/opt/WebStorm-133.434/bin
+- file: path=/opt/WebStorm state=link src=/opt/WebStorm-133.434
+- file: path=/usr/local/bin/webstorm.sh state=link src=/opt/WebStorm/bin/webstorm.sh
+- copy: src=../../../share/conf/webstorm/webstorm.desktop dest=/home/{{ username }}/Desktop/webstorm.desktop mode=0775 owner={{ username }} group={{ username }}
+- file: path=/home/{{ username }}/{{ item }}
+        state=directory
+        mode=0775 owner={{ username }} group={{ username }}
+  with_items:
+    - .WebStorm7
+    - .WebStorm7/config
+- copy: src=../../../share/conf/webstorm/disabled_plugins.txt dest=/home/{{ username }}/.WebStorm7/config/disabled_plugins.txt force=no mode=0664 owner={{ username }} group={{ username }}
+- apt: pkg=gtk2-engines-pixbuf state=present
+- include: ../../ubuntu/playbooks/keybindings.yml
+

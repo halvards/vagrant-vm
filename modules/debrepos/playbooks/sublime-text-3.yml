@@ -1,0 +1,4 @@
+---
+- name: Sublime Text 3 repo
+  apt_repository: repo='ppa:webupd8team/sublime-text-3' state=present update_cache=yes
+

@@ -1,0 +1,12 @@
+---
+- include: ../../utils/playbooks/base.yml
+- include: ../../vcs/playbooks/git.yml
+- include: ../../ruby/playbooks/base.yml
+- include: ./vim.yml
+- apt: pkg=exuberant-ctags state=present
+- name: Install Janus plugins
+  shell: /usr/bin/curl -Lo- https://bit.ly/janus-bootstrap | /bin/bash
+         creates=/home/{{ username }}/.vim/.git
+         chdir=/home/{{ username }}
+  sudo_user: "{{ username }}"
+

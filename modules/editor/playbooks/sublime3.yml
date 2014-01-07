@@ -1,0 +1,4 @@
+---
+- include: ../../debrepos/playbooks/sublime-text-3.yml
+- apt: pkg=sublime-text-installer state=present
+

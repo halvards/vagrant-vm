@@ -1,0 +1,4 @@
+---
+- file: path=/home/{{ username }}/.xsession-errors owner={{ username }} group={{ username }} state=link force=yes src=/dev/null
+- file: path=/home/{{ username }}/.xsession-errors.old owner={{ username }} group={{ username }} state=link force=yes src=/dev/null
+

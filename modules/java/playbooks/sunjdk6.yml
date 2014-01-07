@@ -1,6 +1,7 @@
 ---
-- include: ../../debrepos/playbooks/oabjava6.yml
-- apt: pkg=sun-java6-jdk state=present
-#- apt: pkg=sun-java6-fonts state=present
-#- apt: pkg=sun-java6-plugin state=present
+- include: ../../debrepos/playbooks/java.yml
+- name: Install Sun Java 6
+  apt: pkg=oracle-java6-installer state=present
+  async: 1800
+  poll: 10
 

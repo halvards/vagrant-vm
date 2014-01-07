@@ -1,0 +1,5 @@
+---
+- include: ./wireshark.yml
+- file: path=/home/{{ username }}/.wireshark state=directory mode=0755 owner={{ username }} group={{ username }}
+- template: src=../templates/wireshark_ssl_keys.j2 dest=/home/{{ username }}/.wireshark/ssl_keys mode=0664 owner={{ username }} group={{ username }}
+

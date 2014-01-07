@@ -1,0 +1,5 @@
+---
+- apt: pkg=g++ state=present
+- apt: pkg=libpcap-dev state=present
+- npm: name=htracr state=present global=yes
+

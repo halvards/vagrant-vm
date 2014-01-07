@@ -1,6 +1,5 @@
-PerforceDirectPlugin
-com.jetbrains.plugins.asp
 CVS
-Dart
 com.intellij.jsp
-com.jetbrains.plugins.webDeployment
+PerforceDirectPlugin
+JSTestDriver Plugin
+com.jetbrains.plugins.asp

@@ -1,0 +1,7 @@
+---
+- include: ../../debrepos/playbooks/java.yml
+- name: Install Oracle Java 8 beta
+  apt: pkg=oracle-java8-installer state=present
+  async: 1800
+  poll: 10
+

@@ -1,0 +1,9 @@
+---
+- include: ./base.yml
+- apt: pkg=sqlite3 state=present
+- apt: pkg=libsqlite3-dev state=present
+- apt: pkg=libpq-dev state=present
+- name: Install Rails
+  gem: name=rails state=present user_install=yes version=4.0.2
+  sudo_user: "{{ username }}"
+

@@ -1,4 +1,7 @@
 ---
-- include: ../../debrepos/playbooks/oabjava7.yml
-- apt: pkg=oracle-java7-jdk state=present
+- include: ../../debrepos/playbooks/java.yml
+- name: Install Oracle Java 7
+  apt: pkg=oracle-java7-installer state=present
+  async: 1800
+  poll: 10
 

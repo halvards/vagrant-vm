@@ -1,0 +1,4 @@
+---
+- include: ../../debrepos/playbooks/nodejs.yml
+- apt: pkg=nodejs state=present
+

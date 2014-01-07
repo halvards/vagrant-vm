@@ -1,0 +1,5 @@
+---
+- apt: pkg=ruby state=present
+- apt: pkg=rubygems state=present
+- apt: pkg=rake state=present
+

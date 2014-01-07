@@ -1,9 +1,12 @@
 ---
 - hosts: all
+  remote_user: vagrant
   sudo: yes
+  sudo_user: root
   vars:
     ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
     default_ubuntu_mirror: 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
+    username: vagrant
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/timezone/playbooks/sydney.yml

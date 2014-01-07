@@ -1,0 +1,6 @@
+# Utility to install 32 bit libraries on 64 bit Ubuntu
+---
+- apt: pkg=ia32-libs state=present
+- get_url: url=http://dl.dropbox.com/u/41147122/apps/getlibs-all.deb dest=/vagrant-share/apps/getlibs-all.deb
+- command: /usr/bin/dpkg --skip-same-version --install /vagrant-share/apps/getlibs-all.deb
+

@@ -1,4 +1,22 @@
 ---
 - include: ../../debrepos/playbooks/wireshark-beta.yml
+- include: ../../ubuntu/playbooks/deb.yml
 - apt: pkg=wireshark state=present
+- name: Are non-root users allowed to listen on network interfaces?
+  shell: /usr/bin/debconf-get-selections | /bin/grep "wireshark-common\s*wireshark-common/install-setuid\s*boolean\s*true"
+  register: non_root_users_can_listen
+  ignore_errors: True
+- name: Allow non-root users to listen on network interfaces
+  shell: /bin/echo "wireshark-common wireshark-common/install-setuid boolean true" | /usr/bin/debconf-set-selections
+  when: non_root_users_can_listen|failed
+- group: name=wireshark state=present
+- user: name={{ username }} groups=wireshark append=yes
+- file: path=/usr/bin/dumpcap mode=0754 owner=root group=wireshark
+- name: Do non-root users have dumpcap capabilities?
+  shell: /sbin/getcap /usr/bin/dumpcap | /bin/grep --quiet cap_net_raw
+  register: non_root_users_access_dumpcap
+  ignore_errors: True
+- name: Give dumpcap capabilities to non-root users
+  shell: /sbin/setcap 'CAP_NET_RAW+eip CAP_NET_ADMIN+eip' /usr/bin/dumpcap
+  when: non_root_users_access_dumpcap|failed
 

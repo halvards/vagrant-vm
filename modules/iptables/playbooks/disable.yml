@@ -1,0 +1,4 @@
+---
+- apt: pkg=ufw state=present
+- service: name=ufw enabled=no state=stopped
+

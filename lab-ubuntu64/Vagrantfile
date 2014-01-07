@@ -1,5 +1,5 @@
-Vagrant::Config.run do |config|
-  vm_type = 'lab'
+Vagrant.configure("2") do |config|
+  vm_type = 'lab' 
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = 'precise64-unity'
@@ -7,45 +7,43 @@ Vagrant::Config.run do |config|
   # The url from where the 'config.vm.box' box will be fetched.
   config.vm.box_url = 'http://dl.dropbox.com/u/36836372/precise64-unity-20120504.box'
 
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  config.vm.boot_mode = :gui
-
   # Assign this VM a unique hostname
   #config.vm.host_name = "#{ENV['USER']}.#{vm_type}.precise64.vagrantup.com"
   config.vm.host_name = "#{vm_type}.vagrantup.com"
 
-  # Forward a port from the guest to the host (id, guest port, host port)
-  #config.vm.forward_port 80, 10080, :auto => true
-
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  config.vm.provision :puppet do |puppet|
-    puppet.manifest_file = "#{vm_type}-ubuntu64.pp"
-    puppet.module_path = '../modules'
+  # Enable provisioning with Ansible
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "playbook-lab-ubuntu.yml"
+    ansible.verbose = "vv" # v, vv, vvv, vvvv
   end
 
-  # Share a folder to the VM (id, guest path, host path)
-  config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
-  config.vm.share_folder "source", "/home/vagrant/home", ENV['HOME']
+  # Share a folder to the VM (host path, guest path)
+  config.vm.synced_folder "../share", "/vagrant-share"
+  config.vm.synced_folder ENV['HOME'], "/home/vagrant/home"
 
-  # Set memory allocated to the VM in MB
-  config.vm.customize ['modifyvm', :id, '--memory', '2048']
-  config.vm.customize ['modifyvm', :id, '--cpus', '1']
-  config.vm.customize ['modifyvm', :id, '--vram', '128']
-  config.vm.customize ['modifyvm', :id, '--accelerate2dvideo', 'off']
+  # Forward a port from the guest to the host (id, guest port, host port)
+  #config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
 
-  # Enable sound
-  config.vm.customize ['modifyvm', :id, '--audio', 'coreaudio']
-  config.vm.customize ['modifyvm', :id, '--audiocontroller', 'ac97']
+  config.vm.provider "virtualbox" do |vb|
+    # Boot with a GUI so you can see the screen. (Default is headless)
+    vb.gui = true
 
-  # Enable shared clipboard
-  config.vm.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+    # Set memory allocated to the VM in MB
+    vb.customize ['modifyvm', :id, '--memory', '2048']
+    vb.customize ['modifyvm', :id, '--cpus', '1']
+    vb.customize ['modifyvm', :id, '--vram', '128']
+    vb.customize ['modifyvm', :id, '--accelerate2dvideo', 'off']
 
-  # Use bridged networking rather than NAT
-  #config.vm.network :bridged
+    # Enable sound
+    vb.customize ['modifyvm', :id, '--audio', 'coreaudio']
+    vb.customize ['modifyvm', :id, '--audiocontroller', 'ac97']
 
-  # https://gist.github.com/2155825
-  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
-  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
+    # Enable shared clipboard
+    vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+
+    # https://gist.github.com/2155825
+    vb.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
+    vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
+  end
 end
 

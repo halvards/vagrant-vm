@@ -1,0 +1,4 @@
+---
+- include: ./vim.yml
+- apt: pkg=vim-gnome state=present
+

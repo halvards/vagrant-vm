@@ -1,0 +1,12 @@
+---
+- include: ../../ubuntu/playbooks/deb.yml
+- name: Has Microsoft fonts license been accepted?
+  shell: /usr/bin/debconf-get-selections | /bin/grep "ttf-mscorefonts-installer\s*msttcorefonts/accepted-mscorefonts-eula\s*select\s*true"
+  register: microsoft_fonts_license_accepted
+  ignore_errors: True
+- name: Accept Microsoft fonts license
+  shell: /bin/sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
+  when: microsoft_fonts_license_accepted|failed
+- name: Install Microsoft fonts
+  apt: pkg=ttf-mscorefonts-installer state=present
+

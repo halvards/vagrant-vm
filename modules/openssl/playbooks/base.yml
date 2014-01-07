@@ -1,0 +1,5 @@
+---
+- apt: pkg=openssl state=present
+- file: path={{ ssh_dir }} state=directory mode=0700 owner={{ username }} group={{ username }}
+- file: path={{ ssh_dir }}/authorized_keys state=file mode=0600 owner={{ username }} group={{ username }}
+

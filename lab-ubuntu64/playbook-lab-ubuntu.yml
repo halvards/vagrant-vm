@@ -1,0 +1,29 @@
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+  sudo_user: root
+  vars:
+    ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
+    default_ubuntu_mirror: 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
+    username: vagrant
+  tasks:
+    - include: ../modules/ubuntu/playbooks/fixes.yml
+    - include: ../modules/timezone/playbooks/sydney.yml
+    - include: ../modules/utils/playbooks/base.yml
+    - include: ../modules/xwindows/playbooks/hideerrors.yml
+    - include: ../modules/editor/playbooks/janus.yml
+    - include: ../modules/editor/playbooks/sublime3.yml
+    - include: ../modules/editor/playbooks/vimx.yml
+    - include: ../modules/editor/playbooks/webstorm.yml
+    - include: ../modules/fonts/playbooks/microsoft.yml
+    - include: ../modules/iptables/playbooks/disable.yml
+    - include: ../modules/java/playbooks/oraclejdk7.yml
+    - include: ../modules/network/playbooks/htracr.yml
+    - { include: ../modules/network/playbooks/wireshark_ssl.yml, ports: [ '443', '8443', '10443' ] } # new 1.4 syntax required for passing list variables
+    - include: ../modules/nodejs/playbooks/base.yml
+    - include: ../modules/vcs/playbooks/git.yml
+    - include: ../modules/webbrowser/playbooks/chrome.yml
+    - include: ../modules/webbrowser/playbooks/firefox.yml
+    - include: ../modules/openssl/playbooks/certificate.yml hostname=localhost ssh_dir=/home/{{ username }}/.ssh ca_dir=/home/{{ username }}/CA
+

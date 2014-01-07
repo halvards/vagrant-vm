@@ -23,7 +23,7 @@ class java::sunjdk6 {
         require   => Wget::Fetch['sunjdk6'],
       }
     }
-    'Ubuntu': {
+    'Ubuntu': {/bin/echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
       include debrepos::java
 
       package { ['oracle-java6-installer']:

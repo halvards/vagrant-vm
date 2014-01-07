@@ -1,14 +1,18 @@
 ---
 - hosts: all
+  remote_user: vagrant
   sudo: yes
+  sudo_user: root
   vars:
     ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
     default_ubuntu_mirror: 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
+    username: vagrant
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/timezone/playbooks/sydney.yml
     - include: ../modules/utils/playbooks/base.yml
-
+    - include: ../modules/xwindows/playbooks/hideerrors.yml
+    - include: ../modules/fonts/playbooks/microsoft.yml
     - include: ../modules/webbrowser/playbooks/chrome.yml
-    - include: ../modules/network/playbooks/wireshark.yml
+    - include: ../modules/apps/playbooks/evince.yml
 

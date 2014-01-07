@@ -1,0 +1,3 @@
+---
+- apt: pkg=firefox state=present
+

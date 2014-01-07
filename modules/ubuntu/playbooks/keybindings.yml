@@ -1,0 +1,35 @@
+---
+- file: path=/home/{{ username }}/.gconf/apps/{{ item }}
+        state=directory
+        mode=0700 owner={{ username }} group={{ username }}
+  with_items:
+    - compiz-1
+    - compiz-1/plugins
+    - compiz-1/plugins/unityshell
+    - compiz-1/plugins/unityshell/screen0
+    - compiz-1/plugins/unityshell/screen0/options
+    - gnome_settings_daemon
+    - gnome_settings_daemon/keybindings
+    - metacity
+    - metacity/global_keybindings
+    - metacity/window_keybindings
+- copy: src=../../../share/conf/ubuntu/keybindings/{{ item.src }}/{{ ansible_distribution_release }}-gconf.xml
+        dest=/home/{{ username }}/.gconf/apps/{{ item.dest }}/%gconf.xml
+        mode=0600 owner={{ username }} group={{ username }}
+  with_items:
+    - { src: 'compiz-1/plugins/unityshell/screen0/options', dest: 'compiz-1/plugins/unityshell/screen0/options' }
+    - { src: 'gnome_settings_daemon/keybindings', dest: 'gnome_settings_daemon/keybindings' }
+    - { src: 'metacity/global_keybindings', dest: 'metacity/global_keybindings' }
+    - { src: 'metacity/window_keybindings', dest: 'metacity/window_keybindings' }
+- copy: src=../../../share/conf/ubuntu/keybindings/empty-gconf.xml
+        dest=/home/{{ username }}/.gconf/apps{{ item }}/%gconf.xml
+        mode=0600 owner={{ username }} group={{ username }}
+  with_items:
+    - ''
+    - /compiz-1
+    - /compiz-1/plugins
+    - /compiz-1/plugins/unityshell
+    - /compiz-1/plugins/unityshell/screen0
+    - /gnome_settings_daemon
+    - /metacity
+

@@ -1,0 +1,12 @@
+# Set limit of watched file handles (inotify)
+# http://confluence.jetbrains.net/display/IDEADEV/Inotify+Watches+Limit
+---
+- lineinfile: dest=/etc/sysctl.conf state=present line='fs.inotify.max_user_watches = 524288'
+- name: Has max_user_watches limit changed?
+  shell: /sbin/sysctl fs.inotify.max_user_watches | /bin/grep 524288
+  register: max_user_watches_limit_changed
+  ignore_errors: True
+- name: Apply max_user_watches limit change
+  command: /sbin/sysctl -p
+  when: max_user_watches_limit_changed|failed
+
