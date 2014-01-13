@@ -1,0 +1,14 @@
+---
+- get_url: url=https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz dest=/vagrant-share/apps/godeb-amd64.tar.gz
+- command: /bin/tar -zxf /vagrant-share/apps/godeb-amd64.tar.gz --directory=/usr/local/bin
+           creates=/usr/local/bin/godeb
+- command: /usr/local/bin/godeb install
+           creates=/usr/local/go/bin/go
+- file: path=/home/{{ username }}/{{ item }} state=directory mode=0775 owner={{ username }} group={{ username }}
+  with_items:
+    - gocode
+    - gocode/src
+    - gocode/bin
+    - gocode/pkg
+- lineinfile: dest=/home/{{ username }}/.bashrc line="export GOPATH=$HOME/gocode"
+

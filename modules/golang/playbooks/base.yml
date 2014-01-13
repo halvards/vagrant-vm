@@ -1,0 +1,10 @@
+---
+- apt: pkg=golang state=present
+- file: path=/home/{{ username }}/{{ item }} state=directory mode=0775 owner={{ username }} group={{ username }}
+  with_items:
+    - golang
+    - golang/src
+    - golang/bin
+    - golang/pkg
+- lineinfile: dest=/home/{{ username }}/.bashrc line="export GOPATH=$HOME/golang"
+

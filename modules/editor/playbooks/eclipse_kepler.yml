@@ -1,0 +1,8 @@
+# eclipse_type can be java, cpp, standard, jee and more
+---
+- get_url: url=http://mirror.aarnet.edu.au/pub/eclipse/technology/epp/downloads/release/kepler/SR1/eclipse-{{ eclipse_type }}-kepler-SR1-linux-gtk-{{ ansible_userspace_architecture }}.tar.gz
+           dest=/vagrant-share/apps/eclipse-{{ eclipse_type }}-kepler-SR1-linux-gtk-{{ ansible_userspace_architecture }}.tar.gz
+- command: /bin/tar -zxf /vagrant-share/apps/eclipse-{{ eclipse_type }}-kepler-SR1-linux-gtk-{{ ansible_userspace_architecture }}.tar.gz --directory=/opt
+           creates=/opt/eclipse/eclipse
+- file: path=/usr/local/bin/eclipse state=link src=/opt/eclipse/eclipse
+

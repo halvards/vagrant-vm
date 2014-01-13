@@ -1,0 +1,11 @@
+---
+- apt: pkg={{ item }} state=present
+  with_items:
+    - build-essential
+    - gdb
+    - manpages-dev
+    - autoconf
+    - automake
+    - gcc-multilib
+    - g++-multilib
+

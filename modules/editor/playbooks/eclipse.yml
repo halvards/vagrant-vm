@@ -1,0 +1,20 @@
+---
+- apt: pkg={{ item }} state=present
+  with_items:
+    - eclipse
+    - eclipse-cdt
+    - eclipse-egit
+- file: path=/home/{{ username }}/.swt/lib/linux/{{ ansible_userspace_architecture }}/{{ item }}-gtk-3740.so
+        state=link
+        src=/usr/lib/jni/{{ item }}-gtk-3740.so
+  with_items:
+    - libswt-atk
+    - libswt-awt
+    - libswt-cairo
+    - libswt-glx
+    - libswt-gnome
+    - libswt
+    - libswt-gtk
+    - libswt-pi
+    - libswt-webkit
+

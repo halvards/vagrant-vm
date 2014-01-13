@@ -1,0 +1,7 @@
+---
+- include: ./godeb.yml
+- shell: GOPATH=$HOME/golang /usr/bin/go get -u github.com/nsf/gocode
+         creates=/home/{{ username }}/golang/bin/gocode
+         chdir=/home/{{ username }}
+  sudo_user: "{{ username }}"
+

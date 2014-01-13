@@ -1,16 +1,16 @@
 ---
-- apt: pkg=bash state=present
-- apt: pkg=bzip2 state=present
-- apt: pkg=coreutils state=present
-- apt: pkg=curl state=present
-- apt: pkg=gzip state=present
-- apt: pkg=patch state=present
-- apt: pkg=sed state=present
-- apt: pkg=tar state=present
-- apt: pkg=unzip state=present
-- apt: pkg=wget state=present
-- apt: pkg=zip state=present
-
-- apt: pkg=man-db state=present
-- apt: pkg=unrar state=present
+- apt: pkg={{ item }} state=present
+  with_items:
+    - bash
+    - bzip2
+    - coreutils
+    - curl
+    - gzip
+    - man-db
+    - patch
+    - sed
+    - tar
+    - unzip
+    - wget
+    - zip
 
