@@ -24,6 +24,7 @@
     - include: ../modules/nodejs/playbooks/base.yml
     - include: ../modules/vcs/playbooks/git.yml
     - include: ../modules/webbrowser/playbooks/chrome.yml
-    - include: ../modules/webbrowser/playbooks/firefox.yml
-    - include: ../modules/openssl/playbooks/certificate.yml hostname=localhost ssh_dir=/home/{{ username }}/.ssh ca_dir=/home/{{ username }}/CA
+    - include: ../modules/openssl/playbooks/certificate.yml hostname=localhost ssh_dir=/home/{{ username }}/.ssh ca_dir=/home/{{ username }}/.ca
+
+    - include: ../modules/golang/playbooks/gocode.yml
 
