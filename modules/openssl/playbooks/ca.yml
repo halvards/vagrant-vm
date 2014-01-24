@@ -5,7 +5,8 @@
 - file: path={{ ca_dir }}/private state=directory mode=0700 owner={{ username }} group={{ username }}
 - copy: dest={{ ca_dir }}/index.txt force=no owner={{ username }} group={{ username }} content=""
 - copy: dest={{ ca_dir }}/serial force=no owner={{ username }} group={{ username }} content="01"
-- template: src=../templates/openssl.cnf.erb dest=/etc/ssl/openssl.cnf mode=0644 owner=root group=root
+- template: src='../templates/openssl.cnf.erb' dest=/etc/ssl/openssl.cnf mode=0644 owner=root group=root
+- template: src='../templates/openssl.cnf.erb' dest=/usr/lib/ssl/openssl.cnf mode=0644 owner=root group=root
 - name: Create self-signed Certificate Authority key pair and public key certificate
   shell: /usr/bin/openssl req -new -x509 -extensions v3_ca -nodes -out {{ ca_dir }}/cacert.pem -keyout {{ ca_dir }}/private/cakey.pem -days 3650 -subj "/C=AU/ST=NSW/L=Sydney/O=Test CA/CN=Test CA"
          creates={{ ca_dir }}/private/ca_key.pem

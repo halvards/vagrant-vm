@@ -1,0 +1,11 @@
+---
+- include: ./ca.yml
+- name: Create PKCS12 container for CA key pair
+  command: /usr/bin/openssl pkcs12 -export -in {{ ca_dir }}/cacert.pem -inkey {{ ca_dir }}/private/cakey.pem -out {{ ca_dir }}/private/ca.p12 -passout pass:password
+           creates={{ ca_dir }}/private/ca.p12
+  sudo_user: "{{ username }}"
+- name: Convert PKCS12 container to Java KeyStore for CA key pair
+  command: /usr/bin/keytool -importkeystore -srckeystore {{ ca_dir }}/private/ca.p12 -srcstoretype PKCS12 -deststoretype JKS -destkeystore {{ ca_dir }}/private/ca.jks -srcstorepass password -deststorepass password
+           creates={{ ca_dir }}/private/ca.jks
+  sudo_user: "{{ username }}"
+

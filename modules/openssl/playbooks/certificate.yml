@@ -1,16 +1,16 @@
 ---
 - include: ./ca.yml
-- name: Create localhost key pair
+- name: Create {{ hostname }} key pair
   shell: /usr/bin/openssl genrsa -out {{ ssh_dir }}/{{ hostname }}.key 1024
          creates={{ ssh_dir }}/{{ hostname }}.key
          chdir=/home/{{ username }}
   sudo_user: "{{ username }}"
-- name: Create Certificate Signing Request for localhost
-  shell: /usr/bin/openssl req -new -nodes -key {{ ssh_dir }}/{{ hostname }}.key -out {{ ssh_dir }}/{{ hostname }}.csr -days 3650 -subj "/C=AU/ST=NSW/L=Sydney/O=Test CA/CN=localhost"
+- name: Create Certificate Signing Request for {{ hostname }}
+  shell: /usr/bin/openssl req -new -nodes -key {{ ssh_dir }}/{{ hostname }}.key -out {{ ssh_dir }}/{{ hostname }}.csr -days 3650 -subj "/C=AU/ST=NSW/L=Sydney/O=Test CA/CN={{ hostname }}"
          creates={{ ssh_dir }}/{{ hostname }}.csr
          chdir=/home/{{ username }}
   sudo_user: "{{ username }}"
-- name: Sign the certificate for localhost using Certificate Authority private key with the Certificate Signing Request
+- name: Sign the certificate for {{ hostname }} using Certificate Authority private key with the Certificate Signing Request
   shell: /usr/bin/openssl ca -batch -out {{ ssh_dir }}/{{ hostname }}.crt -in {{ ssh_dir }}/{{ hostname }}.csr -days 3650
          creates={{ ssh_dir }}/{{ hostname }}.crt
          chdir=/home/{{ username }}
