@@ -1,0 +1,7 @@
+---
+- get_url: url=http://d35ac8ww5dfjyg.cloudfront.net/playground/bins/0.6.2/LightTableLinux64.tar.gz dest=/vagrant-share/apps/LightTableLinux64-0.6.2.tar.gz
+           sha256sum=f33f775198fbd15a849beb73775ece9b352808c2a35e51cc83c81fa9db66ef3f
+- command: /bin/tar -zxf /vagrant-share/apps/LightTableLinux64-0.6.2.tar.gz --directory=/opt
+           creates=/opt/LightTable/LightTable
+- file: path=/usr/local/bin/light src=/opt/LightTable/LightTable state=link
+
