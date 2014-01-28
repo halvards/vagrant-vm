@@ -4,4 +4,6 @@
   apt: pkg=oracle-java6-installer state=present
   async: 1800
   poll: 10
+- name: Set JAVA_HOME environment variable
+  lineinfile: dest=/home/{{ username }}/.bashrc line='export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")'
 
