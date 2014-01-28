@@ -1,0 +1,4 @@
+---
+- include: ../../debrepos/playbooks/gradle.yml
+- apt: pkg=gradle state=present
+

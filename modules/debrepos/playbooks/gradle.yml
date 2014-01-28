@@ -1,0 +1,3 @@
+---
+- apt_repository: repo='ppa:cwchien/gradle' state=present update_cache=yes
+
