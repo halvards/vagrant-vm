@@ -1,14 +1,17 @@
 ---
 - include: ../../utils/playbooks/inotifylimit.yml
 - include: ../../java/playbooks/oraclejdk7.yml
-- get_url: url=http://download.jetbrains.com/ruby/RubyMine-6.0.2.tar.gz dest=/vagrant-share/apps/RubyMine-6.0.2.tar.gz
+- get_url: url=http://download.jetbrains.com/ruby/RubyMine-6.0.2.tar.gz
+           dest=/vagrant-share/apps/RubyMine-6.0.2.tar.gz
+           sha256sum=85686da5f27cec67a2955b4b4d3e3793af5d2af654a39eaca504242fb6d170de
   async: 1800
   poll: 10
 - command: /bin/tar -zxf /vagrant-share/apps/RubyMine-6.0.2.tar.gz --directory=/opt
            creates=/opt/RubyMine-6.0.2/bin
 - file: path=/opt/RubyMine state=link src=/opt/RubyMine-6.0.2
 - file: path=/usr/local/bin/rubymine.sh state=link src=/opt/RubyMine/bin/rubymine.sh
-- copy: src=../../../share/conf/rubymine/rubymine.desktop dest=/home/{{ username }}/Desktop/rubymine.desktop
+- copy: src=../../../share/conf/rubymine/rubymine.desktop
+        dest=/home/{{ username }}/Desktop/rubymine.desktop
         mode=0775 owner={{ username }} group={{ username }}
 - file: path=/home/{{ username }}/{{ item }}
         state=directory
@@ -16,7 +19,8 @@
   with_items:
     - .RubyMine60
     - .RubyMine60/config
-- copy: src=../../../share/conf/rubymine/disabled_plugins.txt dest=/home/{{ username }}/.RubyMine60/config/disabled_plugins.txt
+- copy: src=../../../share/conf/rubymine/disabled_plugins.txt
+        dest=/home/{{ username }}/.RubyMine60/config/disabled_plugins.txt
         force=no mode=0664 owner={{ username }} group={{ username }}
 - apt: pkg=gtk2-engines-pixbuf state=present
   when: ansible_os_family == "Debian"
