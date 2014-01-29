@@ -1,0 +1,4 @@
+---
+- include: ./ideaplugin.yml plugin_update_id='14934' plugin_name='NodeJS' plugin_version='133.434' plugin_filetype='zip'
+           idea_config_dir=/home/{{ username }}/.IntelliJIdea13
+

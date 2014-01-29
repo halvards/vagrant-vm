@@ -1,0 +1,14 @@
+---
+- get_url: url=http://plugins.jetbrains.com/plugin/download?updateId={{ plugin_update_id }}
+           dest=/vagrant-share/apps/ideaplugin-{{ plugin_name }}-{{ plugin_version }}.{{ plugin_filetype }}
+- apt: pkg=unzip state=present
+  when: plugin_filetype == 'zip'
+- command: /usr/bin/unzip -q /vagrant-share/apps/ideaplugin-{{ plugin_name }}-{{ plugin_version }}.{{ plugin_filetype }} -d {{ idea_config_dir }}/config/plugins
+           creates={{ idea_config_dir }}/config/plugins/{{ plugin_name }}
+  sudo_user: "{{ username }}"
+  when: plugin_filetype == 'zip'
+- copy: src=../../../share/apps/ideaplugin-{{ plugin_name }}-{{ plugin_version }}.{{ plugin_filetype }}
+        dest={{ idea_config_dir }}/config/plugins/{{ plugin_name }}.{{ plugin_filetype }}
+        mode=0664 owner={{ username }} group={{ username }}
+  when: plugin_filetype == 'jar'
+
