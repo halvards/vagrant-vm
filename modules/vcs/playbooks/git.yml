@@ -1,3 +1,7 @@
 ---
-- apt: pkg=git state=present
+- include: ../../debrepos/playbooks/git.yml
+- apt: pkg=git state=latest
+- copy: src=../../../share/conf/git/basic_gitconfig
+        dest=/home/{{ username }}/.gitconfig
+        force=no mode=0600 owner={{ username }} group={{ username }}
 

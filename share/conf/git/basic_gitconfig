@@ -1,0 +1,9 @@
+[color]
+  ui = auto
+
+[alias]
+  st = status
+
+[push]
+  default = simple
+
