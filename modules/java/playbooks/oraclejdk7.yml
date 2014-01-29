@@ -1,5 +1,12 @@
 ---
 - include: ../../debrepos/playbooks/java.yml
+- name: Has the Oracle Java 7 license been accepted
+  shell: /usr/bin/debconf-get-selections | /bin/grep "oracle-java7-installer\s*shared/accepted-oracle-license-v1-1\s*select\s*true"
+  register: java_7_license_accepted
+  ignore_errors: True
+- name: Accept Oracle Java 7 license
+  shell: /bin/echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  when: java_7_license_accepted|failed
 - name: Install Oracle Java 7
   apt: pkg=oracle-java7-installer state=present
   async: 1800
