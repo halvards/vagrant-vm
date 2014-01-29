@@ -1,0 +1,4 @@
+---
+- include: ./idea.yml idea_edition='IU' idea_version='13.0.2' idea_build='133.696' idea_config_dir='.IntelliJIdea13'
+           idea_sha256sum=7ba9499ecc82029470712d6ead520db1e2cf520e4f86d382cbdea1d0052712d0
+

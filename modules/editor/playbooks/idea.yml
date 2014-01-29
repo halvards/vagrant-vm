@@ -1,30 +1,30 @@
 ---
 - include: ../../utils/playbooks/inotifylimit.yml
 - include: ../../java/playbooks/oraclejdk7.yml
-- get_url: url=http://download-ln.jetbrains.com/idea/ideaIU-13.0.2.tar.gz
-           dest=/vagrant-share/apps/ideaIU-13.0.2.tar.gz
-           sha256sum=7ba9499ecc82029470712d6ead520db1e2cf520e4f86d382cbdea1d0052712d0
+- get_url: url=http://download-ln.jetbrains.com/idea/idea{{ idea_edition }}-{{ idea_version }}.tar.gz
+           dest=/vagrant-share/apps/idea{{ idea_edition }}-{{ idea_version }}.tar.gz
+           sha256sum={{ idea_sha256sum }}
   async: 1800
   poll: 10
-- command: /bin/tar -zxf /vagrant-share/apps/ideaIU-13.0.2.tar.gz --directory=/opt
-           creates=/opt/idea-IU-133.696/bin
-- file: path=/opt/ideaIU state=link src=/opt/idea-IU-133.696
-- file: path=/usr/local/bin/ideaIU.sh state=link src=/opt/ideaIU/bin/idea.sh
-- copy: src=../../../share/conf/idea/ideaIU.desktop
-        dest=/home/{{ username }}/Desktop/ideaIU.desktop
+- command: /bin/tar -zxf /vagrant-share/apps/idea{{ idea_edition }}-{{ idea_version }}.tar.gz --directory=/opt
+           creates=/opt/idea-{{ idea_edition }}-{{ idea_build }}/bin
+- file: path=/opt/idea{{ idea_edition }} state=link src=/opt/idea-{{ idea_edition }}-{{ idea_build }}
+- file: path=/usr/local/bin/idea{{ idea_edition }}.sh state=link src=/opt/idea{{ idea_edition }}/bin/idea.sh
+- copy: src=../../../share/conf/idea/idea{{ idea_edition }}.desktop
+        dest=/home/{{ username }}/Desktop/idea{{ idea_edition }}.desktop
         mode=0775 owner={{ username }} group={{ username }}
 - file: path=/home/{{ username }}/{{ item }}
         state=directory
         mode=0775 owner={{ username }} group={{ username }}
   with_items:
-    - .IntelliJIdea13
-    - .IntelliJIdea13/config
-    - .IntelliJIdea13/config/options
+    - "{{ idea_config_dir }}"
+    - "{{ idea_config_dir }}/config"
+    - "{{ idea_config_dir }}/config/options"
 - copy: src=../../../share/conf/idea/disabled_plugins.txt
-        dest=/home/{{ username }}/.IntelliJIdea13/config/disabled_plugins.txt
+        dest=/home/{{ username }}/{{ idea_config_dir }}/config/disabled_plugins.txt
         force=no mode=0664 owner={{ username }} group={{ username }}
 - copy: src=../../../share/conf/idea/jdk7.table.xml
-        dest=/home/{{ username }}/.IntelliJIdea13/config/options/jdk.table.xml
+        dest=/home/{{ username }}/{{ idea_config_dir }}/config/options/jdk.table.xml
         mode=0664 owner={{ username }} group={{ username }}
 - apt: pkg=gtk2-engines-pixbuf state=present
   when: ansible_os_family == "Debian"

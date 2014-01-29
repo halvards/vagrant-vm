@@ -1,0 +1,4 @@
+---
+- include: ./idea.yml idea_edition='IC' idea_version='13.0.2' idea_build='133.696' idea_config_dir='.IdeaIC13'
+           idea_sha256sum=a776878c2dba877761b74d2886d006f64eec3c9694dbd1578380287a9c8cbd53
+
