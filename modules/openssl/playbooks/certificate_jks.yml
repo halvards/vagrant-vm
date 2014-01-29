@@ -1,10 +1,10 @@
 ---
 - include: ./certificate.yml
-- name: Create PKCS12 container for host key pair
+- name: Create PKCS12 container for {{ hostname }} key pair
   command: /usr/bin/openssl pkcs12 -export -in {{ ssh_dir }}/{{ hostname }}.crt -inkey {{ ssh_dir }}/{{ hostname }}.key -out {{ ssh_dir }}/{{ hostname }}.p12 -passout pass:password
            creates={{ ssh_dir }}/{{ hostname }}.p12
   sudo_user: "{{ username }}"
-- name: Convert PKCS12 container to Java KeyStore for host key pair
+- name: Convert PKCS12 container to Java KeyStore for {{ hostname }} key pair
   command: /usr/bin/keytool -importkeystore -srckeystore {{ ssh_dir }}/{{ hostname }}.p12 -srcstoretype PKCS12 -deststoretype JKS -destkeystore {{ ssh_dir }}/{{ hostname }}.jks -srcstorepass password -deststorepass password
            creates={{ ssh_dir }}/{{ hostname }}.jks
   sudo_user: "{{ username }}"
