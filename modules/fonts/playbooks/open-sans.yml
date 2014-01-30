@@ -1,0 +1,12 @@
+---
+- file: path=/usr/local/share/fonts/{{ item }} state=directory mode=0775 owner=root group=root
+  with_items:
+    - truetype
+    - truetype/open-sans
+- get_url: url=http://www.fontsquirrel.com/fonts/download/open-sans
+           dest=/vagrant-share/apps/open-sans.zip
+- command: /usr/bin/unzip -q /vagrant-share/apps/open-sans.zip -d /usr/local/share/fonts/truetype/open-sans
+           creates=/usr/local/share/fonts/truetype/open-sans/OpenSans-Regular.ttf
+- shell: /usr/bin/fc-cache && /usr/bin/touch /usr/local/share/fonts/truetype/open-sans/.installed
+         creates=/usr/local/share/fonts/truetype/open-sans/.installed
+
