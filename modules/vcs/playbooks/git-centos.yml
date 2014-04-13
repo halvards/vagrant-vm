@@ -1,0 +1,6 @@
+---
+- yum: name=git state=latest
+- copy: src=../../../share/conf/git/basic_gitconfig
+        dest=/home/{{ username }}/.gitconfig
+        force=no mode=0600 owner={{ username }} group={{ username }}
+

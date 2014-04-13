@@ -1,0 +1,8 @@
+---
+- include: ../../yumrepos/playbooks/epel.yml
+- yum: name={{ item }} state=present
+  with_items:
+    - rpm-build
+    - createrepo
+    - rpmrebuild
+

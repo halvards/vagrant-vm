@@ -1,0 +1,6 @@
+---
+- file: path=/etc/localtime
+        state=link
+        force=yes
+        src=/usr/share/zoneinfo/Australia/Sydney
+

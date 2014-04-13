@@ -1,0 +1,16 @@
+---
+- yum: name={{ item }} state=present
+  with_items:
+    - bash
+    - bzip2
+    - coreutils
+    - curl
+    - gzip
+    - man
+    - patch
+    - sed
+    - tar
+    - unzip
+    - wget
+    - zip
+

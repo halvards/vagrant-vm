@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+  sudo_user: root
+  vars:
+    username: vagrant
+  tasks:
+    - include: ../modules/timezone/playbooks/sydney-centos.yml
+    - include: ../modules/utils/playbooks/base-centos.yml
+    - include: ../modules/utils/playbooks/rpm.yml
+    - include: ../modules/vcs/playbooks/git-centos.yml
+
