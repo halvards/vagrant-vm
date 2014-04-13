@@ -4,5 +4,9 @@
   with_items:
     - rpm-build
     - createrepo
+    - yum-plugin-downloadonly
+    - yum-plugin-fastestmirror
+    - yum-plugin-priorities
+    - yum-utils
     - rpmrebuild
 

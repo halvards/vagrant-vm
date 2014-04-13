@@ -1,0 +1,36 @@
+---
+- include: ../../yumrepos/playbooks/vagrant.yml
+- include: ./swap2gb.yml
+- yum: name={{ item }} state=present
+  with_items:
+    - bc
+    - flex
+    - libaio
+#- lineinfile: dest=/etc/sysctl.conf state=absent regexp={{ item }}
+  #with_items:
+    #- 'net.bridge.bridge-nf-call-ip6tables.*'
+    #- 'net.bridge.bridge-nf-call-iptables.*'
+    #- 'net.bridge.bridge-nf-call-arptables.*'
+#- yum: name=https://dl.dropboxusercontent.com/u/41147122/rpmrepo/common/RPMS/oracle-xe-11.2.0-1.0.x86_64.rpm state=present
+- yum: name=oracle-xe state=present
+  async: 1800
+  poll: 10
+- name: Configure Oracle XE
+  shell: /etc/init.d/oracle-xe configure responseFile=/vagrant-share/conf/oraclexe.response > /tmp/XEsilentinstall.log
+         creates=/tmp/XEsilentinstall.log
+  sudo_user: root
+  async: 600
+  poll: 5
+- name: Set up Oracle environment variables for user {{ username }}
+  lineinfile: dest=/home/{{ username }}/.bashrc
+              state=present
+              insertafter=EOF
+              line='source /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh'
+- name: Set up Oracle environment variables for user root
+  lineinfile: dest=/root/.bashrc
+              state=present
+              insertafter=EOF
+              line='source /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh'
+#- name: Create Oracle user dev (fix this and ensure it only runs once)
+  #shell: source /root/.bashrc && /bin/echo "CREATE USER dev IDENTIFIED BY dev; GRANT 'DBA' TO dev; ALTER USER dev DEFAULT ROLE 'DBA'; exit;" | /u01/app/oracle/product/11.2.0/xe/bin/sqlplus -l -s system/password
+

@@ -1,5 +1,5 @@
 ---
 - yum: name=jpackage-utils state=present
 - yum: name=yum-priorities state=present
-- yum: name=http://mirrors.dotsrc.org/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm state=present
+- yum: name=/vagrant-share/repos/jpackage-release-6-3.jpp6.noarch.rpm state=present
 

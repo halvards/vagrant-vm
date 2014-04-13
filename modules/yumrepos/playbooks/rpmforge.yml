@@ -1,11 +1,11 @@
-# Don't use with RPMForge/RepoForge
+# Don't use with EPEL
 ---
 - yum: name={{ item }} state=present
   with_items:
     - ansible
-    - redhat-lsb-core
-- yum: name=/vagrant-share/repos/epel-release-6-8.noarch.rpm state=present
+    - redhat_lsb_core
+- yum: name=/vagrant-share/repos/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm state=present
   when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 6
-- yum: name=/vagrant-share/repos/epel-release-5-4.noarch.rpm state=present
+- yum: name=/vagrant-share/repos/rpmforge-release-0.5.3-1.el5.rf.x86_64.rpm state=present
   when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 5
 

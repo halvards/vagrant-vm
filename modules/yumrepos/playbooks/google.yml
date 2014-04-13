@@ -1,0 +1,13 @@
+---
+- rpm_key: key=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
+- template: src=../templates/yum.repo.j2
+            dest=/etc/yum.repos.d/google.repo
+            owner=root group=root mode=0644
+  with_items:
+    - { id: google,
+        name: 'Google RPM Repository 64 bit',
+        baseurl: 'http://dl.google.com/linux/rpm/stable/x86_64',
+        enabled: 1,
+        gpgcheck: 1,
+        gpgkey: 'https://dl-ssl.google.com/linux/linux_signing_key.pub' }
+

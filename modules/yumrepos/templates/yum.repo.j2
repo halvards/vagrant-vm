@@ -1,0 +1,7 @@
+[{{ item.id }}]
+name={{ item.name }}
+baseurl={{ item.baseurl }}
+enabled={{ item.enabled }}
+gpgcheck={{ item.gpgcheck }}
+{% if item.gpgkey %}gpgkey={{ item.gpgkey }}{% endif %}
+protect=0

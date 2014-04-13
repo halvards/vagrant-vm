@@ -1,19 +1,12 @@
-class yumrepos::vagrantvms {
-  yumrepo { 'vagrantvms-common':
-    descr    => 'RPM Repository for Vagrant VMs Common',
-    baseurl  => 'http://dl.dropbox.com/u/41147122/rpmrepo/common/',
-    enabled  => 1,
-    gpgcheck => 0,
-  }
-
-  yumrepo { 'vagrantvms':
-    descr    => 'RPM Repository for Vagrant VMs Release Specific',
-    baseurl  => $kernelrelease ? {
-      /el5/ => 'http://dl.dropbox.com/u/41147122/rpmrepo/5/',
-      /el6/ => 'http://dl.dropbox.com/u/41147122/rpmrepo/6/',
-    },
-    enabled  => 1,
-    gpgcheck => 0,
-  }
-}
+---
+- template: src=../templates/yum.repo.j2
+            dest=/etc/yum.repos.d/vagrant.repo
+            owner=root group=root mode=0644
+  with_items:
+    - { id: vagrant,
+        name: 'RPM repository for https://github.com/halvards/vagrant-vm',
+        baseurl: 'http://dl.dropbox.com/u/41147122/rpmrepo/common/',
+        enabled: 1,
+        gpgcheck: 0,
+        gpgkey: False }
 

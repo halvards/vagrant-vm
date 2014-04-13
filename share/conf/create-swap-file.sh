@@ -4,10 +4,10 @@
 set -e
 
 # Create swapfile of 2GB with block size 1MB
-#/bin/dd if=/dev/zero of=/swapfile bs=1024 count=2097152
+/bin/dd if=/dev/zero of=/swapfile bs=1024 count=2097152
 
 # Create swapfile of 1GB with block size 1MB
-/bin/dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+#/bin/dd if=/dev/zero of=/swapfile bs=1024 count=1048576
 
 # Set up the swap file
 /sbin/mkswap /swapfile

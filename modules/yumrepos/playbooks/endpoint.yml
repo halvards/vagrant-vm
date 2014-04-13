@@ -1,0 +1,3 @@
+---
+- yum: name=/vagrant-share/repos/endpoint-repo-1.6-1.x86_64.rpm state=present
+
