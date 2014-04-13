@@ -4,11 +4,12 @@
   sudo: yes
   sudo_user: root
   vars:
-    ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
+    ubuntu_mirror: 'http:\/\/au\.archive\.ubuntu\.com\/ubuntu\/'
     default_ubuntu_mirror: 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
     username: vagrant
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/timezone/playbooks/sydney.yml
     - include: ../modules/utils/playbooks/base.yml
+    - include: ../modules/vcs/playbooks/git.yml
 
