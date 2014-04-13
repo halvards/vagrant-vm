@@ -6,6 +6,7 @@
   vars:
     ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
     default_ubuntu_mirror: 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
+    default_ubuntu_security_mirror: 'http:\/\/security\.ubuntu\.com\/ubuntu'
     username: vagrant
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml

@@ -6,7 +6,10 @@
   vars:
     ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
     default_ubuntu_mirror: 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
+    default_ubuntu_security_mirror: 'http:\/\/security\.ubuntu\.com\/ubuntu'
     username: vagrant
+    ssh_dir: '/home/{{ username }}/.ssh'
+    ca_dir: '/home/{{ username }}/.ca'
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/timezone/playbooks/sydney.yml
@@ -24,7 +27,9 @@
     - include: ../modules/nodejs/playbooks/base.yml
     - include: ../modules/vcs/playbooks/git.yml
     - include: ../modules/webbrowser/playbooks/chrome.yml
-    - include: ../modules/openssl/playbooks/certificate.yml hostname=localhost ssh_dir=/home/{{ username }}/.ssh ca_dir=/home/{{ username }}/.ca
-
-    - include: ../modules/golang/playbooks/gocode.yml
+    - include: ../modules/openssl/playbooks/certificate_jks.yml hostname='lab.vagrantup.com'
+    - include: ../modules/openssl/playbooks/certificate_jks.yml hostname='localhost'
+    - include: ../modules/editor/playbooks/idea-ultimate.yml
+    - include: ../modules/editor/playbooks/ideaplugin-nodejs.yml
+    - include: ../modules/fonts/playbooks/open-sans.yml
 
