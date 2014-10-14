@@ -1,0 +1,4 @@
+---
+- apt: pkg=python-pycurl state=present
+- apt_repository: repo='ppa:kakrueger/openstreetmap' state=present update_cache=yes
+

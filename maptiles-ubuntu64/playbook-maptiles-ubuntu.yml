@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+  sudo_user: root
+  vars:
+    ubuntu_mirror: 'http:\/\/au\.archive\.ubuntu\.com\/ubuntu\/'
+    default_ubuntu_mirror: 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
+    username: vagrant
+  tasks:
+    - include: ../modules/ubuntu/playbooks/fixes.yml
+    - include: ../modules/timezone/playbooks/sydney.yml
+    - include: ../modules/utils/playbooks/base.yml
+    - include: ../modules/iptables/playbooks/disable.yml
+    - include: ../modules/vcs/playbooks/git.yml
+    - include: ../modules/editor/playbooks/vim.yml
+    - include: ../modules/apache/playbooks/mod_tile.yml
+
