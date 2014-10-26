@@ -9,4 +9,3 @@
   when: microsoft_fonts_license_accepted|failed
 - name: Install Microsoft fonts
   apt: pkg=ttf-mscorefonts-installer state=present
-

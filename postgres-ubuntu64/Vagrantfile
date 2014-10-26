@@ -2,13 +2,10 @@ Vagrant::Config.run do |config|
   vm_type = 'postgres'
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'precise64'
-
-  # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
+  config.vm.box = 'ubuntu/trusty64'
 
   # Assign this VM a unique hostname
-  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.#{config.vm.box}.vagrantup.com"
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.ubuntu64.vagrantup.com"
 
   # Forward a port from the guest to the host (id, guest port, host port)
   config.vm.forward_port 5432, 5432, :auto => true # PostgreSQL server port
@@ -24,9 +21,4 @@ Vagrant::Config.run do |config|
   # Share a folder to the VM (id, guest path, host path)
   config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
   config.vm.share_folder "source", "/home/vagrant/home", ENV['HOME']
-
-  # https://gist.github.com/2155825
-  config.vm.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
-  config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
 end
-

@@ -1,4 +1,3 @@
 ---
 - include: ./vim.yml
-- apt: pkg=vim-gnome state=present
-
+- apt: pkg=vim-gtk state=present

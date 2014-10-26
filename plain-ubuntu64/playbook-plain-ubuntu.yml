@@ -12,4 +12,3 @@
     - include: ../modules/timezone/playbooks/sydney.yml
     - include: ../modules/utils/playbooks/base.yml
     - include: ../modules/vcs/playbooks/git.yml
-

@@ -1,0 +1,3 @@
+---
+- include: ../../debrepos/playbooks/aws.yml
+- apt: pkg=ec2-api-tools state=present

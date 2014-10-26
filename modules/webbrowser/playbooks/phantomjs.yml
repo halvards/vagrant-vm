@@ -1,13 +1,12 @@
 ---
-- get_url: url=https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
-           dest=/vagrant-share/apps/phantomjs-1.9.7-linux-x86_64.tar.bz2
-           sha256sum=473b19f7eacc922bc1de21b71d907f182251dd4784cb982b9028899e91dcb01a
-- command: /bin/tar -jxf /vagrant-share/apps/phantomjs-1.9.7-linux-x86_64.tar.bz2 --directory=/opt
-           creates=/opt/phantomjs-1.9.7-linux-x86_64
+- get_url: url=https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
+           dest=/vagrant-share/apps/phantomjs-1.9.8-linux-x86_64.tar.bz2
+           sha256sum=a1d9628118e270f26c4ddd1d7f3502a93b48ede334b8585d11c1c3ae7bc7163a
+- command: /bin/tar -jxf /vagrant-share/apps/phantomjs-1.9.8-linux-x86_64.tar.bz2 --directory=/opt
+           creates=/opt/phantomjs-1.9.8-linux-x86_64
 - file: path=/usr/local/share/phantomjs
         state=link
-        src=/opt/phantomjs-1.9.7-linux-x86_64
+        src=/opt/phantomjs-1.9.8-linux-x86_64
 - file: path=/usr/local/bin/phantomjs
         state=link
         src=/usr/local/share/phantomjs/bin/phantomjs
-

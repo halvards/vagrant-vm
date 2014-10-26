@@ -1,3 +1,2 @@
 ---
 - apt: pkg=font-manager state=present
-

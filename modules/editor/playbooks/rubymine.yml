@@ -26,4 +26,3 @@
   when: ansible_os_family == "Debian"
 - include: ../../ubuntu/playbooks/keybindings.yml
   when: ansible_os_family == "Debian"
-

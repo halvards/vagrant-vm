@@ -3,4 +3,3 @@
 - name: Install latest version of bundler Ruby gem
   gem: name=bundler state=present user_install=yes
   sudo_user: "{{ username }}"
-

@@ -1,4 +1,3 @@
 ---
 - include: ../../debrepos/playbooks/google-chrome.yml
 - apt: pkg=google-chrome-stable state=present
-

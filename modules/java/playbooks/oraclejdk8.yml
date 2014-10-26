@@ -7,7 +7,7 @@
 - name: Accept Oracle Java 8 license
   shell: /bin/echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
   when: java_8_license_accepted|failed
-- name: Install Oracle Java 8 beta
+- name: Install Oracle Java 8
   apt: pkg=oracle-java8-installer state=present
   async: 1800
   poll: 10

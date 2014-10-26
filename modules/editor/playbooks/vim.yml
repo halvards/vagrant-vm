@@ -1,3 +1,2 @@
 ---
 - apt: pkg=vim state=present
-

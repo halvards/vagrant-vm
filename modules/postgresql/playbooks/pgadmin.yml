@@ -1,0 +1,2 @@
+---
+- apt: pkg=pgadmin3 state=present

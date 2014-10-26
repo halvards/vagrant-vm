@@ -1,0 +1,2 @@
+---
+- apt_repository: repo='ppa:awstools-dev/awstools' state=present update_cache=yes

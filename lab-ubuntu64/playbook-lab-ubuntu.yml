@@ -31,4 +31,3 @@
     - include: ../modules/editor/playbooks/idea-ultimate.yml
     - include: ../modules/editor/playbooks/ideaplugin-nodejs.yml
     - include: ../modules/fonts/playbooks/open-sans.yml
-

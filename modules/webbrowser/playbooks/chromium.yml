@@ -1,0 +1,2 @@
+---
+- apt: pkg=chromium-browser state=present

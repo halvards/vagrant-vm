@@ -1,0 +1,2 @@
+---
+- apt: pkg=s3cmd state=present

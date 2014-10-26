@@ -1,0 +1,3 @@
+---
+- include: git.yml
+- apt: pkg=gitg state=latest

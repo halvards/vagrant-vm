@@ -6,4 +6,3 @@
 - name: Install Rails
   gem: name=rails state=present user_install=yes version=4.0.2
   sudo_user: "{{ username }}"
-

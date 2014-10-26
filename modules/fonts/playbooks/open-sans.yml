@@ -9,4 +9,3 @@
            creates=/usr/local/share/fonts/truetype/open-sans/OpenSans-Regular.ttf
 - shell: /usr/bin/fc-cache && /usr/bin/touch /usr/local/share/fonts/truetype/open-sans/.installed
          creates=/usr/local/share/fonts/truetype/open-sans/.installed
-

@@ -1,0 +1,12 @@
+---
+- include: ascli.yml
+- include: aws-cloudformation-cli.yml
+- include: awscli.yml
+- include: ec2-ami-tools.yml
+- include: ec2-api-tools.yml
+- include: elasticache.yml
+- include: elbcli.yml
+- include: iamcli.yml
+- include: moncli.yml
+- include: rdscli.yml
+- include: s3cmd.yml
