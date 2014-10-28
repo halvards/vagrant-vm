@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = 'lubuntu-desktop'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  #config.vm.box_url = 'http://dl.dropbox.com/u/36836372/lubuntu-desktop-20141028.box'
+  config.vm.box_url = 'https://dl.dropboxusercontent.com/u/36836372/lubuntu-desktop-20141028.box'
 
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.nodejs.ubuntu64.vagrantup.com"
