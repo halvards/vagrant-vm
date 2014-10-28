@@ -8,13 +8,15 @@ if [ ! -f /vagrant/$ANSIBLE_PLAYBOOK ]; then
 	exit 1
 fi
 
-if [ ! $(hash ansible-playbook 2> /dev/null) ]; then
+if [ ! -n $(which ansible-playbook) ]; then
   echo "Updating apt cache"
   apt-get update
   echo "Installing Ansible"
-  apt-get install -y ansible
+  apt-get install -y ansible python-apt python-pycurl
 fi
 
 echo "Running Ansible"
-ansible-playbook /vagrant/${ANSIBLE_PLAYBOOK} --connection=local
+echo "127.0.0.1" > /tmp/ansible_localhost
+ansible-playbook /vagrant/${ANSIBLE_PLAYBOOK} --inventory=/tmp/ansible_localhost --connection=local -vv
+rm /tmp/ansible_localhost
 
