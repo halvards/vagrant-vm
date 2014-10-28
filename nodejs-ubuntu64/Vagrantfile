@@ -1,20 +1,28 @@
 Vagrant.configure("2") do |config|
-  vm_type = 'nodejs'
-
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = 'trusty-desktop-amd64'
   config.vm.box = 'lubuntu-desktop'
 
   # The url from where the 'config.vm.box' box will be fetched.
   #config.vm.box_url = 'http://dl.dropbox.com/u/36836372/lubuntu-desktop-2014-10-26-0208.box'
 
   # Assign this VM a unique hostname
-  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.ubuntu64.vagrantup.com"
+  config.vm.host_name = "#{ENV['USER']}.nodejs.ubuntu64.vagrantup.com"
 
-  # Enable provisioning with Ansible
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook-#{vm_type}-ubuntu64.yml"
-    ansible.verbose = "vv" # v, vv, vvv, vvvv
+  # Provision VM with Ansible (with workaround for Windows)
+  require 'rbconfig'
+  is_windows_host = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+  if is_windows_host
+    # Run Ansible on VM using shell provisioning (for Windows hosts)
+    config.vm.provision "shell" do |sh|
+      sh.path = "provision.sh"
+      sh.args = "playbook-nodejs-ubuntu64.yml"
+    end
+  else
+    # Standard Ansible provisioning (for Mac and Linux hosts)
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "playbook-nodejs-ubuntu64.yml"
+      ansible.verbose = "vv" # v, vv, vvv, vvvv
+    end
   end
 
   # Forward a port from the guest to the host (id, guest port, host port)
