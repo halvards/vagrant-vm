@@ -10,6 +10,7 @@
     - include: ../modules/ubuntu/playbooks/updateapt.yml
     - include: ../modules/timezone/playbooks/sydney.yml
     - include: ../modules/utils/playbooks/base.yml
+    - include: ../modules/iptables/playbooks/disable.yml
     - include: ../modules/xwindows/playbooks/hideerrors.yml
     - include: ../modules/java/playbooks/oraclejdk8.yml
     - include: ../modules/nodejs/playbooks/base.yml
@@ -27,12 +28,13 @@
     - include: ../modules/webbrowser/playbooks/chrome.yml
     - include: ../modules/apps/playbooks/evince.yml
     - include: ../modules/apps/playbooks/gpicview.yml
+    - include: ../modules/apps/playbooks/kupfer.yml
+    - include: ../modules/apps/playbooks/leafpad.yml
     - include: ../modules/editor/playbooks/janus.yml
     - include: ../modules/editor/playbooks/vimx.yml
     - include: ../modules/editor/playbooks/sublime3.yml
     - include: ../modules/editor/playbooks/atom.yml
     - include: ../modules/editor/playbooks/webstorm.yml
     - include: ../modules/fonts/playbooks/microsoft.yml
-    - include: ../modules/iptables/playbooks/disable.yml
     - include: ../modules/fonts/playbooks/open-sans.yml
 
