@@ -24,7 +24,6 @@
     - include: ../modules/aws/playbooks/all.yml
     - include: ../modules/postgresql/playbooks/server.yml
     - include: ../modules/postgresql/playbooks/pgadmin.yml
-    - include: ../modules/fonts/playbooks/microsoft.yml
     - include: ../modules/webbrowser/playbooks/chrome.yml
     - include: ../modules/apps/playbooks/evince.yml
     - include: ../modules/apps/playbooks/gpicview.yml

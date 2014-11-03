@@ -1,0 +1,3 @@
+---
+- apt: pkg=leafpad state=present
+
