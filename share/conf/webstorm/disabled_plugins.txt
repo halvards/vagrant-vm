@@ -1,5 +1,15 @@
+cucumber
+cucumber-javascript
 CVS
-com.intellij.jsp
-PerforceDirectPlugin
-JSTestDriver Plugin
 com.jetbrains.plugins.asp
+com.intellij.tasks
+Dart
+org.jetbrains.plugins.haml
+Subversion
+XSLT-Debugger
+hg4idea
+com.github.masahirosuzuka.PhoneGapIntelliJPlugin
+com.intellij.jsp
+JSTestDriver Plugin
+PerforceDirectPlugin
+com.jetbrains.plugins.meteor
