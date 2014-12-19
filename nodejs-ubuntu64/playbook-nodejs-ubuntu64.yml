@@ -26,6 +26,7 @@
     - include: ../modules/postgresql/playbooks/pgadmin.yml
     - include: ../modules/webbrowser/playbooks/chrome.yml
     - include: ../modules/apps/playbooks/evince.yml
+    - include: ../modules/apps/playbooks/gnupg2.yml
     - include: ../modules/apps/playbooks/gpicview.yml
     - include: ../modules/apps/playbooks/kupfer.yml
     - include: ../modules/apps/playbooks/leafpad.yml
