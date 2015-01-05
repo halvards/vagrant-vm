@@ -7,3 +7,6 @@
   with_items:
     - node
     - npm
+- name: Upgrade NPM
+  shell: npm install -g npm@latest
+
