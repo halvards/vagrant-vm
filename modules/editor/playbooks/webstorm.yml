@@ -1,14 +1,14 @@
 ---
 - include: ../../utils/playbooks/inotifylimit.yml
 - include: ../../java/playbooks/oraclejdk8.yml
-- get_url: url=http://download.jetbrains.com/webstorm/WebStorm-9.0.1.tar.gz
-           dest=/vagrant-share/apps/WebStorm-9.0.1.tar.gz
+- get_url: url=http://download.jetbrains.com/webstorm/WebStorm-9.0.2.tar.gz
+           dest=/vagrant-share/apps/WebStorm-9.0.2.tar.gz
            #sha256sum=
   async: 1800
   poll: 10
-- command: /bin/tar -zxf /vagrant-share/apps/WebStorm-9.0.1.tar.gz --directory=/opt
-           creates=/opt/WebStorm-139.252/bin
-- file: path=/opt/WebStorm state=link src=/opt/WebStorm-139.252
+- command: /bin/tar -zxf /vagrant-share/apps/WebStorm-9.0.2.tar.gz --directory=/opt
+           creates=/opt/WebStorm-139.773/bin
+- file: path=/opt/WebStorm state=link src=/opt/WebStorm-139.773
 - file: path=/usr/local/bin/webstorm.sh state=link src=/opt/WebStorm/bin/webstorm.sh
 - copy: src=../../../share/conf/webstorm/webstorm.desktop
         dest=/home/{{ username }}/Desktop/webstorm.desktop
