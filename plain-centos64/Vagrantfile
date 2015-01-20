@@ -29,4 +29,8 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "playbook-plain-centos.yml"
     ansible.verbose = "vv" # v, vv, vvv, vvvv
   end
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "plain-centos64"
+  end
 end

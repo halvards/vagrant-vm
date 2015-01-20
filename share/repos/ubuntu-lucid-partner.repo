@@ -1,5 +1,0 @@
-## This software is not part of Ubuntu, but is offered by Canonical and the
-## respective vendors as a service to Ubuntu users.
-deb http://archive.canonical.com/ubuntu lucid partner
-deb-src http://archive.canonical.com/ubuntu lucid partner
-

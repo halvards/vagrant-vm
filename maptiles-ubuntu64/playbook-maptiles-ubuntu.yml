@@ -4,8 +4,6 @@
   sudo: yes
   sudo_user: root
   vars:
-    ubuntu_mirror: 'http:\/\/au\.archive\.ubuntu\.com\/ubuntu\/'
-    default_ubuntu_mirror: 'http:\/\/us\.archive\.ubuntu\.com\/ubuntu\/'
     username: vagrant
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml

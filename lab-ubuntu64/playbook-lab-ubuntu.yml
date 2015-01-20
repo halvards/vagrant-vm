@@ -4,8 +4,6 @@
   sudo: yes
   sudo_user: root
   vars:
-    ubuntu_mirror: 'http:\/\/mirror\.aarnet\.edu\.au\/pub\/ubuntu\/archive\/'
-    default_ubuntu_mirror: 'http:\/\/mirror\.internode\.on\.net\/pub\/ubuntu\/ubuntu'
     username: vagrant
     ssh_dir: '/home/{{ username }}/.ssh'
     ca_dir: '/home/{{ username }}/.ca'

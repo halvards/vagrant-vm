@@ -1,11 +1,4 @@
 # Don't use with EPEL
 ---
-- yum: name={{ item }} state=present
-  with_items:
-    - ansible
-    - redhat_lsb_core
 - yum: name=/vagrant-share/repos/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm state=present
-  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 6
-- yum: name=/vagrant-share/repos/rpmforge-release-0.5.3-1.el5.rf.x86_64.rpm state=present
-  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 5
 

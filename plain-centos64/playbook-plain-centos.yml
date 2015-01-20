@@ -10,5 +10,4 @@
     - include: ../modules/utils/playbooks/base-centos.yml
     - include: ../modules/utils/playbooks/rpm.yml
     - include: ../modules/yumrepos/playbooks/vagrant.yml
-    - include: ../modules/yumrepos/playbooks/google.yml
 

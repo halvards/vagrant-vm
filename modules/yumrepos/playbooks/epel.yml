@@ -1,11 +1,4 @@
 # Don't use with RPMForge/RepoForge
 ---
-- yum: name={{ item }} state=present
-  with_items:
-    - ansible
-    - redhat-lsb-core
 - yum: name=/vagrant-share/repos/epel-release-6-8.noarch.rpm state=present
-  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 6
-- yum: name=/vagrant-share/repos/epel-release-5-4.noarch.rpm state=present
-  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 5
 

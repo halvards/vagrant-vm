@@ -1,5 +1,4 @@
 ---
-- include: ../../yumrepos/playbooks/epel.yml
 - yum: name={{ item }} state=present
   with_items:
     - rpm-build
@@ -8,5 +7,4 @@
     - yum-plugin-fastestmirror
     - yum-plugin-priorities
     - yum-utils
-    - rpmrebuild
 

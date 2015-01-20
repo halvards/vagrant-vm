@@ -1,3 +1,12 @@
 ---
-- apt: pkg=python-pycurl state=present
-- apt_repository: repo='ppa:chris-lea/node.js' state=present update_cache=yes
+- apt: pkg={{ item }} state=present
+  with_items:
+    - python-pycurl
+    - apt-transport-https
+- name: Install NodeSource signing key
+  apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key state=present
+- name: Add NodeSource repo
+  apt_repository: repo='deb https://deb.nodesource.com/node trusty main' update_cache=no state=present
+- name: Add NodeSource source repo
+  apt_repository: repo='deb-src https://deb.nodesource.com/node trusty main' update_cache=yes state=present
+
