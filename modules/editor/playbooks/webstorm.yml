@@ -3,7 +3,7 @@
 - include: ../../java/playbooks/oraclejdk8.yml
 - get_url: url=http://download.jetbrains.com/webstorm/WebStorm-9.0.2.tar.gz
            dest=/vagrant-share/apps/WebStorm-9.0.2.tar.gz
-           #sha256sum=
+           sha256sum=6564d89b3a05b039ce6a2b290710558d087d6de8a6e01a5d74e370c2e317b771
   async: 1800
   poll: 10
 - command: /bin/tar -zxf /vagrant-share/apps/WebStorm-9.0.2.tar.gz --directory=/opt
