@@ -1,0 +1,13 @@
+---
+- yum: name=libselinux-python state=present
+- template: src=../templates/yum.repo.j2
+            dest=/etc/yum.repos.d/boost.repo
+            owner=root group=root mode=0644
+  with_items:
+    - { id: boost,
+        name: 'RPM repository containing Boost C++ libraries for CentOS 6',
+        baseurl: 'http://repo.enetres.net/',
+        enabled: 0,
+        gpgcheck: 0,
+        gpgkey: False }
+
