@@ -25,7 +25,6 @@ Vagrant::Config.run do |config|
 
   # Share a folder to the VM (id, guest path, host path)
   config.vm.share_folder "vagrant-share", "/vagrant-share", "../share"
-  config.vm.share_folder "source", "/home/vagrant/home", ENV['HOME']
 
   # Set memory allocated to the VM in MB
   config.vm.customize ['modifyvm', :id, '--memory', '2048']
