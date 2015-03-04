@@ -5,8 +5,7 @@ raise 'Ensure your DigitalOcean token is available as the environment variable D
 Vagrant.configure('2') do |config|
   config.vm.box = 'digital_ocean'
 
-  tag = 'dev'
-  hostname = "atlas-oraclexe-#{tag}"
+  hostname = 'atlas-oraclexe'
   config.vm.hostname = hostname
 
   config.vm.synced_folder '../share/conf/oraclexe', '/vagrant-share/conf/oraclexe'
@@ -23,9 +22,7 @@ Vagrant.configure('2') do |config|
     File.open(oracle_password_file, 'w') {|f| f.write(oracle_password) }
   end
 
-  oracle_username = 'wayfinder'
-  #oracle_username = 'auditor'
-  #oracle_username = 'auditor_test'
+  oracle_username = 'myoracleuser'
   config.vm.post_up_message = "Oracle User: #{oracle_username}\nOracle Password: #{oracle_password}"
 
   config.vm.provider :digital_ocean do |provider, override|

@@ -3,9 +3,6 @@ Vagrant.configure('2') do |config|
   config.vm.synced_folder '../share/conf/oraclexe', '/vagrant-share/conf/oraclexe'
   config.vm.synced_folder '../share/repos', '/vagrant-share/repos'
 
-  #tag = 'wayfinder'
-  #tag = 'auditor'
-  tag = 'auditor_test'
   keypair_name = ENV['EC2_KEYPAIR']
 
   oracle_password_file = File.expand_path(File.join(File.dirname(__FILE__), './.vagrant/oracle_password.txt'))
@@ -17,7 +14,7 @@ Vagrant.configure('2') do |config|
     File.open(oracle_password_file, 'w') {|f| f.write(oracle_password) }
   end
 
-  oracle_username = tag
+  oracle_username = 'myoracleuser'
   config.vm.post_up_message = "Oracle User: #{oracle_username}\nOracle Password: #{oracle_password}"
 
   config.vm.provider :aws do |aws, override|
@@ -29,7 +26,7 @@ Vagrant.configure('2') do |config|
     aws.region = 'us-east-1'
     aws.security_groups = ['ports-22-1521']
     #aws.security_groups = ['default'] # group name for non-VPC instance, group id for VPC instance
-    aws.tags = { tag => 'true' } # hash of tags => tag values to apply to instance
+    aws.tags = { 'tag' => 'true' } # hash of tags => tag values to apply to instance
 
     # https://github.com/mitchellh/vagrant-aws/pull/26
     aws.user_data = "#!/bin/sh\nsed -i -e 's/^\\(Defaults.*requiretty\\)/#\\1/' /etc/sudoers\n"
