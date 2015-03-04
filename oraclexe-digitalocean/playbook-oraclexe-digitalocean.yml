@@ -1,0 +1,8 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - lineinfile: dest=/etc/hosts state=present line='127.0.0.1 {{ hostname }}'
+    - include: ../modules/oracle/playbooks/xe.yml
+    - include: ../modules/utils/playbooks/rlwrap.yml
+

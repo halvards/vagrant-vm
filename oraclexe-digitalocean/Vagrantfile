@@ -1,0 +1,63 @@
+require 'securerandom'
+
+raise 'Ensure your DigitalOcean token is available as the environment variable DIGITAL_OCEAN_TOKEN' if ENV['DIGITAL_OCEAN_TOKEN'].nil?
+
+Vagrant.configure('2') do |config|
+  config.vm.box = 'digital_ocean'
+
+  tag = 'dev'
+  hostname = "atlas-oraclexe-#{tag}"
+  config.vm.hostname = hostname
+
+  config.vm.synced_folder '../share/conf/oraclexe', '/vagrant-share/conf/oraclexe'
+  config.vm.synced_folder '../share/repos', '/vagrant-share/repos'
+
+  config.ssh.username = 'centos' # will be generated
+
+  oracle_password_file = File.expand_path(File.join(File.dirname(__FILE__), './.vagrant/oracle_password.txt'))
+  if File.exists?(oracle_password_file)
+    oracle_password = File.open(oracle_password_file).first
+  else
+    require 'securerandom'
+    oracle_password = SecureRandom.urlsafe_base64(22).gsub(/[=-]/, '_')
+    File.open(oracle_password_file, 'w') {|f| f.write(oracle_password) }
+  end
+
+  oracle_username = 'wayfinder'
+  #oracle_username = 'auditor'
+  #oracle_username = 'auditor_test'
+  config.vm.post_up_message = "Oracle User: #{oracle_username}\nOracle Password: #{oracle_password}"
+
+  config.vm.provider :digital_ocean do |provider, override|
+    # https://github.com/smdahlen/vagrant-digitalocean
+    override.ssh.private_key_path = ENV['DIGITAL_OCEAN_SSH_PRIVATE_KEY'] || '~/.ssh/id_rsa'
+    override.vm.box = 'digital_ocean'
+    override.vm.box_url = 'https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box'
+
+    provider.token = ENV['DIGITAL_OCEAN_TOKEN']
+    provider.image = 'centos-6-5-x64' # or 'ubuntu-14-04-x64', vagrant digitalocean-list images $DIGITAL_OCEAN_TOKEN
+    provider.region = 'nyc2' # vagrant digitalocean-list regions $DIGITAL_OCEAN_TOKEN, ams[1-3], lon1, nyc[1-3], sfo1, sgp1
+    provider.size = '512mb' # vagrant digitalocean-list sizes $DIGITAL_OCEAN_TOKEN, 512mb, 1gb, 2gb, 4gb, 8gb, 16gb
+    provider.ssh_key_name = ENV['DIGITAL_OCEAN_SSH_KEY_NAME'] || ENV['USER']
+    provider.ipv6 = false
+    provider.private_networking = false
+    provider.backups_enabled = false
+    provider.setup = true
+  end
+
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = 'playbook-oraclexe-digitalocean.yml'
+    ansible.sudo = true
+    ansible.verbose = 'vv' # v, vv, vvv, vvvv
+    ansible.extra_vars = {
+      username: 'centos',
+      hostname: hostname,
+      oracle: {
+        username: oracle_username,
+        password: oracle_password
+      }
+    }
+
+  end
+end
+
