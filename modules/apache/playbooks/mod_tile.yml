@@ -1,6 +1,6 @@
 ---
 - include: ../../debrepos/playbooks/openstreetmap.yml
-- include: ./httpd.yml
+- include: ./apache2.yml
 - apt: pkg=python-software-properties state=present
 #- apt: pkg=libapache2-mod-tile state=present
 

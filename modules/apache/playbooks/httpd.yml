@@ -1,5 +1,10 @@
 ---
-- apt: pkg=apache2 state=present
-- user: append=yes createhome=no groups=www-data name={{ username }}
-- service: enabled=yes name=apache2 state=started
+- yum: name={{ item }} state=present
+  with_items:
+    - httpd
+    - mod_ssl
+- name: add {{ username }} user to apache group
+  user: name={{ username }} groups=apache append=yes
+- service: name=httpd enabled=yes state=started
+- file: path=/var/log/httpd owner=root group=root mode=0755
 

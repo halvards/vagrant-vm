@@ -1,0 +1,5 @@
+--- Apache httpd for Ubuntu
+- apt: pkg=apache2 state=present
+- user: append=yes createhome=no groups=www-data name={{ username }}
+- service: enabled=yes name=apache2 state=started
+
