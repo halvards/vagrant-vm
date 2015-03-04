@@ -46,6 +46,7 @@
            dest=/tmp/boost_1_57_0.tar.b2
            mode=0664
            sha256sum=910c8c022a33ccec7f088bd65d4f14b466588dda94ba2124e78b8c57db264967
+           timeout=600
 - name: Extract Boost source
   unarchive: src=/tmp/boost_1_57_0.tar.b2
              dest=/tmp
@@ -80,10 +81,10 @@
 - name: Build Mapnik
   shell: /usr/bin/make > /tmp/mapnik-build.log
          chdir=/tmp/mapnik
-         #creates=
+         creates=/tmp/mapnik/src/libmapnik.so
 - name: Install Mapnik (requires sudo)
   shell: /usr/bin/make install > /tmp/mapnik-install.log
          chdir=/tmp/mapnik
-         #creates=
+         #creates=/usr/local/lib/libmapnik.so.2.3
 
 
