@@ -1,0 +1,31 @@
+Vagrant.configure('2') do |config|
+  config.vm.box = 'dummy'
+  #config.vm.synced_folder '../share/repos', '/vagrant-share/repos'
+
+  keypair_name = ENV['EC2_KEYPAIR']
+
+  config.vm.provider :aws do |aws, override|
+    aws.ami = 'ami-d50773ef' # Amazon Linux x64 2014.09.2, ap-southeast-2
+    aws.instance_type = 't2.small'
+    aws.keypair_name = keypair_name
+    aws.region = 'ap-southeast-2'
+    aws.security_groups = ['port-22', 'ports-80-443']
+
+    # https://github.com/mitchellh/vagrant-aws/pull/26
+    aws.user_data = "#!/bin/sh\nsed -i -e 's/^\\(Defaults.*requiretty\\)/#\\1/' /etc/sudoers\n"
+
+    override.ssh.username = 'ec2-user'
+    override.ssh.private_key_path = ENV['AWS_SSH_KEY'] || "#{ENV['HOME']}/.ec2/#{keypair_name}.pem"
+  end
+
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = 'playbook-maptiles-aws.yml'
+    ansible.sudo = true
+    ansible.verbose = 'vv' # v, vv, vvv, vvvv
+    ansible.extra_vars = {
+      username: 'ec2-user'
+    }
+
+  end
+end
+

@@ -1,0 +1,6 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: ../modules/apache/playbooks/mod_tile_aws.yml
+
