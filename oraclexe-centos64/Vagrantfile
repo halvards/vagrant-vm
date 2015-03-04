@@ -4,16 +4,13 @@ Vagrant.configure("2") do |config|
   # Base box name
   config.vm.box = 'chef/centos-6.5'
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
+  # The url from where the 'config.vm.box' box will be fetched if it doesn't already exist on the user's system
   config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box'
 
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine.
-  # config.vm.network 'forwarded_port', guest: 80, host: 8080, auto_correct: true
+  # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine
   config.vm.network 'forwarded_port', guest: 22, host: 2196, id: 'ssh', auto_correct: true
   config.vm.network 'forwarded_port', guest: 1521, host: 1521  # Oracle TNS listener
   config.vm.network 'forwarded_port', guest: 8521, host: 8521  # Oracle APEX HTTP
@@ -35,6 +32,10 @@ Vagrant.configure("2") do |config|
         password: oracle_password
       }
     }
+  end
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.name = "#{vm_type}-centos64"
   end
 end
 
