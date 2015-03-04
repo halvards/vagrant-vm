@@ -1,0 +1,55 @@
+Vagrant.configure('2') do |config|
+  config.vm.box = 'dummy'
+  config.vm.synced_folder '../share/conf/oraclexe', '/vagrant-share/conf/oraclexe'
+  config.vm.synced_folder '../share/repos', '/vagrant-share/repos'
+
+  #tag = 'wayfinder'
+  #tag = 'auditor'
+  tag = 'auditor_test'
+  keypair_name = ENV['EC2_KEYPAIR']
+
+  oracle_password_file = File.expand_path(File.join(File.dirname(__FILE__), './.vagrant/oracle_password.txt'))
+  if File.exists?(oracle_password_file)
+    oracle_password = File.open(oracle_password_file).first
+  else
+    require 'securerandom'
+    oracle_password = SecureRandom.urlsafe_base64(22).gsub(/[=-]/, '_')
+    File.open(oracle_password_file, 'w') {|f| f.write(oracle_password) }
+  end
+
+  oracle_username = tag
+  config.vm.post_up_message = "Oracle User: #{oracle_username}\nOracle Password: #{oracle_password}"
+
+  config.vm.provider :aws do |aws, override|
+    #aws.ami = 'ami-d50773ef' # Amazon Linux x64, ap-southeast-2
+    aws.ami = 'ami-146e2a7c' # Amazon Linux x64, us-east-1
+    aws.instance_type = 't2.micro'
+    aws.keypair_name = keypair_name
+    #aws.region = 'ap-southeast-2'
+    aws.region = 'us-east-1'
+    aws.security_groups = ['ports-22-1521']
+    #aws.security_groups = ['default'] # group name for non-VPC instance, group id for VPC instance
+    aws.tags = { tag => 'true' } # hash of tags => tag values to apply to instance
+
+    # https://github.com/mitchellh/vagrant-aws/pull/26
+    aws.user_data = "#!/bin/sh\nsed -i -e 's/^\\(Defaults.*requiretty\\)/#\\1/' /etc/sudoers\n"
+
+    override.ssh.username = 'ec2-user'
+    override.ssh.private_key_path = ENV['AWS_SSH_KEY'] || "#{ENV['HOME']}/.ec2/#{keypair_name}.pem"
+  end
+
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = 'playbook-oraclexe-aws.yml'
+    ansible.sudo = true
+    ansible.verbose = 'vv' # v, vv, vvv, vvvv
+    ansible.extra_vars = {
+      username: 'ec2-user',
+      oracle: {
+        username: oracle_username,
+        password: oracle_password
+      }
+    }
+
+  end
+end
+

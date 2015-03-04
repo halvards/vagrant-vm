@@ -1,0 +1,7 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: ../modules/oracle/playbooks/xe.yml
+    - include: ../modules/utils/playbooks/rlwrap.yml
+
