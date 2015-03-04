@@ -1,0 +1,4 @@
+---
+- include: ../../yumrepos/playbooks/epel.yml
+- yum: name=rlwrap enablerepo=epel
+
