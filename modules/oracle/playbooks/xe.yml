@@ -1,26 +1,24 @@
 ---
-- include: ../../yumrepos/playbooks/vagrant.yml
+#- include: ../../yumrepos/playbooks/vagrant.yml
 - include: ./swap2gb.yml
 - yum: name={{ item }} state=present
   with_items:
     - bc
     - flex
     - libaio
-#- lineinfile: dest=/etc/sysctl.conf state=absent regexp={{ item }}
-  #with_items:
-    #- 'net.bridge.bridge-nf-call-ip6tables.*'
-    #- 'net.bridge.bridge-nf-call-iptables.*'
-    #- 'net.bridge.bridge-nf-call-arptables.*'
-#- yum: name=https://dl.dropboxusercontent.com/u/41147122/rpmrepo/common/RPMS/oracle-xe-11.2.0-1.0.x86_64.rpm state=present
-- yum: name=oracle-xe state=present
+#- yum: name=/vagrant-share/apps/rpmrepo/common/RPMS/oracle-xe-11.2.0-1.0.x86_64.rpm
+#- yum: name=oracle-xe
+- yum: name=https://dl.dropboxusercontent.com/u/41147122/rpmrepo/common/RPMS/oracle-xe-11.2.0-1.0.x86_64.rpm
   async: 1800
   poll: 10
 - name: Configure Oracle XE
-  shell: /etc/init.d/oracle-xe configure responseFile=/vagrant-share/conf/oraclexe.response > /tmp/XEsilentinstall.log
-         creates=/tmp/XEsilentinstall.log
+  shell: /etc/init.d/oracle-xe configure responseFile=/vagrant-share/conf/oraclexe/oraclexe.response > /root/.XEsilentinstall.log && touch /root/.XEconfigure.done
+         creates=/root/.XEconfigure.done
   sudo_user: root
   async: 600
   poll: 5
+- name: Python bindings for SELinux are sometimes required
+  yum: name=libselinux-python
 - name: Set up Oracle environment variables for user {{ username }}
   lineinfile: dest=/home/{{ username }}/.bashrc
               state=present
@@ -31,6 +29,19 @@
               state=present
               insertafter=EOF
               line='source /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh'
-#- name: Create Oracle user dev (fix this and ensure it only runs once)
-  #shell: source /root/.bashrc && /bin/echo "CREATE USER dev IDENTIFIED BY dev; GRANT 'DBA' TO dev; ALTER USER dev DEFAULT ROLE 'DBA'; exit;" | /u01/app/oracle/product/11.2.0/xe/bin/sqlplus -l -s system/password
+- name: Change Oracle SYS user password
+  shell: source /root/.bashrc && /bin/echo -e "alter user SYS identified by {{ oracle.password }};" | sqlplus -L -S sys/password@xe as sysdba && touch /root/.XEchangesyspw.done
+         creates=/root/.XEchangesyspw.done
+- name: Change Oracle SYSTEM user password
+  shell: source /root/.bashrc && /bin/echo -e "alter user SYSTEM identified by {{ oracle.password }};" | sqlplus -L -S system/password@xe && touch /root/.XEchangesystempw.done
+         creates=/root/.XEchangesystempw.done
+- name: Lock and expire password of Oracle anonymous user account
+  shell: source /root/.bashrc && /bin/echo -e "alter user ANONYMOUS account lock password expire;" | sqlplus -L -S system/{{ oracle.password }}@xe && touch /root/.XElockanonymous.done
+         creates=/root/.XElockanonymous.done
+- name: Create Oracle tablespace {{ oracle.username }}_ts
+  shell: source /root/.bashrc && /bin/echo -e "create tablespace {{ oracle.username }}_ts datafile '/u01/app/oracle/oradata/XE/{{ oracle.username }}_ts.dbf' size 20M autoextend on maxsize unlimited;" | sqlplus -L -S system/{{ oracle.password }}@xe && touch /root/.XEcreatetablespace_{{ oracle.username }}.done
+         creates=/root/.XEcreatetablespace_{{ oracle.username }}.done
+- name: Create Oracle user {{ oracle.username }}
+  shell: source /root/.bashrc && /bin/echo -e "create user {{ oracle.username }} identified by {{ oracle.password }} default tablespace {{ oracle.username }}_ts quota unlimited on {{ oracle.username }}_ts;\ngrant create session to {{ oracle.username }};\ngrant resource to {{ oracle.username }};\nexit;" | sqlplus -L -S system/{{ oracle.password }}@xe && touch /root/.XEcreateaccount_{{ oracle.username }}.done
+         creates=/root/.XEcreateaccount_{{ oracle.username }}.done
 

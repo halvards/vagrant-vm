@@ -2,39 +2,40 @@ Vagrant.configure("2") do |config|
   vm_type = 'oraclexe'
 
   # Base box name
-  config.vm.box = "chef/centos-6.5"
+  config.vm.box = 'chef/centos-6.5'
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
+  config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box'
 
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
-  config.vm.network "forwarded_port", guest: 22, host: 2196, id: "ssh", auto_correct: true
-  config.vm.network "forwarded_port", guest: 1521, host: 1521  # Oracle TNS listener
-  config.vm.network "forwarded_port", guest: 8521, host: 8521  # Oracle APEX HTTP
-
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  # config.ssh.forward_agent = true
+  # config.vm.network 'forwarded_port', guest: 80, host: 8080, auto_correct: true
+  config.vm.network 'forwarded_port', guest: 22, host: 2196, id: 'ssh', auto_correct: true
+  config.vm.network 'forwarded_port', guest: 1521, host: 1521  # Oracle TNS listener
+  config.vm.network 'forwarded_port', guest: 8521, host: 8521  # Oracle APEX HTTP
 
   # Share an additional folder to the guest VM.
-  config.vm.synced_folder "../share", "/vagrant-share"
-  config.vm.synced_folder ENV['HOME'], "/home/vagrant/home"
+  config.vm.synced_folder '../share', '/vagrant-share'
+  config.vm.synced_folder ENV['HOME'], '/home/vagrant/home'
+
+  oracle_username = 'dev'
+  oracle_password = 'password'
+  config.vm.post_up_message = "Oracle User: #{oracle_username}\nOracle Password: #{oracle_password}"
 
   # Enable provisioning with Ansible
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook-oraclexe-centos.yml"
-    ansible.verbose = "vv" # v, vv, vvv, vvvv
-  end
-
-  config.vm.provider "virtualbox" do |vb|
-    # https://gist.github.com/2155825
-    vb.customize ['storagectl', :id, '--name', 'SATA', '--hostiocache', 'on' ]
-    vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'playbook-oraclexe-centos.yml'
+    ansible.verbose = 'vv' # v, vv, vvv, vvvv
+    ansible.extra_vars = {
+      oracle: {
+        username: oracle_username,
+        password: oracle_password
+      }
+    }
   end
 end
+

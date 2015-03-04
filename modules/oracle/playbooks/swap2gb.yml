@@ -4,6 +4,6 @@
   register: swapfile_exists
   ignore_errors: True
 - name: Create the swapfile
-  shell: /bin/bash /vagrant-share/conf/create-swap-file.sh
+  shell: /bin/bash /vagrant-share/conf/oraclexe/create-swap-file.sh
   when: swapfile_exists|failed
 
