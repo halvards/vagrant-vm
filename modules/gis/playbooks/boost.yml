@@ -1,0 +1,4 @@
+---
+- include: ../../yumrepos/playbooks/boost-centos6.yml
+- yum: name=boost-devel enablerepo=boost
+

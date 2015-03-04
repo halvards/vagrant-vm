@@ -1,0 +1,34 @@
+Vagrant.configure('2') do |config|
+  vm_type = 'maptiles'
+
+  # Base box name
+  config.vm.box = 'chef/centos-6.5'
+
+  # The url from where the 'config.vm.box' box will be fetched if it doesn't already exist on the user's system
+  config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box'
+
+  # Assign this VM a unique hostname
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
+
+  # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine
+  config.vm.network 'forwarded_port', guest: 80,  host: 8192, auto_correct: true
+  #config.vm.network 'forwarded_port', guest: 443, host: 8193, auto_correct: true
+  config.vm.network 'forwarded_port', guest: 22,  host: 2192, id: 'ssh', auto_correct: true
+
+  # Share an additional folder to the guest VM.
+  config.vm.synced_folder '../share', '/vagrant-share'
+
+  # Enable provisioning with Ansible
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = "playbook-#{vm_type}-centos.yml"
+    ansible.verbose = 'vv' # v, vv, vvv, vvvv
+  end
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.name = "#{vm_type}-centos64"
+
+    # Set memory allocated to the VM in MB
+    vb.customize ['modifyvm', :id, '--memory', '2048']
+  end
+end
+

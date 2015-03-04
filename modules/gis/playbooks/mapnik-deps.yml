@@ -1,0 +1,40 @@
+---
+- include: ../../postgresql/playbooks/server-centos.yml
+- name: Install Mapnik dependencies
+  yum: name={{ item }} enablerepo=epel
+  with_items:
+    - make
+    - gcc-c++
+    - bzip2-devel
+    - libpng-devel
+    - libtiff-devel
+    - zlib-devel
+    - libjpeg-devel
+    - libxml2-devel
+    - python-setuptools
+    - git
+    - python-nose
+    - proj-devel
+    - proj
+    - proj-epsg
+    - proj-nad
+    - freetype-devel
+    - freetype
+    - libicu-devel
+    - libicu
+- name: Install Mapnik optional dependencies
+  yum: name={{ item }} enablerepo=epel
+  with_items:
+    - gdal-devel
+    - gdal
+    - sqlite-devel
+    - sqlite
+    - libcurl-devel
+    - libcurl
+    - cairo-devel
+    - cairo
+    - pycairo-devel
+    - pycairo
+    - protobuf-devel
+    - protobuf-lite
+

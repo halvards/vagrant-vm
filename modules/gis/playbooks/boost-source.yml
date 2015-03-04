@@ -1,0 +1,29 @@
+---
+- name: Download Boost source
+  #get_url: url=http://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.bz2/download
+  get_url: url=http://mapnik.s3.amazonaws.com/deps/boost_1_57_0.tar.bz2
+           dest=/tmp/boost_1_57_0.tar.b2
+           mode=0664
+           sha256sum=910c8c022a33ccec7f088bd65d4f14b466588dda94ba2124e78b8c57db264967
+           timeout=600
+- name: Extract Boost source
+  unarchive: src=/tmp/boost_1_57_0.tar.b2
+             dest=/tmp
+             copy=no
+             creates=/tmp/boost_1_57_0/bootstrap.sh
+- name: Bootstrap Boost build
+  shell: /tmp/boost_1_57_0/bootstrap.sh > /tmp/boost-bootstrap.log
+         chdir=/tmp/boost_1_57_0
+         creates=/tmp/boost_1_57_0/b2
+- name: Build Boost
+  shell: /tmp/boost_1_57_0/b2 -d1 -j1 --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 --with-program_options --with-system toolset=gcc link=shared release stage > /tmp/boost-build.log
+         chdir=/tmp/boost_1_57_0
+         creates=/tmp/boost_1_57_0/stage/lib/libboost_signals.so.1.57.0
+- name: Install Boost (requires sudo)
+  shell: /tmp/boost_1_57_0/b2 install -j1 --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 --with-program_options --with-system toolset=gcc link=shared release install > /tmp/boost-install.log
+         chdir=/tmp/boost_1_57_0
+         creates=/usr/local/lib/libboost_system.so.1.57.0
+- name: Set up support for libraries installed in /usr/local/lib
+  shell: /bin/echo '/usr/local/lib' > /etc/ld.so.conf.d/boost.conf && /sbin/ldconfig
+         creates=/etc/ld.so.conf.d/boost.conf
+

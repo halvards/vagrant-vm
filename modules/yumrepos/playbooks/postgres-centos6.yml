@@ -2,5 +2,5 @@
 - yum: name=libselinux-python
 - lineinfile: dest=/etc/yum.repos.d/CentOS-Base.repo line="exclude=postgres*" insertafter="^\[base\]$"
 - lineinfile: dest=/etc/yum.repos.d/CentOS-Base.repo line="exclude=postgresql*" insertafter="^\[updates\]$"
-- yum: name=/vagrant-share/repos/pgdg-centos93-9.3-1.noarch.rpm
+- yum: name=/vagrant-share/repos/pgdg-centos94-9.4-1.noarch.rpm
 

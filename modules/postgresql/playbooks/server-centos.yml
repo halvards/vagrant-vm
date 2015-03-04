@@ -1,0 +1,25 @@
+---
+- include: ../../yumrepos/playbooks/postgres-centos6.yml
+- yum: name={{ item }}
+  with_items:
+    - postgresql94
+    - postgresql94-server
+    - python-psycopg2 # for ansible postgresql_* tasks
+- name: add {{ username }} user to postgres group
+  user: name={{ username }} groups=postgres append=yes
+- shell: /sbin/service postgresql-9.4 initdb && touch /tmp/pg-initdb.success
+         creates=/tmp/initdb.success
+- shell: /sbin/chkconfig postgresql-9.4 on && touch /tmp/pg-chkconfig.success
+         creates=/tmp/pg-chkconfig.success
+- service: name=postgresql-9.4 enabled=yes state=started
+#- postgresql_user: name={{ username }} password=password role_attr_flags=CREATEDB,CREATEROLE,SUPERUSER
+- name: Is {{ username }} a role in PostgreSQL?
+  shell: /usr/bin/psql --command="\du" | /bin/grep --quiet {{ username }}
+  sudo_user: postgres
+  register: postgres_role_vagrant_exists
+  ignore_errors: True
+- name: Create {{ username }} role in PostgreSQL
+  shell: /usr/bin/psql --command="create role \"{{ username }}\" with superuser createdb createrole login password '{{ username }}'"
+  sudo_user: postgres
+  when: postgres_role_vagrant_exists|failed
+

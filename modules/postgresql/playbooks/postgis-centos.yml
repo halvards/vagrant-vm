@@ -1,0 +1,11 @@
+---
+- include: ./server-centos.yml
+- yum: name={{ item }}
+  with_items:
+    - postgresql94-devel
+    - postgis2_94
+    - postgis2_94-client
+    - postgis2_94-devel
+    - postgis2_94-utils
+    - pgrouting_94
+
