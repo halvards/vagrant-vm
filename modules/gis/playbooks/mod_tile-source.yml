@@ -1,9 +1,34 @@
 ---
+- name: Install mod_tile dependencies
+  yum: name={{ item }} enablerepo=epel
+  with_items:
+    - libtool
+    - httpd-devel
 - name: Download mod_tile source
   git: repo=https://github.com/openstreetmap/mod_tile.git
-       dest=/tmp/mod_tile-github
+       dest=/tmp/mod_tile
        recursive=yes
        version=774fc7a4470f655393ad6dd76c5c8bf3efe7923d
        depth=1
        accept_hostkey=yes
+- name: Autogen mod_tile for
+  shell: /tmp/mod_tile/autogen.sh > /tmp/mod_tile-autogen.log
+    chdir=/tmp/mod_tile
+    creates=/tmp/mod_tile/autom4te.cache
+- name: Configure mod_tile for build
+  shell: /tmp/mod_tile/configure > /tmp/mod_tile-configure.log
+    chdir=/tmp/mod_tile
+    creates=/tmp/mod_tile/config.log
+- name: Build mod_tile
+  shell: /usr/bin/make > /tmp/mod_tile-build.log
+         chdir=/tmp/mod_tile
+         creates=/tmp/mod_tile/src/mod_tile.slo
+- name: Install renderd from mod_tile (requires sudo)
+  shell: /usr/bin/make install > /tmp/mod_tile-renderd-install.log
+         chdir=/tmp/mod_tile
+         creates=/usr/local/bin/renderd
+- name: Install mod_tile (requires sudo)
+  shell: /usr/bin/make install-mod_tile > /tmp/mod_tile-install.log
+         chdir=/tmp/mod_tile
+         creates=/usr/lib64/httpd/modules/mod_tile.a
 
