@@ -11,6 +11,7 @@
     - sed
     - tar
     - unzip
+    - vim
     - wget
     - zip
 
