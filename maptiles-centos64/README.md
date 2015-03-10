@@ -45,6 +45,8 @@ $ curl  -O -J http://download.geofabrik.de/australia-oceania-latest.osm.pbf
 $ osm2pgsql --slim -d gis -C 2048 --number-processes=1 --cache-strategy=dense australia-oceania-latest.osm.pbf
 ```
 
+TODO: Configure and set up Apache with mod_tile
+
 ## Links
 
 - [Build your own open map server on Ubuntu](http://weait.com/content/build-your-own-openstreetmap-server-lucid)
