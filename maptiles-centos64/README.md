@@ -47,8 +47,9 @@ $ osm2pgsql --slim -d gis -C 2048 --number-processes=1 --cache-strategy=dense au
 
 ## Links
 
+- [Build your own open map server on Ubuntu](http://weait.com/content/build-your-own-openstreetmap-server-lucid)
+- [Install an openstreetmap server on Centos](http://duemafoss.blogspot.com.au/2014/02/installation-of-openstreetmap-server-on.html)
 - [The mod_tile wiki page](http://wiki.openstreetmap.org/wiki/Mod_tile)
 - [The mod_tile repo](https://github.com/openstreetmap/mod_tile)
-- [Build your own open map server on Ubuntu](http://weait.com/content/build-your-own-openstreetmap-server-lucid)
 - [mapnik install instructions for Centos](https://github.com/mapnik/mapnik/wiki/CentOS_RHEL)
 
