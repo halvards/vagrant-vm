@@ -11,11 +11,39 @@ Instructions for setting up a [map tile](https://msdn.microsoft.com/en-us/librar
 
 ## Map tile server build steps
 
-**NOTE** These steps should be added into Ansible play books
-
-- Download the OpenStreetMap data from: `curl  -O -J http://download.geofabrik.de/australia-oceania-latest.osm.pbf`.
-
 - Set up the guest VM with Vagrant: `vagrant up`
+
+## Manual steps
+
+**NOTE** These steps should be added into Ansible playbooks
+
+Build osm2pqsql
+
+```sh
+$ sudo yum install gcc-c++ libxml2-devel geos-devel bzip2-devel proj-devel protobuf-compiler postgresql94-devel postgresql94-contrib protobuf-c-devel
+$ cd /tmp
+$ git clone https://github.com/openstreetmap/osm2pgsql.git
+$ cd osm2pgsql
+$ git checkout 0.87.2
+$ ./autogen.sh
+$ ./configure --with-postgresql=/usr/pgsql-9.4/bin/pg_config
+$ make
+$ sudo make install
+```
+
+Create a database and Enable GIS on it
+
+```sh
+$ createdb gis
+$ psql -d gis -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+```
+
+Download and load the OpenStreetMap data
+
+```sh
+$ curl  -O -J http://download.geofabrik.de/australia-oceania-latest.osm.pbf
+$ osm2pgsql --slim -d gis -C 2048 --number-processes=1 --cache-strategy=dense australia-oceania-latest.osm.pbf
+```
 
 ## Links
 
