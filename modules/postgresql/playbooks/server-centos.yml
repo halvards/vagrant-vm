@@ -4,6 +4,7 @@
   with_items:
     - postgresql94
     - postgresql94-server
+    - postgis2_94
     - python-psycopg2 # for ansible postgresql_* tasks
 - name: add {{ username }} user to postgres group
   user: name={{ username }} groups=postgres append=yes
