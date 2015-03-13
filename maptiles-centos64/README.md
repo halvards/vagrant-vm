@@ -49,12 +49,14 @@ sudo make install
 
 ```sh
 # Add user
-sudo -u postgres -i
-createuser -s apache
-createdb -E UTF8 -O apache gis
-exit
+#sudo -u postgres -i
+#createuser -s apache
+#createdb -E UTF8 -O apache gis
+#exit
+# psql -d gis -c "ALTER TABLE geometry_columns OWNER TO apache; ALTER TABLE spatial_ref_sys OWNER TO apache;"
+
+createdb -E UTF8 gis
 psql -f /usr/pgsql-9.4/share/contrib/postgis-2.1/postgis.sql -d gis
-psql -d gis -c "ALTER TABLE geometry_columns OWNER TO apache; ALTER TABLE spatial_ref_sys OWNER TO apache;"
 psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 ```
 
@@ -62,8 +64,9 @@ psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 
 ```sh
 cd
-curl  -O -J http://download.geofabrik.de/australia-oceania-latest.osm.pbf
-osm2pgsql --slim -d gis -C 2000 --number-processes 3 australia-oceania-latest.osm.pbf
+curl -O http://download.geofabrik.de/australia-oceania-latest.osm.pbf
+#curl -O http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
+osm2pgsql --slim -d gis -C 2048 --number-processes=3 --cache-strategy=dense australia-oceania-latest.osm.pbf
 ```
 
 ### Install map styles
@@ -101,8 +104,6 @@ sudo ln -s /etc/init.d/renderd /etc/rc2.d/S20renderd
 
 Note that you can run renderd manually via `renderd -f -c /usr/local/etc/renderd.conf`.
 
-<!-- sudo chown apache /var/run/renderd -->
-
 ### Configure mod_tile
 
 ```sh
@@ -115,6 +116,7 @@ Hit the site on your host at `http://localhost:8192/osm_tiles/0/0/0.png`
 ## Links
 
 - [Manually building a tile server on Ubuntu (12.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/)
+- [Loading OSM data](https://switch2osm.org/loading-osm-data/)
 - [Build your own open map server on Ubuntu](http://weait.com/content/build-your-own-openstreetmap-server-lucid)
 - [Install an openstreetmap server on Centos](http://duemafoss.blogspot.com.au/2014/02/installation-of-openstreetmap-server-on.html)
 - [Mapnik Centos Installation](https://github.com/mapnik/mapnik/wiki/CentOS_RHEL)
