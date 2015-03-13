@@ -78,7 +78,6 @@ cd ~/src/mapnik-style
 sudo ln -s /usr/bin/bunzip2 /bin
 sudo ./get-coastlines.sh /usr/local/share
 ```
-sudo /etc/init.d/httpd restart
 
 ### Configure mapnik style-sheet
 
