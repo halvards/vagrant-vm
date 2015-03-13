@@ -2,6 +2,8 @@
 
 Instructions for setting up a [map tile](https://msdn.microsoft.com/en-us/library/bb259689.aspx) server using [mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) on Centos.
 
+This is cobbled together from various sources across the internet. The best of which being [this guide for Ubuntu (12.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/).
+
 ## Host development set up steps
 
 - Ensure you have at least Ansible 1.8 installed on your host `brew update && brew install ansible`.
@@ -22,10 +24,11 @@ cd /tmp
 git clone git://github.com/mapnik/mapnik
 cd mapnik
 git checkout origin/2.3.x
-python scons/scons.py configure INPUT_PLUGINS=all OPTIMIZATION=3 SYSTEM_FONTS=/usr/share/fonts/truetype/
+python scons/scons.py configure INPUT_PLUGINS=all OPTIMIZATION=3 SYSTEM_FONTS=/usr/share/fonts/ PG_CONFIG=/usr/pgsql-9.4/bin/pg_config BOOST_INCLUDES=/usr/local/include/boost/
 python scons/scons.py
 sudo python scons/scons.py install
 sudo ldconfig
+sudo cp -R /tmp/mapnik/fonts /usr/local/lib/mapnik/fonts
 ```
 
 ### Build osm2pqsql
@@ -45,15 +48,22 @@ sudo make install
 ### Create a database and Enable GIS on it
 
 ```sh
-createdb gis
-psql -d gis -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+# Add user
+sudo -u postgres -i
+createuser -s apache
+createdb -E UTF8 -O apache gis
+exit
+psql -f /usr/pgsql-9.4/share/contrib/postgis-2.1/postgis.sql -d gis
+psql -d gis -c "ALTER TABLE geometry_columns OWNER TO apache; ALTER TABLE spatial_ref_sys OWNER TO apache;"
+psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 ```
 
 ### Download and load the OpenStreetMap data
 
 ```sh
+cd
 curl  -O -J http://download.geofabrik.de/australia-oceania-latest.osm.pbf
-osm2pgsql --slim -d gis -C 2048 --number-processes=1 --cache-strategy=dense australia-oceania-latest.osm.pbf
+osm2pgsql --slim -d gis -C 2000 --number-processes 3 australia-oceania-latest.osm.pbf
 ```
 
 ### Install map styles
@@ -82,11 +92,25 @@ cp /vagrant/settings.xml.inc .
 ```sh
 sudo cp /vagrant/renderd.conf /usr/local/etc/
 sudo mkdir /var/run/renderd
-sudo chown vagrant /var/run/renderd
 sudo mkdir /var/lib/mod_tile
-sudo chown vagrant /var/lib/mod_tile
+sudo chown apache /var/lib/mod_tile
+sudo cp /vagrant/renderd.init /etc/init.d/renderd
+sudo chmod u+x /etc/init.d/renderd
+sudo ln -s /etc/init.d/renderd /etc/rc2.d/S20renderd
 ```
 
+Note that you can run renderd manually via `renderd -f -c /usr/local/etc/renderd.conf`.
+
+<!-- sudo chown apache /var/run/renderd -->
+
+### Configure mod_tile
+
+```sh
+sudo cp /vagrant/mod_tile.conf /etc/httpd/conf.d
+sudo cp /vagrant/http.conf /etc/httpd/conf
+```
+
+Hit the site on your host at `http://localhost:8192/osm_tiles/0/0/0.png`
 
 ## Links
 
