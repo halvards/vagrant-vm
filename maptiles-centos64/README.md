@@ -20,7 +20,7 @@ The remaining steps are manually carried out on the guest OS. So `vagrant ssh` i
 ### Build mod_tile
 
 ```sh
-# All build dependencies should be installed via the Ansible playbooks
+# All build dependencies should already be installed via the Ansible playbooks
 cd tmp
 git clone https://github.com/openstreetmap/mod_tile.git
 cd mod_tile
