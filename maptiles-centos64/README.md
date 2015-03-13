@@ -48,13 +48,6 @@ sudo make install
 ### Create a database and Enable GIS on it
 
 ```sh
-# Add user
-#sudo -u postgres -i
-#createuser -s apache
-#createdb -E UTF8 -O apache gis
-#exit
-# psql -d gis -c "ALTER TABLE geometry_columns OWNER TO apache; ALTER TABLE spatial_ref_sys OWNER TO apache;"
-
 createdb -E UTF8 gis
 psql -f /usr/pgsql-9.4/share/contrib/postgis-2.1/postgis.sql -d gis
 psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
@@ -65,7 +58,6 @@ psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 ```sh
 cd
 curl -O http://download.geofabrik.de/australia-oceania-latest.osm.pbf
-#curl -O http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
 osm2pgsql --slim -d gis -C 2048 --number-processes=3 --cache-strategy=dense australia-oceania-latest.osm.pbf
 ```
 
