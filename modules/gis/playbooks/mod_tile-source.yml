@@ -31,4 +31,6 @@
   shell: /usr/bin/make install-mod_tile > /tmp/mod_tile-install.log
          chdir=/tmp/mod_tile
          creates=/usr/lib64/httpd/modules/mod_tile.a
-
+- name: ldconfig for mod_tile
+  shell: sudo ldconfig
+         chdir=/tmp/mod_tile
