@@ -17,18 +17,20 @@ Set up the guest VM with Vagrant by running `vagrant up` on host.
 
 The remaining steps are manually carried out on the guest OS. So `vagrant ssh` in and go through the steps below. **NOTE** The steps below should be added into Ansible playbooks.
 
-## Install mapnik
+### Build mod_tile
 
 ```sh
-cd /tmp
-git clone git://github.com/mapnik/mapnik
-cd mapnik
-git checkout origin/2.3.x
-python scons/scons.py configure INPUT_PLUGINS=all OPTIMIZATION=3 SYSTEM_FONTS=/usr/share/fonts/ PG_CONFIG=/usr/pgsql-9.4/bin/pg_config BOOST_INCLUDES=/usr/local/include/boost/
-python scons/scons.py
-sudo python scons/scons.py install
+cd tmp
+git clone https://github.com/openstreetmap/mod_tile.git
+cd mod_tile
+git checkout 774fc7a4470f655393ad6dd76c5c8bf3efe7923d
+./autogen.sh
+./configure
+make
+sudo make install
+sudo make install-mod_tile
 sudo ldconfig
-sudo cp -R /tmp/mapnik/fonts /usr/local/lib/mapnik/fonts
+sudo cp -R /tmp/mapnik/fonts /usr/local/lib/mapnik/
 ```
 
 ### Build osm2pqsql
@@ -55,11 +57,13 @@ psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 
 ### Download and load the OpenStreetMap data
 
+**NOTE** this is failing for some reason.
+
 ```sh
-cd
+cd ~
 curl -O http://download.geofabrik.de/australia-oceania-latest.osm.pbf
 # This will take a while...
-osm2pgsql --slim -d gis -C 2048 --number-processes=3 --cache-strategy=dense australia-oceania-latest.osm.pbf
+osm2pgsql --slim -d gis -C 2048 --number-processes=1 --cache-strategy=dense australia-oceania-latest.osm.pbf
 ```
 
 ### Install map styles
@@ -108,6 +112,13 @@ sudo cp /vagrant/http.conf /etc/httpd/conf
 
 Check out mod_tiles stats on your host at http://localhost:8192/mod_tile
 Check out tiles on your host at http://localhost:8192/osm_tiles/0/0/0.png
+
+## TODO
+
+- [ ] Get the map imports working
+- [ ] Confirm that the user renderd runs as has read access to the gis database
+- [ ] Run renderd manually and ensure that it is connecting to gis, reading data correctly, and rendering tiles as expected
+- [ ] Work out whether we need to update to python 2.7.0
 
 ## Links
 

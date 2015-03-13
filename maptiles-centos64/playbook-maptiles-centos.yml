@@ -14,5 +14,5 @@
     - include: ../modules/gis/playbooks/mapnik-deps.yml
     - include: ../modules/gis/playbooks/mapnik-source.yml
     - include: ../modules/apache/playbooks/httpd.yml
-    - include: ../modules/gis/playbooks/mod_tile-source.yml
+    - include: ../modules/gis/playbooks/boost-source.yml
 

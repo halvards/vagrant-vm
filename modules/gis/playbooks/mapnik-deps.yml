@@ -36,5 +36,11 @@
     - pycairo-devel
     - pycairo
     - protobuf-devel
+    - protobuf-c-devel
     - protobuf-lite
-
+    - protobuf-compiler
+    - geos-devel
+    - postgresql94-devel
+    - postgresql94-contrib
+    - libtool
+    - httpd-devel
