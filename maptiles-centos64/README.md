@@ -62,8 +62,8 @@ psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 ```sh
 cd ~
 curl -O http://download.geofabrik.de/australia-oceania-latest.osm.pbf
-# This will take a while...
-osm2pgsql --slim -d gis -C 2048 --number-processes=1 --cache-strategy=dense australia-oceania-latest.osm.pbf
+# This will take a while and can be flaky at times...
+osm2pgsql --slim -d gis -C 2048 --number-processes=2 --cache-strategy=dense australia-oceania-latest.osm.pbf
 ```
 
 ### Install map styles
@@ -93,19 +93,34 @@ cp /vagrant/settings.xml.inc .
 sudo cp /vagrant/renderd.conf /usr/local/etc/
 sudo mkdir /var/run/renderd
 sudo mkdir /var/lib/mod_tile
-sudo chown apache /var/lib/mod_tile
+```
+
+**Note** renderd is working fine with mod_tile when run manually via the vagrant account.
+
+```sh
+renderd -f -c /usr/local/etc/renderd.conf`
+```
+
+**TODO**: Add renderd service startup script
+
+A startup script needs to be added for renderd. We will need to ensure the `/etc/init.d/renderd` script runs as the correct user and has access to`/var/run/renderd` and `/var/lib/mod_tile` (via chown if necessary). This user will also need to access the `gis` database.
+
+An Ubuntu startup script is included at `/vagrant/renderd.init`. It does not work on Centos.
+
+Likely setup steps will be:
+
+```sh
 sudo cp /vagrant/renderd.init /etc/init.d/renderd
 sudo chmod u+x /etc/init.d/renderd
 sudo ln -s /etc/init.d/renderd /etc/rc2.d/S20renderd
 ```
 
-Note that you can run renderd manually via `renderd -f -c /usr/local/etc/renderd.conf`.
-
 ### Configure mod_tile
 
 ```sh
 sudo cp /vagrant/mod_tile.conf /etc/httpd/conf.d
-sudo cp /vagrant/http.conf /etc/httpd/conf
+sudo cp /vagrant/httpd.conf /etc/httpd/conf
+sudo /etc/init.d/httpd restart
 ```
 
 ## Access the webserver to see tiles etc
@@ -113,12 +128,6 @@ sudo cp /vagrant/http.conf /etc/httpd/conf
 Check out mod_tiles stats on your host at http://localhost:8192/mod_tile
 Check out tiles on your host at http://localhost:8192/osm_tiles/0/0/0.png
 
-## TODO
-
-- [ ] Get the map imports working
-- [ ] Confirm that the user renderd runs as has read access to the gis database
-- [ ] Run renderd manually and ensure that it is connecting to gis, reading data correctly, and rendering tiles as expected
-- [ ] Work out whether we need to update to python 2.7.0
 
 ## Links
 
