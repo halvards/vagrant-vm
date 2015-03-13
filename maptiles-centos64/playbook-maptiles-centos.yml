@@ -12,7 +12,6 @@
     - include: ../modules/yumrepos/playbooks/elgis.yml
     #- include: ../modules/apache/playbooks/mod_tile_aws.yml
     - include: ../modules/gis/playbooks/mapnik-deps.yml
-    - include: ../modules/gis/playbooks/mapnik-source.yml
     - include: ../modules/apache/playbooks/httpd.yml
     - include: ../modules/gis/playbooks/boost-source.yml
 

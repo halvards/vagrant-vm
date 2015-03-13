@@ -31,8 +31,22 @@ make
 sudo make install
 sudo make install-mod_tile
 sudo ldconfig
-sudo cp -R /tmp/mapnik/fonts /usr/local/lib/mapnik/
 ```
+
+## Install mapnik
+
+```sh
+cd /tmp
+git clone git://github.com/mapnik/mapnik
+cd mapnik
+git checkout origin/2.3.x
+python scons/scons.py configure INPUT_PLUGINS=all OPTIMIZATION=3 SYSTEM_FONTS=/usr/share/fonts/ PG_CONFIG=/usr/pgsql-9.4/bin/pg_config BOOST_INCLUDES=/usr/local/include/boost/
+python scons/scons.py
+sudo python scons/scons.py install
+sudo ldconfig
+sudo cp -R /tmp/mapnik/fonts /usr/local/lib/mapnik/fonts
+```
+
 
 ### Build osm2pqsql
 
