@@ -103,7 +103,10 @@ sudo cp /vagrant/mod_tile.conf /etc/httpd/conf.d
 sudo cp /vagrant/http.conf /etc/httpd/conf
 ```
 
-Hit the site on your host at `http://localhost:8192/osm_tiles/0/0/0.png`
+## Access the webserver to see tiles etc
+
+Check out mod_tiles stats on your host at http://localhost:8192/mod_tile
+Check out tiles on your host at http://localhost:8192/osm_tiles/0/0/0.png
 
 ## Links
 
