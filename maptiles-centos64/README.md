@@ -58,6 +58,7 @@ psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 ```sh
 cd
 curl -O http://download.geofabrik.de/australia-oceania-latest.osm.pbf
+# This will take a while...
 osm2pgsql --slim -d gis -C 2048 --number-processes=3 --cache-strategy=dense australia-oceania-latest.osm.pbf
 ```
 
