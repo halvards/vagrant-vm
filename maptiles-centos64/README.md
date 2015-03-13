@@ -20,6 +20,7 @@ The remaining steps are manually carried out on the guest OS. So `vagrant ssh` i
 ### Build mod_tile
 
 ```sh
+# All build dependencies should be installed via the Ansible playbooks
 cd tmp
 git clone https://github.com/openstreetmap/mod_tile.git
 cd mod_tile
@@ -57,7 +58,7 @@ psql -f /usr/local/share/osm2pgsql/900913.sql -d gis
 
 ### Download and load the OpenStreetMap data
 
-**NOTE** this is failing for some reason.
+**NOTE** this is flaky. I get a killed message at the end of the import so I'm not 100% sure this is working correctly even though I am seeing a top level tile rendered.
 
 ```sh
 cd ~
@@ -77,6 +78,7 @@ cd ~/src/mapnik-style
 sudo ln -s /usr/bin/bunzip2 /bin
 sudo ./get-coastlines.sh /usr/local/share
 ```
+sudo /etc/init.d/httpd restart
 
 ### Configure mapnik style-sheet
 
@@ -101,7 +103,7 @@ sudo mkdir /var/lib/mod_tile
 renderd -f -c /usr/local/etc/renderd.conf`
 ```
 
-**TODO**: Add renderd service startup script
+#### TODO: Add renderd service startup script
 
 A startup script needs to be added for renderd. We will need to ensure the `/etc/init.d/renderd` script runs as the correct user and has access to`/var/run/renderd` and `/var/lib/mod_tile` (via chown if necessary). This user will also need to access the `gis` database.
 
@@ -117,6 +119,8 @@ sudo ln -s /etc/init.d/renderd /etc/rc2.d/S20renderd
 
 ### Configure mod_tile
 
+Assuming you are running renderd manually above open a new terminal and `vagrant ssh`. Then:
+
 ```sh
 sudo cp /vagrant/mod_tile.conf /etc/httpd/conf.d
 sudo cp /vagrant/httpd.conf /etc/httpd/conf
@@ -125,8 +129,9 @@ sudo /etc/init.d/httpd restart
 
 ## Access the webserver to see tiles etc
 
-Check out mod_tiles stats on your host at http://localhost:8192/mod_tile
 Check out tiles on your host at http://localhost:8192/osm_tiles/0/0/0.png
+
+Check out mod_tiles stats on your host at http://localhost:8192/mod_tile
 
 
 ## Links
