@@ -1,9 +1,0 @@
----
-- name: Download mod_tile source
-  git: repo=https://github.com/openstreetmap/mod_tile.git
-       dest=/tmp/mod_tile-github
-       recursive=yes
-       version=774fc7a4470f655393ad6dd76c5c8bf3efe7923d
-       depth=1
-       accept_hostkey=yes
-

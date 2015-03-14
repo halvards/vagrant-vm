@@ -10,6 +10,11 @@ Vagrant.configure('2') do |config|
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
 
+  # Save ourselves some wait time
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :box
+  end
+
   # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine
   config.vm.network 'forwarded_port', guest: 80,  host: 8192, auto_correct: true
   #config.vm.network 'forwarded_port', guest: 443, host: 8193, auto_correct: true
