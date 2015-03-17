@@ -5,4 +5,5 @@
 - name: Import Australia OSM data (takes a long time)
   shell: /usr/local/bin/osm2pgsql --database gis --slim --cache 1024 --cache-strategy=dense --number-processes=1 --hstore /vagrant-share/apps/osm/australia-latest.osm.pbf && touch /tmp/import-australia-osm.success
          creates=/tmp/import-australia-osm.success
+  sudo_user: postgres
 

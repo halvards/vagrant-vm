@@ -5,8 +5,17 @@
   user: name={{ username }} groups=mapnik append=yes
 - name: Create mapnik user
   user: name=mapnik group=mapnik groups=mapnik,postgres,apache shell=/sbin/nologin comment="For running renderd"
-- name: Create mapnik PostgreSQL user in the gis database
-  postgresql_user: name=mapnik db=gis priv=ALL role_attr_flags=LOGIN
+#- name: Create mapnik PostgreSQL user in the gis database
+  #postgresql_user: name=mapnik db=gis priv=ALL role_attr_flags=LOGIN
+- name: Is mapnik a user in PostgreSQL?
+  shell: /usr/bin/psql --command="\du" | /bin/grep --quiet mapnik
+  sudo_user: postgres
+  register: postgres_role_mapnik_exists
+  ignore_errors: True
+- name: Create mapnik user in PostgreSQL with access to the gis database
+  shell: /usr/bin/createuser mapnik
+  sudo_user: postgres
+  when: postgres_role_mapnik_exists|failed
 - name: Configure renderd
   shell: /bin/sed --in-place=.orig -e "s/;socketname=/socketname=/g;s/^plugins_dir=.*/plugins_dir=\/usr\/local\/lib\/mapnik\/input/g;s/^font_dir=.*/font_dir=\/usr\/local\/lib\/mapnik\/fonts/g;s/^XML=.*/XML=\/opt\/mapnik-stylesheets\/osm.xml/g;s/^HOST=.*/HOST=localhost/g" /usr/local/etc/renderd.conf
          creates=/usr/local/etc/renderd.conf.orig

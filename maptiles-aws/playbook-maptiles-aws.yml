@@ -3,11 +3,9 @@
   sudo: yes
   tasks:
     - include: ../modules/utils/playbooks/base-centos.yml
-    - include: ../modules/editor/playbooks/vim.yml
-    - include: ../modules/yumrepos/playbooks/epel.yml
     - include: ../modules/yumrepos/playbooks/elgis.yml
     - include: ../modules/apache/playbooks/httpd.yml
-    - include: ../modules/gis/playbooks/boost-source.yml
+    - include: ../modules/gis/playbooks/boost.yml
     - include: ../modules/gis/playbooks/mapnik-source.yml
     - include: ../modules/gis/playbooks/mapnik-styles.yml
     - include: ../modules/gis/playbooks/osm2pgsql.yml

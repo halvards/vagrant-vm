@@ -1,7 +1,8 @@
 ---
 - include: ../../postgresql/playbooks/server-centos.yml
+- include: ../../postgresql/playbooks/postgis-centos.yml
 - name: Install Mapnik dependencies
-  yum: name={{ item }} enablerepo=epel,elgis
+  yum: name={{ item }} enablerepo=epel,elgis,pgdg94
   with_items:
     - make
     - gcc-c++
@@ -23,7 +24,7 @@
     - libicu-devel
     - libicu
 - name: Install Mapnik optional dependencies
-  yum: name={{ item }} enablerepo=epel,elgis
+  yum: name={{ item }} enablerepo=epel,elgis,pgdg94
   with_items:
     - gdal-devel
     - gdal

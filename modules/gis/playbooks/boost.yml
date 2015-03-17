@@ -1,4 +1,8 @@
 ---
 - include: ../../yumrepos/playbooks/boost-centos6.yml
-- yum: name=boost-devel enablerepo=boost
+- yum: name=boost-devel enablerepo=boost,epel
+- name: Create symlink for Boost include files for compatibility with Boost source installation in Mapnik source installation playbook
+  file: src=/usr/include/boost
+        dest=/usr/local/include/boost
+        state=link
 

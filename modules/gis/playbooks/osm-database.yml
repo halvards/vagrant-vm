@@ -1,16 +1,24 @@
 ---
+#- name: Create GIS database using Ansible module
+#  postgresql_db: name=gis encoding='UTF-8'
+- name: Does the GIS database already exist?
+  shell: /usr/bin/psql --list | /bin/grep --quiet gis
+  sudo_user: postgres
+  register: gis_database_exists
+  ignore_errors: True
 - name: Create GIS database
-  postgresql_db: name=gis encoding='UTF-8'
+  shell: /usr/bin/createdb --encoding='UTF-8' gis
+  sudo_user: postgres
+  when: gis_database_exists|failed
 - name: Enable extensions on GIS database
-#shell: /usr/bin/psql --dbname=gis --command='CREATE EXTENSION postgis; CREATE EXTENSION postgis-topology; CREATE EXTENSION hstore;' && touch /tmp/gis-extensions.success
   shell: /usr/bin/psql --dbname=gis --command='CREATE EXTENSION hstore;' && touch /tmp/gis-extensions.success
          creates=/tmp/gis-extensions.success
+  sudo_user: postgres
 - name: Insert standard GIS data
   shell: /usr/bin/psql --dbname=gis --file=/usr/pgsql-9.4/share/contrib/postgis-2.1/postgis.sql && touch /tmp/gis-sql.success
          creates=/tmp/gis-sql.success
   sudo_user: postgres
 - name: Insert standard OSM data
-  #shell: /usr/bin/psql --dbname=gis --file=/usr/local/share/osm2pgsql/900913.sql && touch /tmp/osm-sql.success
   shell: /usr/bin/psql --dbname=gis --file=/usr/pgsql-9.4/share/contrib/postgis-2.1/spatial_ref_sys.sql && touch /tmp/osm-sql.success
          creates=/tmp/osm-sql.success
   sudo_user: postgres
