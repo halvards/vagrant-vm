@@ -6,7 +6,7 @@
 - name: Create mapnik user
   user: name=mapnik group=mapnik groups=mapnik,postgres,apache shell=/sbin/nologin comment="For running renderd"
 #- name: Create mapnik PostgreSQL user in the gis database
-  #postgresql_user: name=mapnik db=gis priv=ALL role_attr_flags=LOGIN
+#  postgresql_user: name=mapnik db=gis priv=ALL role_attr_flags=LOGIN
 - name: Is mapnik a user in PostgreSQL?
   shell: /usr/bin/psql --command="\du" | /bin/grep --quiet mapnik
   sudo_user: postgres

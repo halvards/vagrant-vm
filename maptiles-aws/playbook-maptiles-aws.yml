@@ -5,14 +5,14 @@
     - include: ../modules/utils/playbooks/base-centos.yml
     - include: ../modules/yumrepos/playbooks/elgis.yml
     - include: ../modules/apache/playbooks/httpd.yml
-    - include: ../modules/gis/playbooks/boost.yml
-    - include: ../modules/gis/playbooks/mapnik-source.yml
-    - include: ../modules/gis/playbooks/mapnik-styles.yml
-    - include: ../modules/gis/playbooks/osm2pgsql.yml
-    - include: ../modules/gis/playbooks/osm-database.yml
-    - include: ../modules/gis/playbooks/osm-australia.yml
-    - include: ../modules/gis/playbooks/renderd.yml
-    - include: ../modules/gis/playbooks/mod_tile-source.yml
+    - include: ../modules/gis-el/playbooks/boost.yml
+    - include: ../modules/gis-el/playbooks/mapnik-source.yml
+    - include: ../modules/gis-el/playbooks/mapnik-styles.yml
+    - include: ../modules/gis-el/playbooks/osm2pgsql.yml
+    - include: ../modules/gis-el/playbooks/osm-database.yml
+    - include: ../modules/gis-el/playbooks/osm-australia.yml
+    - include: ../modules/gis-el/playbooks/renderd.yml
+    - include: ../modules/gis-el/playbooks/mod_tile-source.yml
   handlers:
     - include: ../modules/apache/playbooks/httpd-handler.yml
 
