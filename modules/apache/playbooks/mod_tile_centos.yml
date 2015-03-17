@@ -1,0 +1,87 @@
+---
+- name: Install mapnik dependencies
+  yum: name={{ item }}
+  with_items:
+    - pycairo.x86_64
+    - pycairo-devel.x86_64
+    - geos
+    - geos-devel
+    - protobuf-devel
+    - postgis2_93.x86_64
+    #- postgis2_93-docs.x86_64
+    - postgis2_93-client.x86_64
+    - postgis2_93-utils.x86_64
+    - pgrouting.x86_64
+- name: Download Boost source
+  get_url: url=http://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.bz2/download
+           dest=/vagrant-share/apps/boost_1_57_0.tar.b2
+           mode=0664
+           sha256sum=910c8c022a33ccec7f088bd65d4f14b466588dda94ba2124e78b8c57db264967
+- name: Extract Boost source
+  unarchive: src=/vagrant-share/apps/boost_1_57_0.tar.b2
+             dest=/tmp
+             copy=no
+             creates=/tmp/boost_1_57_0/bootstrap.sh
+- name: Install the Development Tools package group
+  yum: name="@Development Tools"
+- yum: name=bzip2-devel
+- name: Bootstrap Boost build
+  shell: /tmp/boost_1_57_0/bootstrap.sh > /tmp/boost-bootstrap.log
+         chdir=/tmp/boost_1_57_0
+         creates=/tmp/boost_1_57_0/b2
+- name: Build Boost
+  shell: /tmp/boost_1_57_0/b2 > /tmp/boost-build.log
+         chdir=/tmp/boost_1_57_0
+         creates=/tmp/boost_1_57_0/stage/lib/libboost_signals.so.1.57.0
+- name: Install Boost (requires sudo)
+  shell: /tmp/boost_1_57_0/b2 install > /tmp/boost-install.log
+         chdir=/tmp/boost_1_57_0
+         creates=/usr/local/lib/libboost_system.so.1.57.0
+- yum: name=git
+- name: Download Mapnik source
+  get_url: url=https://github.com/mapnik/mapnik/archive/v2.2.0.zip
+           dest=/vagrant-share/apps/mapnik-v2.2.0.zip
+           mode=0664
+           sha256sum=922e7ef183af6bdbf2214bf0c353821800531115ecc055eac005998fc74c7859
+  #git: repo=https://github.com/mapnik/mapnik.git
+       #dest=/tmp/mapnik-github
+       #recursive=yes
+       #version=v2.2.0
+       #depth=1
+       #accept_hostkey=yes
+- name: Extract Mapnik source
+  unarchive: src=/vagrant-share/apps/mapnik-v2.2.0.zip
+             dest=/tmp
+             copy=no
+             creates=/tmp/mapnik-2.2.0/COPYING
+- name: Configure Mapnik build
+  shell: /tmp/mapnik-2.2.0/configure > /tmp/mapnik-configure.log
+         chdir=/tmp/mapnik-2.2.0
+         creates=/tmp/mapnik-2.2.0/config.log
+- name: Build Mapnik
+  shell: /usr/bin/make > /tmp/mapnik-build.log
+         chdir=/tmp/mapnik-2.2.0
+         creates=
+- name: Install Mapnik (requires sudo)
+  shell: /usr/bin/make install > /tmp/mapnik-install.log
+         chdir=/tmp/mapnik-2.2.0
+         creates=
+- name: Download mod_tile source
+  git: repo=https://github.com/openstreetmap/mod_tile.git
+       dest=/tmp/mod_tile-github
+       recursive=yes
+       version=774fc7a4470f655393ad6dd76c5c8bf3efe7923d
+       depth=1
+       accept_hostkey=yes
+- name: Download osm2pgsql source
+  get_url: url=https://github.com/openstreetmap/osm2pgsql/archive/0.87.2.zip
+           dest=/vagrant-share/apps/osm2pgsql-0.87.2.zip
+           mode=0664
+           sha256sum=6a31ccf5e253e014901e517f578b45cbaca6f8cfe2782a38102dffdaa971d77b
+- name: Extract osm2pgsql source
+unarchive: src=/vagrant-share/apps/osm2pgsql-0.87.2.zip
+             dest=/tmp
+             copy=no
+             creates=/tmp/osm2pgsql-0.87.2/COPYING
+
+

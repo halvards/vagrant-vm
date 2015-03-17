@@ -11,7 +11,11 @@
     - include: ../modules/yumrepos/playbooks/epel.yml
     - include: ../modules/yumrepos/playbooks/elgis.yml
     #- include: ../modules/apache/playbooks/mod_tile_aws.yml
-    - include: ../modules/gis/playbooks/mapnik-deps.yml
     - include: ../modules/apache/playbooks/httpd.yml
+    #- include: ../modules/gis/playbooks/mapnik-deps.yml
+    - include: ../modules/gis/playbooks/mapnik-source.yml
     - include: ../modules/gis/playbooks/boost-source.yml
+    #- include: ../modules/gis/playbooks/boost.yml
+  handlers:
+    - include: ../modules/apache/playbooks/httpd-handler.yml
 

@@ -1,0 +1,31 @@
+---
+- name: Create mapnik group
+  group: name=mapnik
+- name: Add {{ username }} to mapnik group
+  user: name={{ username }} groups=mapnik append=yes
+- name: Create mapnik user
+  user: name=mapnik group=mapnik groups=mapnik,postgres,apache shell=/sbin/nologin comment="For running renderd"
+- name: Create mapnik PostgreSQL user in the gis database
+  postgresql_user: name=mapnik db=gis priv=ALL role_attr_flags=LOGIN
+- name: Configure renderd
+  shell: /bin/sed --in-place=.orig -e "s/;socketname=/socketname=/g;s/^plugins_dir=.*/plugins_dir=\/usr\/local\/lib\/mapnik\/input/g;s/^font_dir=.*/font_dir=\/usr\/local\/lib\/mapnik\/fonts/g;s/^XML=.*/XML=\/opt\/mapnik-stylesheets\/osm.xml/g;s/^HOST=.*/HOST=localhost/g" /usr/local/etc/renderd.conf
+         creates=/usr/local/etc/renderd.conf.orig
+- name: Create directories required by renderd
+  file: path={{ item }} state=directory owner=root group=mapnik mode=0775
+  with_items:
+    - /var/run/renderd
+    - /var/lib/mod_tile
+- name: Copy renderd init script
+  copy: src=../../../share/conf/mapnik/renderd.init
+        dest=/etc/init.d/renderd
+        owner=root group=root mode=0755
+- name: Has the renderd service already been set up?
+  shell: /sbin/chkconfig --list renderd | /bin/grep --quiet renderd
+  register: renderd_service_exists
+  ignore_errors: True
+- name: Set up renderd service
+  shell: /sbin/chkconfig --add renderd
+  when: renderd_service_exists|failed
+- name: Ensure renderd service is running
+  service: name=renderd enabled=yes state=started
+

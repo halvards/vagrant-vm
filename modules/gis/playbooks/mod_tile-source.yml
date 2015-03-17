@@ -1,0 +1,38 @@
+---
+- name: Download mod_tile source
+  git: repo=https://github.com/openstreetmap/mod_tile.git
+       dest=/tmp/mod_tile
+       recursive=yes
+       version=774fc7a4470f655393ad6dd76c5c8bf3efe7923d
+       force=yes
+       accept_hostkey=yes
+- name: Generate mod_tile configure script
+  shell: /tmp/mod_tile/autogen.sh > /tmp/mod_tile-autogen.log
+         chdir=/tmp/mod_tile
+         creates=/tmp/mod_tile/install-sh
+- name: Configure mod_tile build
+  shell: /tmp/mod_tile/configure > /tmp/mod_tile-configure.log
+         chdir=/tmp/mod_tile
+         creates=/tmp/mod_tile/Makefile
+- name: Build mod_tile
+  shell: /usr/bin/make > /tmp/mod_tile-build.log
+         chdir=/tmp/mod_tile
+         creates=/tmp/mod_tile/render_list
+- name: Install mod_tile step 1 (requires sudo)
+  shell: /usr/bin/make install > /tmp/mod_tile-install.log
+         chdir=/tmp/mod_tile
+         creates=/usr/local/bin/render_list
+- name: Install mod_tile step 2 (requires sudo)
+  shell: /usr/bin/make install-mod_tile > /tmp/mod_tile-install-mod_tile.log
+         chdir=/tmp/mod_tile
+         creates=/usr/lib64/httpd/modules/mod_tile.so
+- name: Run ldconfig to update some bindings or something (requires root)
+  shell: /sbin/ldconfig && touch /tmp/ldconfig-post-mod_tile.success
+         creates=/tmp/ldconfig-post-mod_tile.success
+- name: Add mod_tile config file for Apache httpd
+  copy: src=../../../share/conf/mapnik/mod_tile.conf
+        dest=/etc/httpd/conf.d/mod_tile.conf
+        owner=root group=root mode=0644
+  notify:
+    - restart apache
+

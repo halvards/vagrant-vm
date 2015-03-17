@@ -1,0 +1,37 @@
+---
+- name: Install osm2pgsql dependencies
+  yum: name={{ item }} enablerepo=epel,pgdg94
+  with_items:
+    - gcc-c++
+    - libxml2-devel
+    - geos-devel
+    - bzip2-devel
+    - proj-devel
+    - protobuf-compiler
+    - postgresql94-devel
+    - postgresql94-contrib
+    - protobuf-c-devel
+- name: Download osm2pgsql source
+  git: repo=https://github.com/openstreetmap/osm2pgsql.git
+       dest=/tmp/osm2pgsql
+       recursive=yes
+       version=0.87.2
+       force=yes
+       accept_hostkey=yes
+- name: Generate osm2pgsql configure script
+  shell: /tmp/osm2pgsql/autogen.sh > /tmp/osm2pgsql-autogen.log
+         chdir=/tmp/osm2pgsql
+         creates=/tmp/osm2pgsql/m4/libtool.m4
+- name: Configure osm2pgsql build
+  shell: /tmp/osm2pgsql/configure --with-postgresql=/usr/pgsql-9.4/bin/pg_config > /tmp/osm2pgsql-configure.log
+         chdir=/tmp/osm2pgsql
+         creates=/tmp/osm2pgsql/Makefile
+- name: Build osm2pgsql
+  shell: /usr/bin/make > /tmp/osm2pgsql-build.log
+         chdir=/tmp/osm2pgsql
+         creates=/tmp/osm2pgsql/osm2pgsql
+- name: Install osm2pgsql (requires sudo)
+  shell: /usr/bin/make install > /tmp/osm2pgsql-install.log
+         chdir=/tmp/osm2pgsql
+         creates=/usr/local/bin/osm2pgsql
+
