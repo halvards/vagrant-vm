@@ -1,6 +1,6 @@
 # Map tile server on Centos
 
-Instructions for setting up a [map tile](https://msdn.microsoft.com/en-us/library/bb259689.aspx) server using [mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) on Centos.
+Instructions for setting up a [map tile](https://msdn.microsoft.com/en-us/library/bb259689.aspx) server using [mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) on CentOS 6.
 
 This is cobbled together from various sources across the internet. The best of which being [this guide for Ubuntu (12.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/).
 
@@ -10,8 +10,12 @@ Big thanks to [Ray Grasso](https://github.com/grassdog) for working out all the 
 
 - Ensure you have at least Ansible 1.8 installed on your host `brew update && brew install ansible`.
 - Ensure you have at least Vagrant 1.7 installed on your host https://www.vagrantup.com/downloads.html.
-- Install the [vagrant-cachier plugin](https://github.com/fgrehm/vagrant-cachier) to save download time while developing `vagrant plugin install vagrant-cachier`.
-- Install the [vagrant-vbox-snapshot](https://github.com/dergachev/vagrant-vbox-snapshot) plugin so you can `vagrant snapshot take` and `vagrant snapshot back`.
+- Optional: Install the [vagrant-cachier plugin](https://github.com/fgrehm/vagrant-cachier) to save download time while developing `vagrant plugin install vagrant-cachier`.
+- Optional: Install the [vagrant-vbox-snapshot](https://github.com/dergachev/vagrant-vbox-snapshot) plugin so you can `vagrant snapshot take` and `vagrant snapshot back`.
+
+This process only works for Mac or Linux hosts. If you want to use this
+on a Windows host, the Vagrantfile must be modified. See
+`nodejs-ubuntu64/Vagrantfile` for an example of how to achieve this.
 
 ## Map tile server build steps
 
