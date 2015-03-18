@@ -4,6 +4,8 @@ Instructions for setting up a [map tile](https://msdn.microsoft.com/en-us/librar
 
 This is cobbled together from various sources across the internet. The best of which being [this guide for Ubuntu (12.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-12-04/).
 
+Big thanks to [Ray Grasso](https://github.com/grassdog) for working out all the necessary steps.
+
 ## Host development set up steps
 
 - Ensure you have at least Ansible 1.8 installed on your host `brew update && brew install ansible`.
