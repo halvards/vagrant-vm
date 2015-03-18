@@ -17,7 +17,7 @@
   sudo_user: postgres
   when: postgres_role_mapnik_exists|failed
 - name: Configure renderd
-  shell: /bin/sed --in-place=.orig -e "s/;socketname=/socketname=/g;s/^plugins_dir=.*/plugins_dir=\/usr\/local\/lib\/mapnik\/input/g;s/^font_dir=.*/font_dir=\/usr\/local\/lib\/mapnik\/fonts/g;s/^XML=.*/XML=\/opt\/mapnik-stylesheets\/osm.xml/g;s/^HOST=.*/HOST=localhost/g;0,/MAXZOOM/s/;MAXZOOM=.*/MAXZOOM=22/" /usr/local/etc/renderd.conf
+  shell: /bin/sed --in-place=.orig -e "s/;socketname=/socketname=/g;s/^plugins_dir=.*/plugins_dir=\/usr\/local\/lib\/mapnik\/input/g;s/^font_dir=.*/font_dir=\/usr\/local\/lib\/mapnik\/fonts/g;s/^XML=.*/XML=\/opt\/mapnik-stylesheets\/osm.xml/g;s/^HOST=.*/HOST=localhost/g;0,/MAXZOOM/s/;MAXZOOM=.*/MAXZOOM=20/" /usr/local/etc/renderd.conf
          creates=/usr/local/etc/renderd.conf.orig
 - name: Create directories required by renderd
   file: path={{ item }} state=directory owner=root group=mapnik mode=0775
