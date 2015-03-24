@@ -1,32 +1,39 @@
-Vagrant.configure("2") do |config|
+Vagrant.configure('2') do |config|
   vm_type = 'maptiles'
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'hashicorp/precise64'
+  # Base box name
+  config.vm.box = 'ubuntu/trusty64'
 
   # The url from where the 'config.vm.box' box will be fetched.
-  config.vm.box_url = 'http://hashicorp-files.vagrantup.com/precise64.box'
+  config.vm.box_url = 'http://cloud-images.ubuntu.com/vagrant/trusty/trusty-server-cloudimg-amd64-juju-vagrant-disk1.box'
 
   # Assign this VM a unique hostname
-  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.precise64.vagrantup.com"
+  config.vm.host_name = "#{ENV['USER']}.#{vm_type}.ubuntu64.vagrantup.com"
 
-  # Enable provisioning with Ansible
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook-#{vm_type}-ubuntu.yml"
-    ansible.verbose = "vv" # v, vv, vvv, vvvv
+  # Cache files downloaded during build to save time during development
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :box
   end
 
-  # Forward a port from the guest to the host (id, guest port, host port)
-  config.vm.network "forwarded_port", guest: 22, host: 2195, id: "ssh", auto_correct: true
-  config.vm.network "forwarded_port", guest: 80, host: 12195, auto_correct: true # Apache httpd with mod_tile
-  config.vm.network "forwarded_port", guest: 5432, host: 5432, auto_correct: true # PostgreSQL server
+  # Forward a port from the guest to the host, use auto_correct to find free port in case of collision
+  config.vm.network "forwarded_port", guest: 22, host: 2195, id: 'ssh', auto_correct: true
+  config.vm.network "forwarded_port", guest: 80, host: 8194, auto_correct: true # Apache httpd with mod_tile
+  config.vm.network "forwarded_port", guest: 5432, host: 8195, auto_correct: true # PostgreSQL server
 
   # Share a folder to the VM (host path, guest path)
   config.vm.synced_folder "../share", "/vagrant-share"
 
-  config.vm.provider "virtualbox" do |vb|
-    # https://gist.github.com/2155825
-    vb.customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on' ]
-    vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1' ]
+  # Enable provisioning with Ansible
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = "playbook-#{vm_type}-ubuntu.yml"
+    ansible.verbose = 'vv' # v, vv, vvv, vvvv
+  end
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.name = "#{vm_type}-ubuntu64"
+
+    # Set memory allocated to the VM in MB
+    vb.customize ['modifyvm', :id, '--memory', '2048']
   end
 end
+

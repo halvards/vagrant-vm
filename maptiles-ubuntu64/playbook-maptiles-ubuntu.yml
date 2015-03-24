@@ -5,12 +5,16 @@
   sudo_user: root
   vars:
     username: vagrant
+    shapefile_zip_dir: /vagrant-share/apps/osm/osm-bright
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
-    - include: ../modules/timezone/playbooks/sydney.yml
     - include: ../modules/utils/playbooks/base.yml
     - include: ../modules/iptables/playbooks/disable.yml
     - include: ../modules/vcs/playbooks/git.yml
     - include: ../modules/editor/playbooks/vim.yml
-    - include: ../modules/apache/playbooks/mod_tile.yml
+    - include: ../modules/gis/playbooks/mod_tile.yml
+    - include: ../modules/gis/playbooks/coastlines.yml
+    - include: ../modules/gis/playbooks/leaflet_map.yml
+  handlers:
+    - include: ../modules/apache/playbooks/apache2-handler.yml
 
