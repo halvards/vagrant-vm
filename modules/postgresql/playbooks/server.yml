@@ -1,9 +1,8 @@
 ---
-- apt: pkg={{ item }} state=present
+- apt: pkg={{ item }}
   with_items:
-    - postgresql
-    - postgresql-contrib
-    - postgresql-doc
+    - postgresql-9.3
+    - postgresql-contrib-9.3
 - name: add {{ username }} user to postgres group
   user: name={{ username }} groups=postgres append=yes
 - service: name=postgresql enabled=yes state=started
@@ -16,3 +15,4 @@
   shell: /usr/bin/psql --command="create role \"{{ username }}\" with superuser createdb createrole login password '{{ username }}'"
   sudo_user: postgres
   when: postgres_role_vagrant_exists|failed
+

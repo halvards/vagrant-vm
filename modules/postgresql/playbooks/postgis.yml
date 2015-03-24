@@ -1,0 +1,7 @@
+---
+- include: ./server.yml
+- apt: pkg={{ item }}
+  with_items:
+    - postgresql-server-dev-9.3
+    - postgresql-9.3-postgis-2.1
+
