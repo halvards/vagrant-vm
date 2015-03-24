@@ -24,7 +24,7 @@
   shell: /bin/cp /opt/mapnik-stylesheets/inc/fontset-settings.xml.inc.template /opt/mapnik-stylesheets/inc/fontset-settings.xml.inc
          creates=/opt/mapnik-stylesheets/inc/fontset-settings.xml.inc
 - name: Configure mapnik stylesheet data source
-  shell: /bin/sed -e "s/.*%(password)s.*//g;s/.*%(host)s.*//g;s/.*%(port)s.*//g;s/.*%(user)s.*//g;s/%(dbname)s/gis/g;s/%(estimate_extent)s/false/g;s/%(extent)s/-20037508,-19929239,20037508,19929239/g" /opt/mapnik-stylesheets/inc/datasource-settings.xml.inc.template > /opt/mapnik-stylesheets/inc/datasource-settings.xml.inc
+  shell: /bin/sed -e "s/.*%(password)s.*//g;s/.*%(host)s.*//g;s/.*%(port)s.*//g;s/.*%(user)s.*//g;s/%(dbname)s/osm/g;s/%(estimate_extent)s/false/g;s/%(extent)s/-20037508,-19929239,20037508,19929239/g" /opt/mapnik-stylesheets/inc/datasource-settings.xml.inc.template > /opt/mapnik-stylesheets/inc/datasource-settings.xml.inc
          creates=/opt/mapnik-stylesheets/inc/datasource-settings.xml.inc
 - name: Configure mapnik stylesheet settings
   shell: /bin/sed -e "s/%(symbols)s/symbols/g;s/%(epsg)s/900913/g;s/%(world_boundaries)s/\/usr\/local\/share\/world_boundaries/g;s/%(prefix)s/planet_osm/g" /opt/mapnik-stylesheets/inc/settings.xml.inc.template > /opt/mapnik-stylesheets/inc/settings.xml.inc

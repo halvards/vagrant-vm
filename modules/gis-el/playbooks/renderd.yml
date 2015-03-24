@@ -12,7 +12,7 @@
   sudo_user: postgres
   register: postgres_role_mapnik_exists
   ignore_errors: True
-- name: Create mapnik user in PostgreSQL with access to the gis database
+- name: Create mapnik user in PostgreSQL with access to the osm database
   shell: /usr/bin/createuser mapnik
   sudo_user: postgres
   when: postgres_role_mapnik_exists|failed
