@@ -1,0 +1,5 @@
+---
+- copy: src=../../../share/conf/mapnik/map.html
+        dest=/var/www/osm/map.html
+        mode=0644 owner=root group=root
+
