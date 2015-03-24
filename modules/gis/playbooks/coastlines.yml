@@ -1,0 +1,30 @@
+---
+- file: path={{ item }}
+        state=directory
+        owner=root group=root mode=0755
+  with_items:
+    - /etc/mapnik-osm-carto-data
+    - /etc/mapnik-osm-carto-data/data
+    - /etc/mapnik-osm-carto-data/data/10m-populated-places-simple
+- name: Get simplified land polygons shapefile for OSM Bright
+  get_url: url=http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
+           dest={{ shapefile_zip_dir }}/simplified-land-polygons-complete-3857.zip
+           sha256sum=f1fddd35cbfe161344c11c4f86535da7f417b447d2ecfa598a82217d7e850ef2
+- name: Get land polygons shapefile for OSM Bright
+  get_url: url=http://data.openstreetmapdata.com/land-polygons-split-3857.zip
+           dest={{ shapefile_zip_dir }}/land-polygons-split-3857.zip
+           sha256sum=bc9696ca2b7a07201e4b2967dc34331d178e2484fed75f302e330f817073afcf
+- name: Get 10m populated places shapefile for OSM Bright (optional)
+  get_url: url=http://mapbox-geodata.s3.amazonaws.com/natural-earth-1.4.0/cultural/10m-populated-places-simple.zip
+           dest={{ shapefile_zip_dir }}/10m-populated-places-simple.zip
+           sha256sum=32a19dadf85661335132b762be0fdbfe59bacc4d298b723fec8687183b1ecaf4
+- name: Extract simplified land polygons shapefile for OSM Bright
+  command: /usr/bin/unzip -q {{ shapefile_zip_dir }}/simplified-land-polygons-complete-3857.zip -d /etc/mapnik-osm-carto-data/data
+           creates=/etc/mapnik-osm-carto-data/data/simplified-land-polygons-complete-3857/simplified_land_polygons.shp
+- name: Extract land polygons shapefile for OSM Bright
+  command: /usr/bin/unzip -q {{ shapefile_zip_dir }}/land-polygons-split-3857.zip -d /etc/mapnik-osm-carto-data/data
+           creates=/etc/mapnik-osm-carto-data/data/land-polygons-split-3857/land_polygons.shp
+- name: Extract 10m populated places shapefile for OSM Bright (optional)
+  command: /usr/bin/unzip -q {{ shapefile_zip_dir }}/10m-populated-places-simple.zip -d /etc/mapnik-osm-carto-data/data/10m-populated-places-simple
+           creates=/etc/mapnik-osm-carto-data/data/10m-populated-places-simple/10m-populated-places-simple.shp
+
