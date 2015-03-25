@@ -2,4 +2,4 @@
 - name: Update Apt if cache more than one week old
   apt: update_cache=yes cache_valid_time=604800
   async: 900
-  poll: 10
+  poll: 5
