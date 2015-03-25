@@ -2,41 +2,6 @@
 - include: ../../debrepos/playbooks/openstreetmap.yml
 - include: ../../apache/playbooks/apache2.yml
 - apt: pkg=python-software-properties state=present
-#- name: Is mod_tile enabled?
-  #shell: /usr/bin/debconf-get-selections | /bin/grep --quiet "libapache2-mod-tile\s+libapache2-mod-tile.enablesite\s+boolean\s+true"
-  #register: mod_tile_enabled
-  #ignore_errors: true
-#- name: Enable mod_tile
-  #shell: /bin/sh -c "echo libapache2-mod-tile libapache2-mod-tile/enablesite boolean true | debconf-set-selections"
-  #when: mod_tile_enabled|failed
-#- name: Is option to avoid downloading coastlines when installing libapache2-mod-tile set?
-  #shell: /usr/bin/debconf-get-selections | /bin/grep --quiet "openstreetmap-mapnik-carto-stylesheet-data\s+openstreetmap-mapnik-carto-stylesheet-data/dloadcoastlines\s+boolean\s+.*"
-  #register: download_coastlines_disabled
-  #ignore_errors: true
-#- name: Ensure coastlines are not downloaded as part of libapache2-mod-tile installation
-  #shell: /bin/sh -c "echo openstreetmap-mapnik-carto-stylesheet-data openstreetmap-mapnik-carto-stylesheet-data/dloadcoastlines boolean false | debconf-set-selections"
-  #when: download_coastlines_disabled|failed
-#- name: Has flag to create PostGIS database for OSM been set?
-  #shell: /usr/bin/debconf-get-selections | /bin/grep --quiet "openstreetmap-postgis-db-setup\s+openstreetmap-postgis-db-setup/initdb\s+boolean\s+true"
-  #register: postgis_osm_database_create_flag_set
-  #ignore_errors: true
-#- name: Set flag to create PostGIS database for OSM
-  #shell: /bin/sh -c "echo openstreetmap-postgis-db-setup openstreetmap-postgis-db-setup/initdb boolean true | debconf-set-selections"
-  #when: postgis_osm_database_create_flag_set|failed
-#- name: Has OSM database name been set to osm?
-  #shell: /usr/bin/debconf-get-selections | /bin/grep --quiet "openstreetmap-postgis-db-setup\s+openstreetmap-postgis-db-setup/dbname\s+string\s+osm"
-  #register: osm_database_name_set
-  #ignore_errors: true
-#- name: Set OSM database name to osm
-  #shell: /bin/sh -c "echo openstreetmap-postgis-db-setup openstreetmap-postgis-db-setup/dbname string osm | debconf-set-selections"
-  #when: osm_database_name_set|failed
-#- name: Can www-data and {{ username }} access the OSM database?
-  #shell: /usr/bin/debconf-get-selections | /bin/grep --quiet "openstreetmap-postgis-db-setup\s+openstreetmap-postgis-db-setup/grant_user\s+string\s+www-data\s+vagrant"
-  #register: osm_database_access
-  #ignore_errors: true
-#- name: Allow www-data and {{ username }} to access the OSM database
-  #shell: /bin/sh -c "echo openstreetmap-postgis-db-setup openstreetmap-postgis-db-setup/grant_user string www-data vagrant | debconf-set-selections"
-  #when: osm_database_access|failed
 - name: Enable mod_tile in the apache config
   debconf: name='libapache2-mod-tile' question='libapache2-mod-tile/enablesite' vtype='boolean' value='true'
 - name: Do not download coastlines, we will do that separately
@@ -48,4 +13,5 @@
 - name: Set users that should have access to the PostGIS database
   debconf: name='openstreetmap-postgis-db-setup' question='openstreetmap-postgis-db-setup/grant_user' vtype='string' value='www-data vagrant'
 - apt: pkg=libapache2-mod-tile state=present
+- service: name=renderd enabled=yes state=started
 
