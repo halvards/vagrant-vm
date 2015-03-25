@@ -5,7 +5,6 @@
   with_items:
     - /etc/mapnik-osm-carto-data
     - /etc/mapnik-osm-carto-data/data
-    - /etc/mapnik-osm-carto-data/data/10m-populated-places-simple
 - name: Get simplified land polygons shapefile for OSM Bright
   get_url: url=http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
            dest={{ shapefile_zip_dir }}/simplified-land-polygons-complete-3857.zip
