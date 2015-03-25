@@ -3,7 +3,7 @@
   get_url: url=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
            dest={{ osm_data_dir }}/australia-latest.osm.pbf
 - name: Import Australia OSM data (takes a long time)
-  shell: /usr/bin/osm2pgsql --database osm --slim --cache 1024 --cache-strategy=dense --number-processes=1 --hstore {{ osm_data_dir }}/australia-latest.osm.pbf && touch {{ osm_data_dir }}/import-australia-osm.success
-         creates={{ osm_data_dir }}/import-australia-osm.success
+  shell: /usr/bin/osm2pgsql --database osm --slim --cache 1024 --cache-strategy=dense --number-processes=1 --hstore {{ osm_data_dir }}/australia-latest.osm.pbf && touch /var/lib/postgresql/.import-australia-osm.success
+         creates=/var/lib/postgresql/.import-australia-osm.success
   sudo_user: postgres
 
