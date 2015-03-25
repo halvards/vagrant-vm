@@ -14,7 +14,9 @@
     - include: ../modules/vcs/playbooks/git.yml
     - include: ../modules/editor/playbooks/vim.yml
     - include: ../modules/gis/playbooks/coastlines.yml
+    - include: ../modules/postgresql/playbooks/server.yml
     - include: ../modules/gis/playbooks/mod_tile.yml
+    - include: ../modules/postgresql/playbooks/remote.yml
     - include: ../modules/gis/playbooks/osm-australia.yml
     - include: ../modules/gis/playbooks/osm-bright-mobile.yml
     - include: ../modules/gis/playbooks/leaflet-map.yml
