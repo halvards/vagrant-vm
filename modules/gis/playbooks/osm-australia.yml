@@ -1,0 +1,9 @@
+---
+- name: Download Australia OSM data
+  get_url: url=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
+           dest=/vagrant-share/apps/osm/australia-latest.osm.pbf
+- name: Import Australia OSM data (takes a long time)
+  shell: /usr/bin/osm2pgsql --database osm --slim --cache 1024 --cache-strategy=dense --number-processes=1 --hstore /vagrant-share/apps/osm/australia-latest.osm.pbf && touch /tmp/import-australia-osm.success
+         creates=/tmp/import-australia-osm.success
+  sudo_user: postgres
+
