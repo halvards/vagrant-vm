@@ -1,18 +1,21 @@
 ---
 - hosts: all
   sudo: yes
+  vars:
+    shapefile_zip_dir: /etc/mapnik-osm-carto-data/data
+    osm_data_dir: /etc/mapnik-osm-carto-data/data
   tasks:
-    - include: ../modules/utils/playbooks/base-centos.yml
-    - include: ../modules/yumrepos/playbooks/elgis.yml
-    - include: ../modules/apache/playbooks/httpd.yml
-    - include: ../modules/gis-el/playbooks/boost.yml
-    - include: ../modules/gis-el/playbooks/mapnik-source.yml
-    - include: ../modules/gis-el/playbooks/mapnik-styles.yml
-    - include: ../modules/gis-el/playbooks/osm2pgsql.yml
-    - include: ../modules/gis-el/playbooks/osm-database.yml
-    - include: ../modules/gis-el/playbooks/osm-australia.yml
-    - include: ../modules/gis-el/playbooks/renderd.yml
-    - include: ../modules/gis-el/playbooks/mod_tile-source.yml
+    - include: ../modules/ubuntu/playbooks/updateapt.yml
+    - include: ../modules/utils/playbooks/base.yml
+    - include: ../modules/vcs/playbooks/git.yml
+    - include: ../modules/editor/playbooks/vim.yml
+    - include: ../modules/gis/playbooks/coastlines.yml
+    - include: ../modules/gis/playbooks/mod_tile.yml
+    - include: ../modules/gis/playbooks/osm-australia.yml
+    - include: ../modules/gis/playbooks/osm-bright-mobile.yml
+    - include: ../modules/gis/playbooks/leaflet-map.yml
   handlers:
-    - include: ../modules/apache/playbooks/httpd-handler.yml
+    - include: ../modules/apache/playbooks/apache2-handler.yml
+    - include: ../modules/gis/playbooks/renderd-handler.yml
+
 
