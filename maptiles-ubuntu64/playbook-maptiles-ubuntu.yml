@@ -6,6 +6,7 @@
   vars:
     username: vagrant
     shapefile_zip_dir: /vagrant-share/apps/osm/osm-bright
+    osm_data_dir: /vagrant-share/apps/osm
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/utils/playbooks/base.yml
