@@ -1,0 +1,21 @@
+---
+- name: Ensure git is installed
+  apt: pkg=git
+- name: Download OSM Bright Mobile
+  git: repo=https://github.com/halvards/osm-bright-mobile.git
+       dest=/opt/mapnik/osm-bright-mobile
+       recursive=yes
+       version=HEAD
+       force=yes
+       accept_hostkey=yes
+- name: Is OSM Bright Mobile already configured in renderd.conf?
+  shell: /bin/grep --quiet osmbrightmobile /etc/renderd.conf
+  ignore_errors: true
+  register: osm_bright_mobile_configured_renderd
+- name: Update renderd.conf
+  shell: /bin/echo -e "\n[osmbrightmobile]\nXML=/opt/mapnik/osm-bright-mobile/osm-bright/osm-bright-mobile.xml\nURI=/osm-bright-mobile/\nMAXZOOM=20\n" >> /etc/renderd.conf
+  when: osm_bright_mobile_configured_renderd|failed
+  notify:
+    - restart renderd
+    - restart apache
+
