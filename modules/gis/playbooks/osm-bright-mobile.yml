@@ -1,4 +1,5 @@
 ---
+- include: ./coastlines.yml
 - name: Ensure git is installed
   apt: pkg=git
 - name: Download OSM Bright Mobile
@@ -8,6 +9,9 @@
        version=HEAD
        force=yes
        accept_hostkey=yes
+  notify:
+    - restart renderd
+    - restart apache
 - name: Is OSM Bright Mobile already configured in renderd.conf?
   shell: /bin/grep --quiet osmbrightmobile /etc/renderd.conf
   ignore_errors: true
