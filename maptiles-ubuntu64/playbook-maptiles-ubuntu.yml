@@ -13,7 +13,6 @@
     - include: ../modules/iptables/playbooks/disable.yml
     - include: ../modules/vcs/playbooks/git.yml
     - include: ../modules/editor/playbooks/vim.yml
-    - include: ../modules/gis/playbooks/coastlines.yml
     - include: ../modules/postgresql/playbooks/server.yml
     - include: ../modules/gis/playbooks/mod_tile.yml
     - include: ../modules/postgresql/playbooks/remote.yml
