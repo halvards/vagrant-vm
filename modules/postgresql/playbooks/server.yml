@@ -15,4 +15,6 @@
   shell: /usr/bin/psql --command="create role \"{{ username }}\" with superuser createdb createrole login password '{{ username }}'"
   sudo_user: postgres
   when: postgres_role_vagrant_exists|failed
+- file: path=/etc/postgresql/9.3/main/pg_hba.conf owner=postgres group=postgres mode=0664
+- file: path=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres mode=0664
 
