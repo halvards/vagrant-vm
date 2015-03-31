@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
   vm_type = 'plain'
 
   # Base box name
-  config.vm.box = "chef/centos-6.5"
+  config.vm.box = "chef/centos-6.6"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
