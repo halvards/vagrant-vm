@@ -20,6 +20,7 @@
     - include: ../modules/gis/playbooks/osm-bright-mobile.yml
     - include: ../modules/gis/playbooks/leaflet-map.yml
   handlers:
+    - include: ../modules/postgresql/playbooks/server-handler.yml
     - include: ../modules/apache/playbooks/apache2-handler.yml
     - include: ../modules/gis/playbooks/renderd-handler.yml
 
