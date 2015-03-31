@@ -9,7 +9,6 @@
     - include: ../modules/utils/playbooks/base.yml
     - include: ../modules/vcs/playbooks/git.yml
     - include: ../modules/editor/playbooks/vim.yml
-    - include: ../modules/gis/playbooks/coastlines.yml
     - include: ../modules/gis/playbooks/mod_tile.yml
     - include: ../modules/gis/playbooks/osm-australia.yml
     - include: ../modules/gis/playbooks/osm-bright-mobile.yml
