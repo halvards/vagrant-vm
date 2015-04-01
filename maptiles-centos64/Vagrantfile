@@ -1,3 +1,4 @@
+# Ensure required directories exist
 require 'fileutils'
 FileUtils.mkdir_p(File.join(File.dirname(__FILE__), '../share/apps/osm'))
 
@@ -8,7 +9,7 @@ Vagrant.configure('2') do |config|
   config.vm.box = 'chef/centos-6.6'
 
   # The url from where the 'config.vm.box' box will be fetched if it doesn't already exist on the user's system
-  config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box'
+  config.vm.box_url = 'https://atlas.hashicorp.com/chef/boxes/centos-6.6/versions/1.0.0/providers/virtualbox.box'
 
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos64.vagrantup.com"
