@@ -1,0 +1,10 @@
+---
+- lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf line='host all all 0.0.0.0/0 md5' state=present
+  sudo_user: postgres
+  notify:
+    - restart postgresql
+- lineinfile: dest=/var/lib/pgsql/data/postgresql.conf line="listen_addresses = '*'" state=present
+  sudo_user: postgres
+  notify:
+    - restart postgresql
+
