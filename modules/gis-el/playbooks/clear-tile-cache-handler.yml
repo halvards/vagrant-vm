@@ -1,4 +1,5 @@
 ---
 - name: clear tile cache
-  command: /bin/rm /var/lib/mod_tile/*
+  command: /bin/rm --recursive --force /var/lib/mod_tile/*
+  ignore_errors: true
 
