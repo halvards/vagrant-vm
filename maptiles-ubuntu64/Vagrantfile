@@ -1,5 +1,6 @@
+# Ensure required directories exist
 require 'fileutils'
-FileUtils.mkdir_p(File.join(File.dirname(__FILE__), '../share/apps/osm'))
+FileUtils.mkdir_p(File.join(File.dirname(__FILE__), '../share/apps/osm/osm-bright'))
 
 Vagrant.configure('2') do |config|
   vm_type = 'maptiles'
