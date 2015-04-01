@@ -1,0 +1,46 @@
+---
+- file: path={{ item }}
+        state=directory
+        owner=root group=root mode=0755
+  with_items:
+    - /etc/mapnik-osm-carto-data
+    - /etc/mapnik-osm-carto-data/data
+    - /opt/mapnik
+- name: Get simplified land polygons shapefile for OSM Bright
+  get_url: url=http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
+           dest={{ shapefile_zip_dir }}/simplified-land-polygons-complete-3857.zip
+- name: Get land polygons shapefile for OSM Bright
+  get_url: url=http://data.openstreetmapdata.com/land-polygons-split-3857.zip
+           dest={{ shapefile_zip_dir }}/land-polygons-split-3857.zip
+- name: Ensure unzip is installed
+  yum: pkg=unzip
+- name: Extract simplified land polygons shapefile for OSM Bright
+  command: /usr/bin/unzip -q {{ shapefile_zip_dir }}/simplified-land-polygons-complete-3857.zip -d /etc/mapnik-osm-carto-data/data
+           creates=/etc/mapnik-osm-carto-data/data/simplified-land-polygons-complete-3857/simplified_land_polygons.shp
+- name: Extract land polygons shapefile for OSM Bright
+  command: /usr/bin/unzip -q {{ shapefile_zip_dir }}/land-polygons-split-3857.zip -d /etc/mapnik-osm-carto-data/data
+           creates=/etc/mapnik-osm-carto-data/data/land-polygons-split-3857/land_polygons.shp
+- name: Ensure git is installed
+  yum: pkg=git
+- name: Download OSM Bright Mobile
+  git: repo=https://github.com/halvards/osm-bright-mobile.git
+       dest=/opt/mapnik/osm-bright-mobile
+       recursive=yes
+       version=HEAD
+       force=yes
+       accept_hostkey=yes
+  notify:
+    - clear tile cache
+    - restart renderd
+    - restart apache
+- name: Is OSM Bright Mobile already configured in renderd.conf?
+  shell: /bin/grep --quiet osmbrightmobile /usr/local/etc/renderd.conf
+  ignore_errors: true
+  register: osm_bright_mobile_configured_renderd
+- name: Update renderd.conf
+  shell: /bin/echo -e "\n[osmbrightmobile]\nXML=/opt/mapnik/osm-bright-mobile/osm-bright/osm-bright-mobile.xml\nURI=/osm-bright-mobile/\nMAXZOOM=20\n" >> /usr/local/etc/renderd.conf
+  when: osm_bright_mobile_configured_renderd|failed
+  notify:
+    - restart renderd
+    - restart apache
+
