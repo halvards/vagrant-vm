@@ -1,4 +1,7 @@
 ---
 - name: restart renderd
-  service: name=renderd state=restarted
+  service: name={{ item }} state=restarted
+  with_items:
+    - renderd
+    - httpd
 
