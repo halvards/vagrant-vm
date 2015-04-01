@@ -7,6 +7,7 @@
     username: vagrant
     shapefile_zip_dir: /vagrant-share/apps/osm/osm-bright
     osm_data_dir: /vagrant-share/apps/osm
+    apache_document_root: /var/www/html
   tasks:
     - include: ../modules/utils/playbooks/base-centos.yml
     - include: ../modules/yumrepos/playbooks/epel.yml
@@ -20,10 +21,11 @@
     - include: ../modules/gis-el/playbooks/osm-australia.yml
     - include: ../modules/gis-el/playbooks/mod_tile-source.yml
     - include: ../modules/gis-el/playbooks/renderd.yml
-    #- include: ../modules/gis-el/playbooks/osm-bright-mobile.yml
+    - include: ../modules/gis-el/playbooks/osm-bright-mobile.yml
+    - include: ../modules/gis/playbooks/leaflet-map.yml
   handlers:
     - include: ../modules/apache/playbooks/httpd-handler.yml
-    #- include: ../modules/gis-el/playbooks/clear-tile-cache-handler.yml
-    #- include: ../modules/gis-el/playbooks/renderd-handler.yml
-    #- include: ../modules/postgresql/playbooks/server-handler-centos.yml
+    - include: ../modules/gis-el/playbooks/clear-tile-cache-handler.yml
+    - include: ../modules/gis-el/playbooks/renderd-handler.yml
+    - include: ../modules/postgresql/playbooks/server-handler-centos.yml
 
