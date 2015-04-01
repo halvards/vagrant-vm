@@ -32,7 +32,6 @@
   notify:
     - clear tile cache
     - restart renderd
-    - restart apache
 - name: Is OSM Bright Mobile already configured in renderd.conf?
   shell: /bin/grep --quiet osmbrightmobile /usr/local/etc/renderd.conf
   ignore_errors: true
@@ -42,5 +41,4 @@
   when: osm_bright_mobile_configured_renderd|failed
   notify:
     - restart renderd
-    - restart apache
 
