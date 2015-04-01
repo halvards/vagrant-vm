@@ -3,7 +3,9 @@
 <head>
   <title>Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css" />
+  <link rel="stylesheet" type="text/css" href="http://www.liedman.net/leaflet-control-geocoder/Control.Geocoder.css" />
   <style>
     body {
       padding: 0;
@@ -13,10 +15,12 @@
       height: 100%;
     }
   </style>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 </head>
 <body>
   <div id="map"></div>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"></script>
+  <script src="http://www.liedman.net/leaflet-control-geocoder/Control.Geocoder.js"></script>
   <script>
     var map = L.map('map');
 
@@ -24,12 +28,14 @@
       maxZoom: 20
     }).addTo(map);
 
+    L.control.locate().addTo(map);
+
+    L.Control.geocoder().addTo(map);
+
     map.on('locationfound', function (e) {
       var radius = e.accuracy / 2;
       L.marker(e.latlng)
-       .addTo(map)
-       .bindPopup("You are within " + radius + " meters from this point").openPopup();
-      //L.circle(e.latlng, radius).addTo(map);
+       .addTo(map);
     });
 
     map.on('locationerror', function (e) {
