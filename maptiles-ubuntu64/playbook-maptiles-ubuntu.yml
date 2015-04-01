@@ -7,6 +7,7 @@
     username: vagrant
     shapefile_zip_dir: /vagrant-share/apps/osm/osm-bright
     osm_data_dir: /vagrant-share/apps/osm
+    apache_document_root: /var/www
   tasks:
     - include: ../modules/ubuntu/playbooks/fixes.yml
     - include: ../modules/utils/playbooks/base.yml

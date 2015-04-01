@@ -4,6 +4,7 @@
   vars:
     shapefile_zip_dir: /etc/mapnik-osm-carto-data/data
     osm_data_dir: /etc/mapnik-osm-carto-data/data
+    apache_document_root: /var/www
   tasks:
     - include: ../modules/ubuntu/playbooks/updateapt.yml
     - include: ../modules/utils/playbooks/base.yml
