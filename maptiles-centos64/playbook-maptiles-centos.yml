@@ -5,6 +5,8 @@
   sudo_user: root
   vars:
     username: vagrant
+    shapefile_zip_dir: /vagrant-share/apps/osm/osm-bright
+    osm_data_dir: /vagrant-share/apps/osm
   tasks:
     - include: ../modules/utils/playbooks/base-centos.yml
     - include: ../modules/yumrepos/playbooks/epel.yml
@@ -12,12 +14,16 @@
     - include: ../modules/apache/playbooks/httpd.yml
     - include: ../modules/gis-el/playbooks/boost.yml
     - include: ../modules/gis-el/playbooks/mapnik-source.yml
-    - include: ../modules/gis-el/playbooks/mapnik-styles.yml
+    - include: ../modules/gis-el/playbooks/osm-default-style.yml
     - include: ../modules/gis-el/playbooks/osm2pgsql.yml
     - include: ../modules/gis-el/playbooks/osm-database.yml
     - include: ../modules/gis-el/playbooks/osm-australia.yml
     - include: ../modules/gis-el/playbooks/mod_tile-source.yml
     - include: ../modules/gis-el/playbooks/renderd.yml
+    #- include: ../modules/gis-el/playbooks/osm-bright-mobile.yml
   handlers:
     - include: ../modules/apache/playbooks/httpd-handler.yml
+    #- include: ../modules/gis-el/playbooks/clear-tile-cache-handler.yml
+    #- include: ../modules/gis-el/playbooks/renderd-handler.yml
+    #- include: ../modules/postgresql/playbooks/server-handler-centos.yml
 
